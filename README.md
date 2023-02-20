@@ -2,9 +2,10 @@
 
 Application entry point is app.js.
 
-## Routes Info
+## Webhook Routes Info
 
 - GET /verify-app: Verifies the application
+- POST /verify-app: Captures the change in fields and shows info
 
 ## Folder Usage
 
