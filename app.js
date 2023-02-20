@@ -33,11 +33,11 @@ app.get('/verify-app', (req, res) => {
 
 app.post('/verify-app', (req, res) => {
   const body = req.body;
-  console.log(body);
+  console.log(JSON.stringify(body));
   // field property is not present, it means that the source of request is not Meta API
-  if (body.field !== 'messages') {
-    return res.sendStatus(400);
-  }
+  // if (body.field !== 'messages') {
+  //   return res.sendStatus(400);
+  // }
   res.sendStatus(200);
 });
 
