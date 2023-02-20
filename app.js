@@ -9,9 +9,6 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-console.log(process.env.NODE_ENV);
-console.log(process.env.META_VERIFY_TOKEN);
-
 app.get('/', (req, res) => {
   res.send({
     status: 'Successful',
@@ -19,7 +16,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/verify-app', (req, res) => {
+app.get('/verify-app', (req, res) => {
   console.log(req.body);
   console.log(req.header);
   if (

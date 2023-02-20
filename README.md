@@ -1,8 +1,10 @@
 # LPU Bot Prototype
 
-This is the prototype for Thursday's presentation.
+Application entry point is app.js.
 
-Application entry point is app.js
+## Routes Info
+
+- GET /verify-app: Verifies the application
 
 ## Folder Usage
 
