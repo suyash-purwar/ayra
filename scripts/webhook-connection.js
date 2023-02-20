@@ -1,15 +1,8 @@
 import express from 'express';
-import * as dotenv from 'dotenv';
 
 const app = express();
-
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config({
-    path: `.env.dev`
-  });
-}
-
-console.log(process.env.NODE_ENV);
+const PORT = 3000;
+const TOKEN = 'AshNov06';
 
 app.get('/', (req, res) => {
   res.send({
@@ -23,7 +16,7 @@ app.post('/verify-app', (req, res) => {
   console.log(req.header);
   if (
     req.query['hub.mode'] === 'subscribe' &&
-    req.query['hub.verify_token'] === process.env.META_VERIFY_TOKEN
+    req.query['hub.verify_token'] === TOKEN
   ) {
     res.send(req.query['hub.challenge']);
   } else {
@@ -31,6 +24,6 @@ app.post('/verify-app', (req, res) => {
   }
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`App is running on PORT=${process.env.PORT} ✅`);
+app.listen(PORT, () => {
+  console.log('App is running on localhost:3000 ✅');
 });
