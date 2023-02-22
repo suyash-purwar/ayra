@@ -1,4 +1,6 @@
 import * as metaAPI from './../apis/meta.api.js';
+import Student from '../models/student.model.js';
+import Result from '../models/result.model.js'
 
 export const processMessage = async (msgInfo) => {
   const { value, field } = msgInfo;
@@ -11,16 +13,16 @@ export const processMessage = async (msgInfo) => {
 
     switch (messageType) {
       case 'button':
-        console.log(JSON.stringify(value, null, 3));
+        // console.log(JSON.stringify(value, null, 3));
         const choice = value.messages[0].button.text;
         switch (choice) {
           case 'Last Semester':
-          case 'Previous All Semester':
-            await getResult(recipientNo, choice);
+          case 'Previous All Semesters':
+            await getResult(messageFrom, choice);
             break;
           case "Today's Attendance":
           case 'Overall Attendance':
-            await getAttendance(recipientNo, choice);
+            await getAttendance(messageFrom, choice);
             break;
         }
         break;
@@ -86,23 +88,40 @@ const generateResponse = async (keyword, recipientNo) => {
 };
 
 const getAttendance = async (recipientNo, choice) => {
+  let response;
   switch (choice) {
     case "Today's Attendance":
-      // Make a call to db
+      response = await Student.findOne(
+        { contact: recipientNo },
+        'id attendance.todays_attendance'
+      );
       break;
     case "Overall Attendance":
-      // Make a call to db
+      response =  await Student.findOne(
+        { contact: recipientNo },
+        'id attendance.overall'
+      );
       break;
-  }
+    }
+    console.log(response);
 };
 
 const getResult = async (recipientNo, choice) => {
+  const { id } = await Student.findOne({ contact: recipientNo }, 'id');
+  let response;
   switch (choice) {
     case "Last Semester":
-      // Make a call to db
+      response = await Result.findOne(
+        { id },
+        'overall_cgpa semester_result'
+      );
       break;
-    case "Previous AlL Semesters":
-      // Make a call to db
+    case "Previous All Semesters":
+      response = await Result.findOne(
+        { id },
+        'overall_cgpa semester_result'
+      );
       break;
   }
+  console.log(response);
 }

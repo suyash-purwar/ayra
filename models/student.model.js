@@ -1,27 +1,28 @@
 import mongoose from 'mongoose';
-import mongooseLong from 'mongoose-long';
 
-mongooseLong(mongoose);
+mongoose.pluralize(null);
 
-const Long = mongoose.Schema.Types.Long;
-
-const Student = mongoose.model('Student', new mongoose.Schema({
+const Student = mongoose.model('student', new mongoose.Schema({
   id: {
     type: Number,
-    required: true,
+    required: true
   },
   name: {
     type: String,
-    required: true,
+    required: true
+  },
+  contact: {
+    type: String,
+    required: true
   },
   guardians: {
     name: {
-      type: "String",
+      type: String,
       required: true
     },
     contact: {
-      type: Long,
-      required: true,
+      type: String,
+      required: true
     },
     relation: {
       type: String
@@ -32,6 +33,10 @@ const Student = mongoose.model('Student', new mongoose.Schema({
       {
         sub_code: {
           type: String,
+          required: true
+        },
+        attendance: {
+          type: Number,
           required: true
         }
       }

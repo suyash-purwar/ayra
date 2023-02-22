@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 
-const Result = mongoose.model('Result', new mongoose.Schema({
+mongoose.pluralize(null);
+
+const Result = mongoose.model('result', new mongoose.Schema({
   id: {
-    type: String,
+    type: Number,
     required: true
   },
   overall_cgpa: {
@@ -12,44 +14,42 @@ const Result = mongoose.model('Result', new mongoose.Schema({
     {
       semester: {
         type: Number,
-        required: true
+        // required: true
       },
       tgpa: {
         type: Number,
-        required: true
+        // required: true
       },
       marks: [
         {
           sub_code: {
             type: String,
-            required: true
+            // required: true
           },
           grade: {
             type: String,
             enum: ['A', 'B', 'C', 'D', 'E', 'F'],
-            required: true
+            // required: true
           },
           value: {
             CA: {
               type: Number,
-              required: true,
+              // required: true,
             },
             MTE: {
               type: Number,
-              required: true
+              // required: true
             },
             ETE: {
               type: Number,
-              required: true
+              // required: true
             },
             ATTENDANCE: {
-              type: Number,
-              required: true
+              type: Number
             }
           },
           total_marks: {
-            type: Number,
-            required: true
+            type: Number
           }
         }
       ]
