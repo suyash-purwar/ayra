@@ -16,12 +16,13 @@ export const verifyWebhook = (req, res) => {
   }
 };
 
-export const processMessage = (req, res) => {
+export const processMessage = async (req, res) => {
   try {
     const msg = req.body.entry[0].changes[0];
-    webhookService.processMessage(msg);
+    await webhookService.processMessage(msg);
     res.sendStatus(200);
   } catch (e) {
+    res.sendStatus(200);
     console.log(e);
   } 
 };
