@@ -2,7 +2,7 @@
   "_id": {
     "$oid": "63f622fcdb4acc9ad4221467"
   },
-  "id": "12100734",
+  "id": 12100734,
   "overall_cgpa": 5.71,
   "semester_result": [
     {
@@ -415,7 +415,7 @@
   "_id": {
     "$oid": "63f622fcdb4acc9ad4221468"
   },
-  "id": "12100798",
+  "id": 12100798,
   "overall_cgpa": 7.55,
   "semester_result": [
     {
@@ -621,7 +621,7 @@
   "_id": {
     "$oid": "63f622fcdb4acc9ad4221469"
   },
-  "id": "12100435",
+  "id": 12100435,
   "overall_cgpa": 7.58,
   "semester_result": [
     {
