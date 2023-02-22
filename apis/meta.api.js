@@ -51,19 +51,25 @@ export const sendTextMessage = async (recipientNo, message) => {
   return response;
 };
 
-export const sendResultMenu = async (recipientNo) => {
+export const sendMenu = async (recipientNo, menuType) => {
   const template = {
-    name: "result",
     language: {
       code: "en_US"
     }
-  };
-  const response = await sendAPICall(
+  }
+  switch (menuType) {
+    case 'result':
+      template.name = 'result';
+      break;
+    case 'attendance':
+      template.name = 'attendance';
+      break;
+  }
+  await sendAPICall(
     'messages',
     'post',
     recipientNo,
     'template',
     template
   );
-  console.log(response.data)
 };

@@ -12,6 +12,17 @@ export const processMessage = async (msgInfo) => {
     switch (messageType) {
       case 'button':
         console.log(JSON.stringify(value, null, 3));
+        const choice = value.messages[0].button.text;
+        switch (choice) {
+          case 'Last Semester':
+          case 'Previous All Semester':
+            await getResult(recipientNo, choice);
+            break;
+          case "Today's Attendance":
+          case 'Overall Attendance':
+            await getAttendance(recipientNo, choice);
+            break;
+        }
         break;
       case 'text':
         const message = value.messages[0].text.body;
@@ -60,10 +71,10 @@ const classifyMsg = (msgText) => {
 const generateResponse = async (keyword, recipientNo) => {
   switch (keyword) {
     case 'result':
-      await metaAPI.sendResultMenu(recipientNo)
+      await metaAPI.sendMenu(recipientNo, 'result');
       break;
     case 'attendance':
-      console.log("Sending attendance menu");
+      await metaAPI.sendMenu(recipientNo, 'attendance');
       break;
     case 'hostel_warden':
       console.log("Sending hostel warden details");
@@ -73,3 +84,25 @@ const generateResponse = async (keyword, recipientNo) => {
       await metaAPI.sendTextMessage(recipientNo, "Sorry, I didn't understood your message.")
   }
 };
+
+const getAttendance = async (recipientNo, choice) => {
+  switch (choice) {
+    case "Today's Attendance":
+      // Make a call to db
+      break;
+    case "Overall Attendance":
+      // Make a call to db
+      break;
+  }
+};
+
+const getResult = async (recipientNo, choice) => {
+  switch (choice) {
+    case "Last Semester":
+      // Make a call to db
+      break;
+    case "Previous AlL Semesters":
+      // Make a call to db
+      break;
+  }
+}

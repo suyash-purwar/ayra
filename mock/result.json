@@ -1,0 +1,787 @@
+[{
+  "_id": {
+    "$oid": "63f622fcdb4acc9ad4221467"
+  },
+  "id": "12100734",
+  "overall_cgpa": 5.71,
+  "semester_result": [
+    {
+      "semester": 1,
+      "marks": [
+        {
+          "sub_code": "CSE316",
+          "grade": "D",
+          "value": {
+            "CA": 22.6,
+            "MTE": 14,
+            "ETE": 4,
+            "ATTENDENCE": 4
+          },
+          "total_marks": 54
+        },
+        {
+          "sub_code": "CSE408",
+          "grade": "C",
+          "value": {
+            "CA": 19,
+            "MTE": 12,
+            "ETE": 21,
+            "ATTENDENCE": 1
+          },
+          "total_marks": 39
+        },
+        {
+          "sub_code": "MTH302",
+          "grade": "A",
+          "value": {
+            "CA": 26,
+            "MTE": 16,
+            "ETE": 31,
+            "ATTENDENCE": 3
+          },
+          "total_marks": 23
+        },
+        {
+          "sub_code": "CSE325",
+          "grade": "B",
+          "value": {
+            "CA": 11,
+            "MTE": 9,
+            "ETE": 31,
+            "ATTENDENCE": 3
+          },
+          "total_marks": 20
+        },
+        {
+          "sub_code": "INT404",
+          "grade": "C",
+          "value": {
+            "CA": 12,
+            "MTE": 13,
+            "ETE": 16,
+            "ATTENDENCE": 1
+          },
+          "total_marks": 100
+        },
+        {
+          "sub_code": "CSE316",
+          "grade": "A",
+          "value": {
+            "CA": 25,
+            "MTE": 15,
+            "ETE": 46,
+            "ATTENDENCE": 5
+          },
+          "total_marks": 88
+        }
+      ],
+      "tgpa": 3.41
+    },
+    {
+      "semester": 2,
+      "tgpa": 7.65,
+      "marks": [
+        {
+          "sub_code": "CSE211",
+          "grade": "C",
+          "value": {
+            "CA": 12.9,
+            "MTE": 13.24,
+            "ETE": 52.23,
+            "ATTENDANCE": 4
+          },
+          "total_marks": 46
+        },
+        {
+          "sub_code": "CSE310",
+          "grade": "C",
+          "value": {
+            "CA": 16.8,
+            "MTE": 5.28,
+            "ETE": 31.61,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 86
+        },
+        {
+          "sub_code": "CSE312",
+          "grade": "B",
+          "value": {
+            "CA": 18.6,
+            "MTE": 10.84,
+            "ETE": 50.93,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 89.33
+        }
+      ]
+    },
+    {
+      "semester": 3,
+      "tgpa": 6.84,
+      "marks": [
+        {
+          "sub_code": "CSE211",
+          "grade": "D",
+          "value": {
+            "CA": 23.3,
+            "MTE": 7.07,
+            "ETE": 47.4,
+            "ATTENDANCE": 4
+          },
+          "total_marks": 88
+        },
+        {
+          "sub_code": "CSE310",
+          "grade": "A",
+          "value": {
+            "CA": 13.1,
+            "MTE": 7.17,
+            "ETE": 28.8,
+            "ATTENDANCE": 1
+          },
+          "total_marks": 64
+        },
+        {
+          "sub_code": "CSE316",
+          "grade": "A",
+          "value": {
+            "CA": 12.7,
+            "MTE": 6.49,
+            "ETE": 19.11,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 68.13
+        },
+        {
+          "sub_code": "CSE126",
+          "grade": "F",
+          "value": {
+            "CA": 17.6,
+            "MTE": 5.67,
+            "ETE": 51.55
+          },
+          "total_marks": 53.79
+        }
+      ]
+    },
+    {
+      "semester": 4,
+      "tgpa": 7.4,
+      "marks": [
+        {
+          "sub_code": "CSE781",
+          "grade": "A",
+          "value": {
+            "CA": 10.5,
+            "MTE": 9.96,
+            "ETE": 34.38,
+            "ATTENDANCE": 3
+          },
+          "total_marks": 96
+        },
+        {
+          "sub_code": "CSE360",
+          "grade": "C",
+          "value": {
+            "CA": 17.6,
+            "MTE": 7.41,
+            "ETE": 26.51,
+            "ATTENDANCE": 1
+          },
+          "total_marks": 58
+        },
+        {
+          "sub_code": "CSE366",
+          "grade": "A",
+          "value": {
+            "CA": 11.7,
+            "MTE": 12.01,
+            "ETE": 19.07,
+            "ATTENDANCE": 1
+          },
+          "total_marks": 57.93
+        },
+        {
+          "sub_code": "CSE926",
+          "grade": "B",
+          "value": {
+            "CA": 15.5,
+            "MTE": 12.91,
+            "ETE": 47.55
+          },
+          "total_marks": 42.45
+        }
+      ]
+    },
+    {
+      "semester": 5,
+      "tgpa": 8.86,
+      "marks": [
+        {
+          "sub_code": "CSE216",
+          "grade": "A",
+          "value": {
+            "CA": 20.9,
+            "MTE": 14.11,
+            "ETE": 38.67,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 51
+        },
+        {
+          "sub_code": "CSE314",
+          "grade": "B",
+          "value": {
+            "CA": 24.7,
+            "MTE": 12.78,
+            "ETE": 24.05,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 43
+        },
+        {
+          "sub_code": "CSE313",
+          "grade": "C",
+          "value": {
+            "CA": 10.3,
+            "MTE": 8.64,
+            "ETE": 54.81,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 57.32
+        },
+        {
+          "sub_code": "CSE123",
+          "grade": "D",
+          "value": {
+            "CA": 17.9,
+            "MTE": 14.44,
+            "ETE": 32.05
+          },
+          "total_marks": 43.63
+        }
+      ]
+    },
+    {
+      "semester": 6,
+      "tgpa": 9.21,
+      "marks": [
+        {
+          "sub_code": "CSE221",
+          "grade": "B",
+          "value": {
+            "CA": 13.2,
+            "MTE": 7.02,
+            "ETE": 20.59,
+            "ATTENDANCE": 4
+          },
+          "total_marks": 65
+        },
+        {
+          "sub_code": "CSE320",
+          "grade": "E",
+          "value": {
+            "CA": 20.7,
+            "MTE": 13.56,
+            "ETE": 39.5,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 70
+        },
+        {
+          "sub_code": "CSE346",
+          "grade": "A",
+          "value": {
+            "CA": 15.3,
+            "MTE": 6.29,
+            "ETE": 23.12,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 56.51
+        },
+        {
+          "sub_code": "CSE176",
+          "grade": "F",
+          "value": {
+            "CA": 23,
+            "MTE": 14.47,
+            "ETE": 48.83
+          },
+          "total_marks": 56.94
+        }
+      ]
+    },
+    {
+      "semester": 7,
+      "tgpa": 8.03,
+      "marks": [
+        {
+          "sub_code": "CSE212",
+          "grade": "F",
+          "value": {
+            "CA": 23.2,
+            "MTE": 5.98,
+            "ETE": 35.45,
+            "ATTENDANCE": 4
+          },
+          "total_marks": 81
+        },
+        {
+          "sub_code": "CSE334",
+          "grade": "A",
+          "value": {
+            "CA": 19.2,
+            "MTE": 7.97,
+            "ETE": 48.06,
+            "ATTENDANCE": 3
+          },
+          "total_marks": 67
+        },
+        {
+          "sub_code": "CSE386",
+          "grade": "C",
+          "value": {
+            "CA": 10.3,
+            "MTE": 14.97,
+            "ETE": 43.86,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 67.24
+        },
+        {
+          "sub_code": "CSE156",
+          "grade": "D",
+          "value": {
+            "CA": 18.4,
+            "MTE": 13.73,
+            "ETE": 48.85
+          },
+          "total_marks": 58.35
+        }
+      ]
+    },
+    {
+      "semester": 8,
+      "tgpa": 5.61,
+      "marks": [
+        {
+          "sub_code": "CSE245",
+          "grade": "C",
+          "value": {
+            "CA": 16.9,
+            "MTE": 8.43,
+            "ETE": 47.29,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 74
+        },
+        {
+          "sub_code": "CSE335",
+          "grade": "F",
+          "value": {
+            "CA": 23.6,
+            "MTE": 6.32,
+            "ETE": 46.8,
+            "ATTENDANCE": 1
+          },
+          "total_marks": 84
+        },
+        {
+          "sub_code": "CSE328",
+          "grade": "F",
+          "value": {
+            "CA": 10.1,
+            "MTE": 5.05,
+            "ETE": 39.35,
+            "ATTENDANCE": 1
+          },
+          "total_marks": 74.05
+        },
+        {
+          "sub_code": "CSE124",
+          "grade": "E",
+          "value": {
+            "CA": 15.3,
+            "MTE": 10.38,
+            "ETE": 27.62
+          },
+          "total_marks": 56.61
+        }
+      ]
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "63f622fcdb4acc9ad4221468"
+  },
+  "id": "12100798",
+  "overall_cgpa": 7.55,
+  "semester_result": [
+    {
+      "semester": 1,
+      "marks": [
+        {
+          "sub_code": "CSE316",
+          "grade": "D",
+          "value": {
+            "CA": 18.1,
+            "MTE": 14,
+            "ETE": 44,
+            "ATTENDENCE": 4
+          },
+          "total_marks": 67
+        },
+        {
+          "sub_code": "CSE408",
+          "grade": "F",
+          "value": {
+            "CA": 10,
+            "MTE": 14,
+            "ETE": 22,
+            "ATTENDENCE": 4
+          },
+          "total_marks": 83
+        },
+        {
+          "sub_code": "MTH402",
+          "grade": "C",
+          "value": {
+            "CA": 7,
+            "MTE": 15,
+            "ETE": 20,
+            "ATTENDENCE": 5
+          },
+          "total_marks": 46
+        },
+        {
+          "sub_code": "CSE325",
+          "grade": "B",
+          "value": {
+            "CA": 10,
+            "MTE": 11,
+            "ETE": 43,
+            "ATTENDENCE": 4
+          },
+          "total_marks": 47
+        },
+        {
+          "sub_code": "INT404",
+          "grade": "F",
+          "value": {
+            "CA": 21,
+            "MTE": 5,
+            "ETE": 28,
+            "ATTENDENCE": 4
+          },
+          "total_marks": 83
+        }
+      ],
+      "tgpa": 3.77
+    },
+    {
+      "semester": 2,
+      "tgpa": 6.41,
+      "marks": [
+        {
+          "sub_code": "CSE205",
+          "grade": "B",
+          "value": {
+            "CA": 19.8,
+            "MTE": 5.32,
+            "ETE": 54.48,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 35
+        },
+        {
+          "sub_code": "CSE329",
+          "grade": "A",
+          "value": {
+            "CA": 24.4,
+            "MTE": 12.25,
+            "ETE": 19.31,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 37
+        },
+        {
+          "sub_code": "CSE125",
+          "grade": "B",
+          "value": {
+            "CA": 23.4,
+            "MTE": 5.54,
+            "ETE": 52.28,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 90.39
+        }
+      ]
+    },
+    {
+      "semester": 3,
+      "tgpa": 6.15,
+      "marks": [
+        {
+          "sub_code": "CSE221",
+          "grade": "F",
+          "value": {
+            "CA": 24,
+            "MTE": 11.14,
+            "ETE": 53.73,
+            "ATTENDANCE": 1
+          },
+          "total_marks": 80
+        },
+        {
+          "sub_code": "CSE320",
+          "grade": "D",
+          "value": {
+            "CA": 15,
+            "MTE": 14.45,
+            "ETE": 28.1,
+            "ATTENDANCE": 3
+          },
+          "total_marks": 94
+        },
+        {
+          "sub_code": "CSE326",
+          "grade": "E",
+          "value": {
+            "CA": 18.4,
+            "MTE": 9.32,
+            "ETE": 49.07,
+            "ATTENDANCE": 1
+          },
+          "total_marks": 84.25
+        },
+        {
+          "sub_code": "CSE120",
+          "grade": "D",
+          "value": {
+            "CA": 16.4,
+            "MTE": 12.69,
+            "ETE": 29.03
+          },
+          "total_marks": 39.18
+        }
+      ]
+    },
+    {
+      "semester": 4,
+      "tgpa": 5.59,
+      "marks": [
+        {
+          "sub_code": "CSE271",
+          "grade": "F",
+          "value": {
+            "CA": 22,
+            "MTE": 5.27,
+            "ETE": 50.01,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 100
+        },
+        {
+          "sub_code": "CSE370",
+          "grade": "A",
+          "value": {
+            "CA": 10.4,
+            "MTE": 6.26,
+            "ETE": 46.79,
+            "ATTENDANCE": 3
+          },
+          "total_marks": 37
+        },
+        {
+          "sub_code": "CSE376",
+          "grade": "E",
+          "value": {
+            "CA": 20.2,
+            "MTE": 6.12,
+            "ETE": 19.03,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 53.74
+        },
+        {
+          "sub_code": "CSE176",
+          "grade": "D",
+          "value": {
+            "CA": 23.6,
+            "MTE": 8.64,
+            "ETE": 46.95
+          },
+          "total_marks": 88.72
+        }
+      ]
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "63f622fcdb4acc9ad4221469"
+  },
+  "id": "12100435",
+  "overall_cgpa": 7.58,
+  "semester_result": [
+    {
+      "semester": 1,
+      "marks": [
+        {
+          "sub_code": "CSE316",
+          "grade": "E",
+          "value": {
+            "CA": 25.2,
+            "MTE": 3,
+            "ETE": 8,
+            "ATTENDENCE": 5
+          },
+          "total_marks": 74
+        },
+        {
+          "sub_code": "CSE408",
+          "grade": "E",
+          "value": {
+            "CA": 13,
+            "MTE": 16,
+            "ETE": 21,
+            "ATTENDENCE": 5
+          },
+          "total_marks": 51
+        },
+        {
+          "sub_code": "MTH402",
+          "grade": "E",
+          "value": {
+            "CA": 26,
+            "MTE": 12,
+            "ETE": 48,
+            "ATTENDENCE": 2
+          },
+          "total_marks": 33
+        },
+        {
+          "sub_code": "CSE325",
+          "grade": "A",
+          "value": {
+            "CA": 16,
+            "MTE": 6,
+            "ETE": 34,
+            "ATTENDENCE": 1
+          },
+          "total_marks": 36
+        },
+        {
+          "sub_code": "INT404",
+          "grade": "A",
+          "value": {
+            "CA": 29,
+            "MTE": 6,
+            "ETE": 32,
+            "ATTENDENCE": 4
+          },
+          "total_marks": 34
+        }
+      ],
+      "tgpa": 3.3
+    },
+    {
+      "semester": 2,
+      "tgpa": 6.37,
+      "marks": [
+        {
+          "sub_code": "CSE890",
+          "grade": "C",
+          "value": {
+            "CA": 21.7,
+            "MTE": 11.79,
+            "ETE": 25.85,
+            "ATTENDANCE": 5
+          },
+          "total_marks": 83
+        },
+        {
+          "sub_code": "CSE399",
+          "grade": "F",
+          "value": {
+            "CA": 21.2,
+            "MTE": 7.39,
+            "ETE": 54.21,
+            "ATTENDANCE": 3
+          },
+          "total_marks": 55
+        },
+        {
+          "sub_code": "CSE396",
+          "grade": "F",
+          "value": {
+            "CA": 19,
+            "MTE": 6.21,
+            "ETE": 28.91,
+            "ATTENDANCE": 3
+          },
+          "total_marks": 98.95
+        },
+        {
+          "sub_code": "CSE026",
+          "grade": "A",
+          "value": {
+            "CA": 22.8,
+            "MTE": 7.27,
+            "ETE": 38.1
+          },
+          "total_marks": 66.52
+        }
+      ]
+    },
+    {
+      "semester": 3,
+      "tgpa": 8.03,
+      "marks": [
+        {
+          "sub_code": "CSE234",
+          "grade": "F",
+          "value": {
+            "CA": 23.2,
+            "MTE": 5.98,
+            "ETE": 35.45,
+            "ATTENDANCE": 4
+          },
+          "total_marks": 81
+        },
+        {
+          "sub_code": "CSE322",
+          "grade": "A",
+          "value": {
+            "CA": 19.2,
+            "MTE": 7.97,
+            "ETE": 48.06,
+            "ATTENDANCE": 3
+          },
+          "total_marks": 67
+        },
+        {
+          "sub_code": "CSE389",
+          "grade": "C",
+          "value": {
+            "CA": 10.3,
+            "MTE": 14.97,
+            "ETE": 43.86,
+            "ATTENDANCE": 2
+          },
+          "total_marks": 67.24
+        },
+        {
+          "sub_code": "CSE195",
+          "grade": "D",
+          "value": {
+            "CA": 18.4,
+            "MTE": 13.73,
+            "ETE": 48.85
+          },
+          "total_marks": 58.35
+        }
+      ]
+    }
+  ]
+}]

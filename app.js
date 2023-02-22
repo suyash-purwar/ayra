@@ -1,6 +1,7 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import routes from './routes/index.js';
+import connectBD from './db/connect.js';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, async () => {
   console.log(`App is running on PORT=${process.env.PORT} ✅`);
+  await connectBD();
 });
