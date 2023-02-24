@@ -64,6 +64,36 @@ const Student = mongoose.model('student', new mongoose.Schema({
         }
       ]
     }
+  },
+  mentor: {
+    name: {
+      type: String,
+      required: true
+    },
+    contact: {
+      type: String,
+      required: true
+    }
+  },
+  is_hosteller: {
+    type: Boolean,
+    required: true
+  },
+  hostel: {
+    code: {
+      type: String
+    },
+    block: {
+      type: String,
+      enum: ['A', 'B', 'C', 'D', 'E']
+    },
+    room_no: {
+      type: Number
+    },
+    bed: {
+      type: String,
+      enum: ['A', 'B', 'C', 'D']
+    }
   }
 }));
 
