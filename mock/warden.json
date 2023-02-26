@@ -1,0 +1,177 @@
+[{
+  "hostel": "BH1",
+  "blocks": [{
+    "block": "A",
+    "warden": {
+      "name": "Mr. Ashok Kumar Pathak",
+      "contact": "918392924130",
+      "is_main_warden": true
+    }
+  }, {
+    "block": "B",
+    "warden": {
+      "name": "Mr. Amandeep Singh",
+      "contact": "918391203542",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "C",
+    "warden": {
+      "name": "Mr. Sukhwinder Kaur",
+      "contact": "91905876352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "D",
+    "warden": {
+      "name": "Mr. Kushan Purwar",
+      "contact": "91905876352",
+      "is_main_warden": false
+    }
+  }]
+},{
+  "hostel": "BH3",
+  "blocks": [{
+    "block": "A",
+    "warden": {
+      "name": "Mr. Lal Singh Chaddha",
+      "contact": "918392324130",
+      "is_main_warden": true
+    }
+  }, {
+    "block": "B",
+    "warden": {
+      "name": "Mr. Shubham Keshari",
+      "contact": "918391203542",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "C",
+    "warden": {
+      "name": "Mr. Anshuman Thakur",
+      "contact": "91905876352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "D",
+    "warden": {
+      "name": "Mr. Naman Modi",
+      "contact": "9190576352",
+      "is_main_warden": false
+    }
+  }]
+}, {
+  "hostel": "BH4",
+  "blocks": [{
+    "block": "A",
+    "warden": {
+      "name": "Mr. Rajeev Chaudhari",
+      "contact": "916399321130",
+      "is_main_warden": true
+    }
+  }, {
+    "block": "B",
+    "warden": {
+      "name": "Mr. Kailash Nadh",
+      "contact": "918391023552",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "C",
+    "warden": {
+      "name": "Mr. Nitin Kamanth",
+      "contact": "91905876352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "D",
+    "warden": {
+      "name": "Mr. Kunal Walwaker",
+      "contact": "919123076352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "E",
+    "warden": {
+      "name": "Mr. Yashas Tyagi",
+      "contact": "919068793203",
+      "is_main_warden": false
+    }
+  }]
+}, {
+  "hostel": "GH1",
+  "blocks": [{
+    "block": "A",
+    "warden": {
+      "name": "Mrs. Soumya Chaudhari",
+      "contact": "916399321130",
+      "is_main_warden": true
+    }
+  }, {
+    "block": "B",
+    "warden": {
+      "name": "Mrs. Maya Nadh",
+      "contact": "918391023552",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "C",
+    "warden": {
+      "name": "Mrs. Divyani Kamanth",
+      "contact": "91905876352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "D",
+    "warden": {
+      "name": "Mrs. Ramandeep Sandhu",
+      "contact": "919123076352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "E",
+    "warden": {
+      "name": "Ms. Yashaswani Dayama",
+      "contact": "919068793203",
+      "is_main_warden": false
+    }
+  }]
+}, {
+  "hostel": "GH3",
+  "blocks": [{
+    "block": "A",
+    "warden": {
+      "name": "Mrs. Nitya Sen",
+      "contact": "916388121130",
+      "is_main_warden": true
+    }
+  }, {
+    "block": "B",
+    "warden": {
+      "name": "Mrs. Nishtha Gaur",
+      "contact": "918321024002",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "C",
+    "warden": {
+      "name": "Mrs. Tanima Thakur",
+      "contact": "91905876352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "D",
+    "warden": {
+      "name": "Mrs. Sejal Agarwalia",
+      "contact": "919123076352",
+      "is_main_warden": false
+    }
+  }, {
+    "block": "E",
+    "warden": {
+      "name": "Ms. Mariam Khar",
+      "contact": "919041993111",
+      "is_main_warden": false
+    }
+  }]
+}]
