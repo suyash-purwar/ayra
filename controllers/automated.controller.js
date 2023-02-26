@@ -2,12 +2,19 @@ import * as automatedServices from './../services/automated.services.js';
 
 export const firstHello = async (req, res) => {
   try {
-    console.log(req.body);
     const { recipientNo } = req.body;
     await automatedServices.firstHello(recipientNo);
-    res.sendStatus(200);
   } catch (e) {
     console.log(e);
-    res.sendStatus(200);
   }
+  res.sendStatus(200);
 };
+
+export const publishResult = async (req, res) => {
+  try {
+    await automatedServices.publishResult();
+  } catch (e) {
+    console.log(e);
+  }
+  res.sendStatus(200);
+}

@@ -23,7 +23,6 @@ const sendAPICall = async (
   let response;
   switch (method) {
     case 'post':
-      console.log(JSON.stringify(config, null, 2));
       response = await axios.post(uri, requestBody, config);
       break;
     case 'get':
@@ -47,7 +46,6 @@ export const sendTextMessage = async (recipientNo, message) => {
     'text',
     text
   );
-  console.log(response.data);
   return response;
 };
 
