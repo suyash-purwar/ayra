@@ -10,7 +10,7 @@ export const publishResult = async () => {
   const students = await Student.find({}, 'id contact');
   for (let student of students) {
     // Blocklisting all numbers other than ALLOWED_NUMBERS
-    const ALLOWED_NUMBERS = ['919058765425', '919631733112'];
+    const ALLOWED_NUMBERS = ['919058765425', '919631733112', '917009772298'];
     if (ALLOWED_NUMBERS.indexOf(student.contact) === -1) continue
     let resultOfStudent = await Result.findOne({
       id: student.id
