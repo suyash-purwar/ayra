@@ -22,7 +22,9 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, async () => {
-  console.log(`App is running on PORT=${process.env.PORT} ✅`);
-  await connectBD();
+connectBD()
+.then(() => {
+  app.listen(process.env.PORT, async () => {
+    console.log(`App is running on PORT=${process.env.PORT} ✅`)
+  });
 });
