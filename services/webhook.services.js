@@ -1,6 +1,6 @@
 import * as metaAPI from './../apis/meta.api.js';
 import Student from '../models/student.model.js';
-import Result from '../models/result.model.js'
+import Result from '../models/result.model.js';
 
 export const processMessage = async (msgInfo) => {
   const { value, field } = msgInfo;
@@ -23,6 +23,20 @@ export const processMessage = async (msgInfo) => {
           case "Today's Attendance":
           case 'Overall Attendance':
             await getAttendance(messageFrom, choice);
+            break;
+          case 'Show Attendance':
+            await metaAPI.sendMenu(messageFrom, 'attendance');
+            break;
+          case 'Show Result':
+            await metaAPI.sendMenu(messageFrom, 'result');
+            break;
+          case 'More Options':
+            await metaAPI.sendMenu(messageFrom, 'more_options');
+            break;
+          case 'Show Class Schedule':
+          case 'Show Warden Number':
+          case 'Show Fee Dues':
+            await metaAPI.sendTextMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
             break;
         }
         break;
@@ -52,6 +66,7 @@ export const processMessage = async (msgInfo) => {
  */
 const classifyMsg = (msgText) => {
   const dictionary = {
+    'greeting': ['hey', 'hello', 'hi', 'sup?', 'sup', 'namaste'],
     'result': ['result', 'marksheet', 'performance', 'report card', 'marks'],
     'attendance': ['attendance', 'attending', 'present', 'attended'],
     'hostel_warden': ['warden', 'hostel head', 'supervisor']
@@ -72,6 +87,9 @@ const classifyMsg = (msgText) => {
 
 const generateResponse = async (keyword, recipientNo) => {
   switch (keyword) {
+    case 'greeting':
+      await metaAPI.sendMenu(recipientNo, 'hello');
+      break;
     case 'result':
       await metaAPI.sendMenu(recipientNo, 'result');
       break;
@@ -162,4 +180,4 @@ Grade: ${semResultMarks.grade}
       break;
     }
   await metaAPI.sendTextMessage(recipientNo, message);
-}
+};

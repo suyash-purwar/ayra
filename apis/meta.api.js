@@ -23,7 +23,6 @@ const sendAPICall = async (
   let response;
   switch (method) {
     case 'post':
-      console.log(JSON.stringify(config, null, 2));
       response = await axios.post(uri, requestBody, config);
       break;
     case 'get':
@@ -47,23 +46,15 @@ export const sendTextMessage = async (recipientNo, message) => {
     'text',
     text
   );
-  console.log(response.data);
   return response;
 };
 
 export const sendMenu = async (recipientNo, menuType) => {
   const template = {
+    name: menuType,
     language: {
       code: "en_US"
     }
-  }
-  switch (menuType) {
-    case 'result':
-      template.name = 'result';
-      break;
-    case 'attendance':
-      template.name = 'attendance';
-      break;
   }
   await sendAPICall(
     'messages',
