@@ -1,6 +1,9 @@
 import * as metaAPI from './../apis/meta.api.js';
 import Student from '../models/student.model.js';
 import Result from '../models/result.model.js';
+import buttons from './../botconfig/buttons.js';
+import templates from '../botconfig/templates.js';
+import dictionary from '../botconfig/dictionary.js';
 
 export const processMessage = async (msgInfo) => {
   const { value, field } = msgInfo;
@@ -12,47 +15,16 @@ export const processMessage = async (msgInfo) => {
     const messageType = value.messages[0].type;
 
     switch (messageType) {
+      // Make a function to parse button responses
+
       case 'button':
-        // console.log(JSON.stringify(value, null, 3));
-        const choice = value.messages[0].button.text;
-        switch (choice) {
-          case 'Last Semester':
-          case 'Previous All Semesters':
-            await getResult(messageFrom, choice);
-            break;
-          case "Today's Attendance":
-          case 'Overall Attendance':
-            await getAttendance(messageFrom, choice);
-            break;
-          case 'Show Attendance':
-            await metaAPI.sendMenu(messageFrom, 'attendance');
-            break;
-          case 'Show Result':
-            await metaAPI.sendMenu(messageFrom, 'result');
-            break;
-          case 'More Options':
-            await metaAPI.sendMenu(messageFrom, 'more_options');
-            break;
-          case 'Send Hey':
-            await metaAPI.sendMenu(messageFrom, 'hello');
-            break;
-          case 'Help':
-            await metaAPI.sendMenu(messageFrom, 'help');
-            break;
-          case 'Show all options':
-          case 'Give me more examples!':
-          case 'How to use Ayra?':
-          case 'Show Class Schedule':
-          case "Show Warden's Phone no.":
-          case 'Show Fee Dues':
-            await metaAPI.sendTextMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
-            break;
-        }
+        const button = value.messages[0].button.text;
+        await processButtonMessage(button, messageFrom);
         break;
       case 'text':
         const message = value.messages[0].text.body;
         const keyword = classifyMsg(message);
-        await generateResponse(keyword, messageFrom);
+        await processTextMessage(keyword, messageFrom);
         break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
@@ -70,18 +42,45 @@ export const processMessage = async (msgInfo) => {
   }
 };
 
+const processButtonMessage = async (button, messageFrom) => {
+  let message;
+  if (button === buttons.hey) await metaAPI.sendMenu(messageFrom, templates.hello);
+  else if (button === buttons.help) await metaAPI.sendMenu(messageFrom, templates.help);
+  else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result);
+  else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance);
+  else if (button === buttons.attendanceToday) {
+    message = await getTodaysAttendance(messageFrom);
+    await metaAPI.sendTextMessage(messageFrom, message);
+  }
+  else if (button === buttons.attendanceOverall) {
+    message = await getOverallAttendance(messageFrom);
+    await metaAPI.sendTextMessage(messageFrom, message);
+  }
+  else if (button === buttons.resultLastSemester) {
+    message = await getLastSemResult(messageFrom);
+    await metaAPI.sendTextMessage(messageFrom, message);
+  }
+  else if (button === buttons.resultPreviousSemester) {
+    message = await getPreviousSemResult(messageFrom);
+    await metaAPI.sendTextMessage(messageFrom, message);
+  }
+  else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, 'more_options');
+  else if (
+    button === buttons.allOptions ||
+    button === buttons.usageExample ||
+    button === buttons.howToUse ||
+    button === buttons.classSchedule ||
+    button === buttons.wardenDetails ||
+    button === buttons.feeDues
+  ) {
+    await metaAPI.sendTextMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
+  }
+};
+
 /**
  * Following is the mock implementation of text classifier
  */
 const classifyMsg = (msgText) => {
-  const dictionary = {
-    'help': ['help', 'guide', 'assistance', 'assist', 'aid'],
-    'greeting': ['hey', 'hello', 'hi', 'sup?', 'sup', 'namaste'],
-    'result': ['result', 'marksheet', 'performance', 'report card', 'marks'],
-    'attendance': ['attendance', 'attending', 'present', 'attended'],
-    'hostel_warden': ['warden', 'hostel head', 'supervisor']
-  };
-  
   let intent;
   for (let keywordClass in dictionary) {
     for (let keyword of dictionary[keywordClass]) {
@@ -91,14 +90,16 @@ const classifyMsg = (msgText) => {
       }
     }
   }
-
   return intent;
 };
 
-const generateResponse = async (keyword, recipientNo) => {
+const processTextMessage = async (keyword, recipientNo) => {
   switch (keyword) {
-    case 'greeting':
+    case 'hello':
       await metaAPI.sendMenu(recipientNo, 'hello');
+      break;
+    case 'help':
+      await metaAPI.sendMenu(recipientNo, 'help');
       break;
     case 'result':
       await metaAPI.sendMenu(recipientNo, 'result');
@@ -106,11 +107,8 @@ const generateResponse = async (keyword, recipientNo) => {
     case 'attendance':
       await metaAPI.sendMenu(recipientNo, 'attendance');
       break;
-    case 'hostel_warden':
+    case 'warden':
       console.log("Sending hostel warden details");
-      break;
-    case 'help':
-      await metaAPI.sendMenu(recipientNo, 'help');
       break;
     default:
       console.log("Unknown keyword");
@@ -118,79 +116,70 @@ const generateResponse = async (keyword, recipientNo) => {
   }
 };
 
-const getAttendance = async (recipientNo, choice) => {
-  let response;
-  let message;
-  switch (choice) {
-    case "Today's Attendance":
-      response = await Student.findOne(
-        { contact: recipientNo },
-        'id attendance.todays_attendance'
-      );
-      const todays_attendance = response.attendance.todays_attendance.value;
-      message = `👉 Today's Attendance\n`;
-      for (let subjectAttendance of todays_attendance) {
-        message += `
+const getTodaysAttendance = async (recipientNo) => {
+  let message = `*Today's Attendance*\n`;
+  const response = await Student.findOne(
+    { contact: recipientNo },
+    'id attendance.todays_attendance'
+  );
+  const { value: todays_attendance } = response.attendance.todays_attendance;
+  for (let subjectAttendance of todays_attendance) {
+    message += `
 Timing: ${subjectAttendance.time}
 Subject Code: ${subjectAttendance.sub_code}
-Attendance: ${subjectAttendance.attendance ? 'present' : 'absent'}
-        `;
-      }
-      break;
-    case "Overall Attendance":
-      response =  await Student.findOne(
-        { contact: recipientNo },
-        'id attendance.overall'
-      );
-      const overall_attendance = response.attendance.overall;
-      message = `👉 Overall Attendance\n`;
-      for (let subjectAttendance of overall_attendance) {
-        message += `
-Subject Code: ${subjectAttendance.sub_code}
-Total Attendance: ${subjectAttendance.attendance}%
-        `;
-      }
-      break;
-    }
-  await metaAPI.sendTextMessage(recipientNo, message);
+Attendance: ${subjectAttendance.attendance ? 'present' : 'absent'}\n`;
+  }
+  return message;
 };
 
-const getResult = async (recipientNo, choice) => {
+const getOverallAttendance = async (recipientNo) => {
+  let message = `*Overall Attendance*\n`;
+  const response =  await Student.findOne(
+    { contact: recipientNo },
+    'id attendance.overall'
+  );
+  const { overall: overall_attendance } = response.attendance;
+  for (let subjectAttendance of overall_attendance) {
+    message += `
+Subject Code: ${subjectAttendance.sub_code}
+Total Attendance: ${subjectAttendance.attendance}%\n`;
+  }
+  return message;
+};
+
+const getLastSemResult = async (recipientNo) => {
   const { id } = await Student.findOne({ contact: recipientNo }, 'id');
   let response = await Result.findOne(
     { id },
     'overall_cgpa semester_result'
   );
-  let message;
-  switch (choice) {
-    case "Last Semester":
-      const lastSem = response.semester_result[response.semester_result.length-1];
-      message = `
-👉 *Result of last semester*
+  const lastSem = response.semester_result[response.semester_result.length-1];
+  let message = `*Result of last semester (Semester: ${lastSem.semester})*\n`;
+  for (let semResultMarks of lastSem.marks) {
+    message += `
+Subject Code: ${semResultMarks.sub_code}
+Grade: ${semResultMarks.grade}\n`;
+  }
+  message += `\n*Semester ${lastSem.semester} TGPA: ${lastSem.tgpa}*`
+  return message;
+};
 
-Semester: ${lastSem.semester}\n`;
-      for (let semResultMarks of lastSem.marks) {
-        message += `
+const getPreviousSemResult = async (recipientNo) => {
+  const { id } = await Student.findOne({ contact: recipientNo }, 'id');
+  let response = await Result.findOne(
+    { id },
+    'overall_cgpa semester_result'
+  );
+  let message = `*Result of all the semesters*\n\n`;
+  for (let semResult of response.semester_result) {
+    message += `_Semester ${semResult.semester} result:_\n`;
+    for (let semResultMarks of semResult.marks) {
+      message += `
 Subject Code: ${semResultMarks.sub_code}
-Grade: ${semResultMarks.grade}
-`;
-      }
-      message += `\n💥 *Semester ${lastSem.semester} TGPA ${lastSem.tgpa}*`
-      break;
-    case "Previous All Semesters":
-      message = `👉 *Result of all the semesters*\n\n\n`;
-      for (let semResult of response.semester_result) {
-        message += `✅ Semester ${semResult.semester} result:\n`;
-        for (let semResultMarks of semResult.marks) {
-          message += `
-Subject Code: ${semResultMarks.sub_code}
-Grade: ${semResultMarks.grade}
-`;
-        }
-        message += `\n🔥 *Semester ${semResult.semester} TGPA: ${semResult.tgpa}*\n\n`
-      }
-      message += `\n💥 *Total CGPA: ${response.overall_cgpa}*`;
-      break;
+Grade: ${semResultMarks.grade}\n`;
     }
-  await metaAPI.sendTextMessage(recipientNo, message);
+    message += `\n*Semester ${semResult.semester} TGPA: ${semResult.tgpa}*\n\n`
+  }
+  message += `\n*Total CGPA: ${response.overall_cgpa}*`;
+  return message;
 };
