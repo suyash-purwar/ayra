@@ -33,8 +33,17 @@ export const processMessage = async (msgInfo) => {
           case 'More Options':
             await metaAPI.sendMenu(messageFrom, 'more_options');
             break;
+          case 'Send Hey':
+            await metaAPI.sendMenu(messageFrom, 'hello');
+            break;
+          case 'Help':
+            await metaAPI.sendMenu(messageFrom, 'help');
+            break;
+          case 'Show all options':
+          case 'Give me more examples!':
+          case 'How to use Ayra?':
           case 'Show Class Schedule':
-          case 'Show Warden Number':
+          case "Show Warden's Phone no.":
           case 'Show Fee Dues':
             await metaAPI.sendTextMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
             break;
@@ -66,6 +75,7 @@ export const processMessage = async (msgInfo) => {
  */
 const classifyMsg = (msgText) => {
   const dictionary = {
+    'help': ['help', 'guide', 'assistance', 'assist', 'aid'],
     'greeting': ['hey', 'hello', 'hi', 'sup?', 'sup', 'namaste'],
     'result': ['result', 'marksheet', 'performance', 'report card', 'marks'],
     'attendance': ['attendance', 'attending', 'present', 'attended'],
@@ -98,6 +108,9 @@ const generateResponse = async (keyword, recipientNo) => {
       break;
     case 'hostel_warden':
       console.log("Sending hostel warden details");
+      break;
+    case 'help':
+      await metaAPI.sendMenu(recipientNo, 'help');
       break;
     default:
       console.log("Unknown keyword");
