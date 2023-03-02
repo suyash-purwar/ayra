@@ -1,9 +1,10 @@
 import * as metaAPI from './../apis/meta.api.js';
 import Student from './../models/student.model.js';
 import Result from './../models/result.model.js';
+import templates from '../botconfig/templates.js';
 
 export const firstHello = async (recipientNo) => {
-  await metaAPI.sendMenu(recipientNo, 'first_hello');
+  await metaAPI.sendMenu(recipientNo, templates.initialHello.name);
 };
 
 export const publishResult = async () => {
