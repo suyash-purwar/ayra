@@ -1,4 +1,5 @@
 import axios from 'axios';
+import templates from '../botconfig/templates.js';
 
 const sendAPICall = async (
   endpoint,
@@ -55,6 +56,17 @@ export const sendMenu = async (recipientNo, menuType) => {
     language: {
       code: "en_US"
     }
+  }
+  if (menuType === templates.initialHello.name) {
+    template.components = [{
+      type: "header",
+      parameters: [{
+        type: "image",
+        image: {
+          id: templates.initialHello.media[0].mediaId
+        }
+      }]
+    }]
   }
   await sendAPICall(
     'messages',

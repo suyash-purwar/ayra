@@ -13,10 +13,7 @@ export const processMessage = async (msgInfo) => {
   if ('messages' in value) {
     const messageFrom = +value.contacts[0].wa_id
     const messageType = value.messages[0].type;
-
     switch (messageType) {
-      // Make a function to parse button responses
-
       case 'button':
         const button = value.messages[0].button.text;
         await processButtonMessage(button, messageFrom);
@@ -34,7 +31,6 @@ export const processMessage = async (msgInfo) => {
   } else if ('statuses' in value) {
     const messageStatus = value.statuses[0].status;
     const messageFrom = value.statuses[0].recipient_id;
-
     console.log(messageStatus, messageFrom);
   } else {
     console.log(field);
@@ -44,10 +40,10 @@ export const processMessage = async (msgInfo) => {
 
 const processButtonMessage = async (button, messageFrom) => {
   let message;
-  if (button === buttons.hey) await metaAPI.sendMenu(messageFrom, templates.hello);
-  else if (button === buttons.help) await metaAPI.sendMenu(messageFrom, templates.help);
-  else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result);
-  else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance);
+  if (button === buttons.hey) await metaAPI.sendMenu(messageFrom, templates.hello.name);
+  else if (button === buttons.help) await metaAPI.sendMenu(messageFrom, templates.help.name);
+  else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result.name);
+  else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance.name);
   else if (button === buttons.attendanceToday) {
     message = await getTodaysAttendance(messageFrom);
     await metaAPI.sendTextMessage(messageFrom, message);
@@ -64,7 +60,7 @@ const processButtonMessage = async (button, messageFrom) => {
     message = await getPreviousSemResult(messageFrom);
     await metaAPI.sendTextMessage(messageFrom, message);
   }
-  else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, 'more_options');
+  else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, templates.moreOptions.name);
   else if (
     button === buttons.allOptions ||
     button === buttons.usageExample ||
@@ -96,16 +92,16 @@ const classifyMsg = (msgText) => {
 const processTextMessage = async (keyword, recipientNo) => {
   switch (keyword) {
     case 'hello':
-      await metaAPI.sendMenu(recipientNo, 'hello');
+      await metaAPI.sendMenu(recipientNo, templates.hello.name);
       break;
     case 'help':
-      await metaAPI.sendMenu(recipientNo, 'help');
+      await metaAPI.sendMenu(recipientNo, templates.help.name);
       break;
     case 'result':
-      await metaAPI.sendMenu(recipientNo, 'result');
+      await metaAPI.sendMenu(recipientNo, templates.result.name);
       break;
     case 'attendance':
-      await metaAPI.sendMenu(recipientNo, 'attendance');
+      await metaAPI.sendMenu(recipientNo, templates.attendance.name);
       break;
     case 'warden':
       console.log("Sending hostel warden details");

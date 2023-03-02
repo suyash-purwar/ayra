@@ -1,16 +1,17 @@
 import * as metaAPI from './../apis/meta.api.js';
 import Student from './../models/student.model.js';
 import Result from './../models/result.model.js';
+import templates from '../botconfig/templates.js';
 
 export const firstHello = async (recipientNo) => {
-  await metaAPI.sendMenu(recipientNo, 'first_hello');
+  await metaAPI.sendMenu(recipientNo, templates.initialHello.name);
 };
 
 export const publishResult = async () => {
   const students = await Student.find({}, 'id contact');
   for (let student of students) {
     // Blocklisting all numbers other than ALLOWED_NUMBERS
-    const ALLOWED_NUMBERS = ['919058765425', '919631733112'];
+    const ALLOWED_NUMBERS = ['919058765425', '919631733112', '917009772298'];
     if (ALLOWED_NUMBERS.indexOf(student.contact) === -1) continue
     let resultOfStudent = await Result.findOne({
       id: student.id

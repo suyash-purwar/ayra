@@ -2,7 +2,7 @@ export default {
   hey: "Send Hey",
   
   help: "Help",
-  usageExample: "Give me more examples",
+  usageExample: "Give me more examples!",
 
   result: "Show Result",
   resultLastSemester: "Last Semester",
