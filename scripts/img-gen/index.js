@@ -5,12 +5,12 @@ import fs from 'node:fs/promises';
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  const html = await fs.readFile('index.html', 'utf-8');
+  const html = await fs.readFile('attendance.html', 'utf-8');
 
   await page.setContent(html, { waitUntil: 'domcontentloaded' });
-  
-  const content = await page.$("body");
-  const imageBuffer = await content.screenshot({
+  await page.emulateMediaType('screen');
+  await page.setViewport({width: 1920, height: 1053});
+  const imageBuffer = await page.screenshot({
     path: 'index.png',
     omitBackground: false
   });
