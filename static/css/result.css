@@ -11,7 +11,7 @@ body {
 }
  /* Header section */
 .header {
-  padding: 70px 100px;
+  padding: 40px 30px 20px 30px;
 }
 
 .logo-wrapper {
@@ -19,12 +19,12 @@ body {
 }
 
 .logo-wrapper .logo {
-  width: 28%;
+  width: 22%;
 }
 
 .header-heading {
-  margin-top: 35px;
-  font-size: 40px;
+  margin-top: 25px;
+  font-size: 20px;
   font-weight: 600;
   text-align: center;
   text-decoration: underline;
@@ -32,9 +32,9 @@ body {
 
 /* Student Info Section */
 .student-info-section {
-  padding: 40px 100px 100px 100px;
+  padding: 20px 30px;
   display: grid;
-  grid-template-columns: 1.8fr 50px 4fr 40px 5fr;
+  grid-template-columns: 1.5fr 30px 4fr 10px 5fr;
   justify-self: left;
 }
 
@@ -48,35 +48,34 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  border: 3px solid #000;
+  border: 2px solid #000;
 }
 
 .student-info-content .student-info-row {
   display: grid;
   grid-template-columns: max-content 6fr;
-  grid-column-gap: 30px;
-  grid-row-gap: 25px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
 }
 
 .student-info-row p {
-  font-size: 21px;
+  font-size: 11px;
   font-weight: 500;
 }
 
 /* Grade Scale Section */
-
 .grade-scale-section {
-  padding: 50px 100px 100px 100px;
+  padding: 20px 30px;
 }
 
 .grade-scale-header {
-  font-size: 30px;
+  font-size: 15px;
   font-weight: 600;
 }
 
 .grade-table {
-  margin-top: 30px;
-  border: 3px solid #000;
+  margin-top: 8px;
+  border: 2px solid #000;
 }
 
 .grade-table-row {
@@ -86,17 +85,17 @@ body {
 
 .grade-table-col p,
 .grade-table-head p {
-  padding: 10px;
+  padding: 5px;
 }
 
 .grade-table-head p {
-  font-weight: 600;
-  font-size: 25px;
+  font-weight: 500;
+  font-size: 14px;
   text-align: center;
 }
 
 .grade-table-col p {
-  font-size: 23px;
+  font-size: 12px;
   text-align: center;
 }
 
@@ -106,10 +105,73 @@ body {
 }
 
 .grade-table-row:first-child {
-  border-bottom: 3px solid #000;
+  border-bottom: 2px solid #000;
 }
 
 .grade-table-row > .grade-table-col:not(:last-child), 
 .grade-table-row > .grade-table-head:not(:last-child) {
-  border-right: 3px solid #000;
+  border-right: 2px solid #000;
+}
+
+/* semester result section */
+.semester-result {
+  padding: 15px 30px;
+}
+
+.semester-result-header {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.semester-result-table {
+  margin-top: 10px;
+  border: 2px solid #000;
+}
+
+.semester-result-row {
+  display: grid;
+  grid-template-columns: 1fr 7fr 2fr;
+}
+
+.semester-result-row:not(:last-child) {
+  border-bottom: 2px solid #000;
+}
+
+.semester-result-col:not(:last-child),
+.semester-result-head:not(:last-child) {
+  border-right: 2px solid #000;
+}
+
+.semester-result-head p {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.semester-result-col p {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.semester-result-col p,
+.semester-result-head p {
+  padding: 12px 0;
+  text-align: center;
+}
+
+.semester-result-col:nth-child(2) p {
+  text-align: left;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+.semester-result-col:last-child p {
+  text-indent: 48%;
+  text-align: left;
+}
+
+.semester-result-tgpa p {
+  padding: 12px 0;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
 }
