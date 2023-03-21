@@ -1,0 +1,115 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial';
+}
+ /* Header section */
+.header {
+  padding: 70px 100px;
+}
+
+.logo-wrapper {
+  text-align: center;
+}
+
+.logo-wrapper .logo {
+  width: 28%;
+}
+
+.header-heading {
+  margin-top: 35px;
+  font-size: 40px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: underline;
+}
+
+/* Student Info Section */
+.student-info-section {
+  padding: 40px 100px 100px 100px;
+  display: grid;
+  grid-template-columns: 1.8fr 50px 4fr 40px 5fr;
+  justify-self: left;
+}
+
+.student-info-profile {
+  text-align: left;
+  position: relative;
+}
+
+.student-info-profile img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 3px solid #000;
+}
+
+.student-info-content .student-info-row {
+  display: grid;
+  grid-template-columns: max-content 6fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 25px;
+}
+
+.student-info-row p {
+  font-size: 21px;
+  font-weight: 500;
+}
+
+/* Grade Scale Section */
+
+.grade-scale-section {
+  padding: 50px 100px 100px 100px;
+}
+
+.grade-scale-header {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.grade-table {
+  margin-top: 30px;
+  border: 3px solid #000;
+}
+
+.grade-table-row {
+  display: grid;
+  grid-template-columns: 2fr 5fr 5fr;
+}
+
+.grade-table-col p,
+.grade-table-head p {
+  padding: 10px;
+}
+
+.grade-table-head p {
+  font-weight: 600;
+  font-size: 25px;
+  text-align: center;
+}
+
+.grade-table-col p {
+  font-size: 23px;
+  text-align: center;
+}
+
+.grade-table-col:first-child p {
+  text-indent: 44%;
+  text-align: left;
+}
+
+.grade-table-row:first-child {
+  border-bottom: 3px solid #000;
+}
+
+.grade-table-row > .grade-table-col:not(:last-child), 
+.grade-table-row > .grade-table-head:not(:last-child) {
+  border-right: 3px solid #000;
+}
