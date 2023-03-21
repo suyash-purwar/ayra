@@ -86,18 +86,21 @@ body {
 }
 
 /* Today's Attendance */
-.todays-attendance-section {
+.todays-attendance-section,
+.overall-attendance {
   padding: 100px
 }
 
-.todays-attendance-header {
+.todays-attendance-header,
+.overall-attendance-header {
   font-size: 50px;
   font-weight: 500;
   text-decoration: underline;
   margin-bottom: 80px;
 }
 
-.todays-attendance-cards {
+.todays-attendance-cards,
+.overall-attendance-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 50px;
@@ -183,4 +186,77 @@ body {
   font-weight: 500;
   font-size: 25px;
   color: #696969
+}
+
+/* Overall Attendance */
+.overall-attendance-card {
+  display: grid;
+  grid-template-columns: 2fr 7fr;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.overall-attendance-card-left,
+.overall-attendance-card-right {
+  display: grid;
+  align-items: center;
+  height: 25vh;
+}
+
+.overall-attendance-card-left {
+  justify-items: center;
+}
+
+.overall-attendance-card--green > .overall-attendance-card-left {
+  background-color: #00b167;
+}
+
+.overall-attendance-card--green > .overall-attendance-card-right {
+  background-color: rgba(0, 177, 103, .12);
+}
+
+.overall-attendance-card--orange > .overall-attendance-card-left {
+  background-color: #ffa655;
+}
+
+.overall-attendance-card--orange > .overall-attendance-card-right {
+  background-color: rgba(239, 127, 26, .14);
+}
+
+.overall-attendance-card--red > .overall-attendance-card-left {
+  background-color: #ff0000;
+}
+
+.overall-attendance-card--red > .overall-attendance-card-right {
+  background-color: rgba(255, 0, 0, 0.07);
+}
+
+.overall-attendance-card-left p {
+  color: #fff;
+  font-weight: 700;
+  font-size: 35px;
+}
+
+.overall-attendance-card-right p {
+  color: #000;
+  font-size: 28px;
+  padding: 20px;
+  font-weight: 600;
+}
+
+.overall-attendance-aggregate {
+  border: 5px solid #00b167;
+  background-color: rgba(0, 177, 103, .12);
+  box-shadow: 0 0 20px rgba(0, 177, 103, .4);
+  grid-column: 1 / 3;
+  justify-items: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.overall-attendance-aggregate p {
+  padding: 40px 0;
+  font-size: 40px;
+  font-weight: 700;
+  color: #00b167;
+  text-align: center;
 }
