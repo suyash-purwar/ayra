@@ -76,3 +76,17 @@ export const sendMenu = async (recipientNo, menuType) => {
     template
   );
 };
+
+export const sendImageMessage = async (recipientNo, uri) => {
+  const image = {
+    link: uri
+  };
+  const response = await sendAPICall(
+    'messages',
+    'post',
+    recipientNo,
+    'image',
+    image
+  );
+  return response;
+};

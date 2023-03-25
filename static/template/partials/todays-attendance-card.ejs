@@ -1,103 +1,16 @@
-<section class="todays-attendance-section">
-  <h3 class="todays-attendance-header">Today's Subject-wise attendance</h3>
-  <div class="todays-attendance-cards">
-    <div class="todays-attendance-card todays-attendance-card--green">
-      <div class="todays-attendance-left todays-attendance-left--green">
-        <div class="todays-attendance-left-content">
-          <img src="./../../media/misc/thumbsup.png" alt="present">
-          <p class="attendance-status">Present</p>
-        </div>
-      </div>
-      <div class="todays-attendance-right">
-        <div class="todays-attendance-right-content">
-          <h5 class="class-name">CSE211 : Computer Architecture and Organization</h5>
-          <p class="class-time">Time: 9 - 10 a.m.</p>
-        </div>
-      </div>
-    </div>
-    <div class="todays-attendance-card todays-attendance-card--green">
-      <div class="todays-attendance-left todays-attendance-left--green">
-        <div class="todays-attendance-left-content">
-          <img src="./../../media/misc/thumbsup.png" alt="present">
-          <p class="attendance-status">Present</p>
-        </div>
-      </div>
-      <div class="todays-attendance-right">
-        <div class="todays-attendance-right-content">
-          <h5 class="class-name">ECE131 : Basic Electrical and Electronics Engineering Laboratory</h5>
-          <p class="class-time">Time: 10 - 11 a.m.</p>
-        </div>
-      </div>
-    </div>
-    <div class="todays-attendance-card todays-attendance-card--red">
-      <div class="todays-attendance-left todays-attendance-left--red">
-        <div class="todays-attendance-left-content">
-          <img src="./../../media/misc/thumbsdown.png" alt="absent">
-          <p class="attendance-status">Absent</p>
-        </div>
-      </div>
-      <div class="todays-attendance-right">
-        <div class="todays-attendance-right-content">
-          <h5 class="class-name">PHY119 : Engineering Physics Laboratory</h5>
-          <p class="class-time">Time: 11 a.m. - 12 p.m.</p>
-        </div>
-      </div>
-    </div>
-    <div class="todays-attendance-card todays-attendance-card--orange">
-      <div class="todays-attendance-left todays-attendance-left--orange">
-        <div class="todays-attendance-left-content">
-          <img src="./../../media/misc/waiting.png" alt="waiting">
-          <p class="attendance-status">waiting</p>
-        </div>
-      </div>
-      <div class="todays-attendance-right">
-        <div class="todays-attendance-right-content">
-          <h5 class="class-name">PES318 : Soft Skills - I</h5>
-          <p class="class-time">Time: 1 - 2 p.m.</p>
-        </div>
-      </div>
-    </div>
-    <div class="todays-attendance-card todays-attendance-card--green">
-      <div class="todays-attendance-left todays-attendance-left--green">
-        <div class="todays-attendance-left-content">
-          <img src="./../../media/misc/thumbsup.png" alt="present">
-          <p class="attendance-status">Present</p>
-        </div>
-      </div>
-      <div class="todays-attendance-right">
-        <div class="todays-attendance-right-content">
-          <h5 class="class-name">CSE408 : Design And Analysis Of Algorithms</h5>
-          <p class="class-time">Time: 2 - 3 p.m.</p>
-        </div>
-      </div>
-    </div>
-    <div class="todays-attendance-card todays-attendance-card--red">
-      <div class="todays-attendance-left todays-attendance-left--red">
-        <div class="todays-attendance-left-content">
-          <img src="./../../media/misc/thumbsdown.png" alt="absent">
-          <p class="attendance-status">Absent</p>
-        </div>
-      </div>
-      <div class="todays-attendance-right">
-        <div class="todays-attendance-right-content">
-          <h5 class="class-name">MTH165 : Mathematics For Engineers</h5>
-          <p class="class-time">Time: 3 - 4 p.m.</p>
-        </div>
-      </div>
-    </div>
-    <div class="todays-attendance-card todays-attendance-card--green">
-      <div class="todays-attendance-left todays-attendance-left--green">
-        <div class="todays-attendance-left-content">
-          <img src="./../../media/misc/thumbsup.png" alt="present">
-          <p class="attendance-status">Present</p>
-        </div>
-      </div>
-      <div class="todays-attendance-right">
-        <div class="todays-attendance-right-content">
-          <h5 class="class-name">CSE211 : Computer Architecture and Organization</h5>
-          <p class="class-time">Time: 4 - 5 p.m.</p>
-        </div>
-      </div>
+<div class="todays-attendance-card todays-attendance-card--<%= subject.attendance %>">
+  <div class="todays-attendance-left">
+    <div class="todays-attendance-left-content">
+      <img src="data:image/png;base64,<%= pageAssets[subject.attendance + 'Img'] %>" alt="present">
+      <p class="attendance-status">
+        <%= subject.attendance %>
+      </p>
     </div>
   </div>
-</section>
+  <div class="todays-attendance-right">
+    <div class="todays-attendance-right-content">
+      <h5 class="class-name"><%= subject.sub_code %></h5>
+      <p class="class-time">Timing: <%= subject.time %></p>
+    </div>
+  </div>
+</div>

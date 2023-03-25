@@ -1,0 +1,179 @@
+<style>
+  *,
+  *::after,
+  *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Arial';
+  }
+  /* Header section */
+  .header {
+    padding: 40px 30px 20px 30px;
+  }
+
+  .logo-wrapper {
+    text-align: center;
+  }
+
+  .logo-wrapper .logo {
+    width: 22%;
+  }
+
+  .header-heading {
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  /* Student Info Section */
+  .student-info-section {
+    padding: 20px 30px;
+    display: grid;
+    grid-template-columns: 1.5fr 30px 4fr 10px 5fr;
+    justify-self: left;
+  }
+
+  .student-info-profile {
+    text-align: left;
+    position: relative;
+  }
+
+  .student-info-profile img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2px solid #000;
+  }
+
+  .student-info-content .student-info-row {
+    display: grid;
+    grid-template-columns: max-content 6fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+
+  .student-info-row p {
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* Grade Scale Section */
+  .grade-scale-section {
+    padding: 20px 30px;
+  }
+
+  .grade-scale-header {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .grade-table {
+    margin-top: 8px;
+    border: 2px solid #000;
+  }
+
+  .grade-table-row {
+    display: grid;
+    grid-template-columns: 2fr 5fr 5fr;
+  }
+
+  .grade-table-col p,
+  .grade-table-head p {
+    padding: 5px;
+  }
+
+  .grade-table-head p {
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .grade-table-col p {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .grade-table-col:first-child p {
+    text-indent: 44%;
+    text-align: left;
+  }
+
+  .grade-table-row:first-child {
+    border-bottom: 2px solid #000;
+  }
+
+  .grade-table-row > .grade-table-col:not(:last-child), 
+  .grade-table-row > .grade-table-head:not(:last-child) {
+    border-right: 2px solid #000;
+  }
+
+  /* semester result section */
+  .semester-result {
+    padding: 15px 30px;
+  }
+
+  .semester-result-header {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .semester-result-table {
+    margin-top: 10px;
+    border: 2px solid #000;
+  }
+
+  .semester-result-row {
+    display: grid;
+    grid-template-columns: 1fr 7fr 2fr;
+  }
+
+  .semester-result-row:not(:last-child) {
+    border-bottom: 2px solid #000;
+  }
+
+  .semester-result-col:not(:last-child),
+  .semester-result-head:not(:last-child) {
+    border-right: 2px solid #000;
+  }
+
+  .semester-result-head p {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .semester-result-col p {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .semester-result-col p,
+  .semester-result-head p {
+    padding: 12px 0;
+    text-align: center;
+  }
+
+  .semester-result-col:nth-child(2) p {
+    text-align: left;
+    margin-left: 10px;
+    text-transform: uppercase;
+  }
+
+  .semester-result-col:last-child p {
+    text-indent: 48%;
+    text-align: left;
+  }
+
+  .semester-result-tgpa p {
+    padding: 12px 0;
+    font-weight: 700;
+    font-size: 15px;
+    text-align: center;
+  }
+</style>

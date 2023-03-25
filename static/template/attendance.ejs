@@ -4,42 +4,52 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/attendance.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <%- include('../css/attendance-style.ejs') %>
   <title>Attendance</title>
 </head>
 <body>
   <nav class="navigation">
     <div class="navigation-logo">
-      <img src="../../media/bot-assets/Bot Profile Picture.png" alt="LPU logo">
+      <img src="data:image/png;base64,<%=pageAssets.lpuLogoImg%>" alt="LPU logo">
     </div>
     <div class="navigation-header">
       <p>Overall Attendance</p>
     </div>
     <div class="navigation-date">
-      <p>Date: 6th March, 2023</p>
+      <p><%= attendance.date %></p>
     </div>
   </nav>
   <section class="student-info-section">
     <div class="student-info-img">
-      <img src="./../../media/misc/profile.png" alt="Student Image">
+      <img src="data:image/png;base64,<%=pageAssets.studentProfileImg%>" alt="Student Image">
     </div>
     <div class="student-info-wrapper">
       <div class="student-info-row">
         <p class="field">Name:</p>
-        <p class="value">Suyash Purwar</p>
+        <p class="value"><%= name %></p>
       </div>
       <div class="student-info-row">
         <p class="field">Registration No.:</p>
-        <p class="value">12100435</p>
+        <p class="value"><%= regNo %></p>
       </div>
       <div class="student-info-row">
         <p class="field">Programme:</p>
-        <p class="value">Bachelor of Technology (Computer Science and Enigneering)</p>
+        <p class="value"><%= courseCode %></p>
       </div>
     </div>
+  </section>
+
+  <section class="attendance-section">
+    <h3 class="attendance-header">Today's Subject-wise attendance</h3>
+      <div class="attendance-cards">
+        <% if (attendanceType === 'overall') { %>
+
+        <% } else { %> 
+          <% for (let subject of attendance) { %>
+            <%- include('partials/todays-attendance-card.ejs', { subject, pageAssets }); %>
+          <% } %>
+        <% } %>
+      </div>
   </section>
 </body>
 </html>
