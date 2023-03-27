@@ -80,7 +80,8 @@ const Student = sequelize.define('student', {
     allowNull: false
   }
 }, {
-  modelName: 'student'
+  modelName: 'student',
+  underscored: true
 });
 
 export default Student;

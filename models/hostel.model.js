@@ -16,7 +16,8 @@ const Hostel = sequelize.define('hostel', {
     }
   }
 }, {
-  modelName: 'hostel'
+  modelName: 'hostel',
+  underscored: true
 });
 
 export default Hostel;
