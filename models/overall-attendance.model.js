@@ -1,15 +1,15 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/connect.js';
 
-const Course = sequelize.define('course', {
+const OverallAttendance = sequelize.define('overall_attendance', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
-  courseCode: {
-    type: DataTypes.STRING,
+  registratioNo: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   semester: {
@@ -23,10 +23,18 @@ const Course = sequelize.define('course', {
       model: 'subject',
       key: 'id'
     }
+  },
+  attendance: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      max: 100,
+      min: 0
+    }
   }
 }, {
-  modelName: 'course',
+  modelName: 'overall_attendance',
   underscored: true
 });
 
-export default Course;
+export default OverallAttendance;
