@@ -32,9 +32,9 @@ import pg from 'pg';
  * Postgres Connection through Sequelize
  */
 
-import { Sequelize } from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
 
-const sequelize = new Sequelize('postgres', 'postgres', 'AshNov06', {
+const sequelize = new Sequelize('ayra', 'postgres', 'AshNov06', {
   host: 'localhost',
   port: 5432,
   dialect: 'postgres'
@@ -47,3 +47,26 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
+const User = sequelize.define('users', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true
+  },
+}, {
+  modelName: 'users',
+  underscored: true
+});
+
+// await User.sync({ force: true });
+
+const user = new User({
+  id: 1
+});
+
+await user.save();
+
+// User.sync() - This creates the table if it doesn't exist (and does nothing if it already exists)
+// User.sync({ force: true }) - This creates the table, dropping it first if it already existed
+// User.sync({ alter: true }) - This checks what is the current state of the table in the database (which columns it has, what are their data types, etc), and then performs the necessary changes in the table to make it match the model
