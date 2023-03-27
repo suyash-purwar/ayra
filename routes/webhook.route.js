@@ -6,4 +6,6 @@ const router = Router();
 router.get('/receive', webhookController.verifyWebhook);
 router.post('/receive', webhookController.processMessage);
 
+router.get('/getAttendanceImage', webhookController.getAttendanceImage);
+
 export default router;

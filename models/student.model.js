@@ -54,8 +54,9 @@ const Student = mongoose.model('student', new mongoose.Schema({
             required: true
           },
           attendance: {
-            type: Boolean,
-            required: true
+            type: String,
+            required: true,
+            enum: ['present', 'absent', 'waiting']
           },
           type: {
             type: String,

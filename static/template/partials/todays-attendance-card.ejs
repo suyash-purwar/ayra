@@ -1,0 +1,16 @@
+<div class="todays-attendance-card todays-attendance-card--<%= subject.attendance %>">
+  <div class="todays-attendance-left">
+    <div class="todays-attendance-left-content">
+      <img src="data:image/png;base64,<%= pageAssets[subject.attendance + 'Img'] %>" alt="present">
+      <p class="attendance-status">
+        <%= subject.attendance %>
+      </p>
+    </div>
+  </div>
+  <div class="todays-attendance-right">
+    <div class="todays-attendance-right-content">
+      <h5 class="class-name"><%= subject.sub_code %></h5>
+      <p class="class-time">Timing: <%= subject.time %></p>
+    </div>
+  </div>
+</div>

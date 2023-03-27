@@ -4,6 +4,7 @@ import Result from '../models/result.model.js';
 import buttons from './../botconfig/buttons.js';
 import templates from '../botconfig/templates.js';
 import dictionary from '../botconfig/dictionary.js';
+import generateAttendanceImage from '../utils/generate-image.js';
 
 export const processMessage = async (msgInfo) => {
   const { value, field } = msgInfo;
@@ -45,8 +46,7 @@ const processButtonMessage = async (button, messageFrom) => {
   else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result.name);
   else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance.name);
   else if (button === buttons.attendanceToday) {
-    message = await getTodaysAttendance(messageFrom);
-    await metaAPI.sendTextMessage(messageFrom, message);
+    await getTodaysAttendance(messageFrom);
   }
   else if (button === buttons.attendanceOverall) {
     message = await getOverallAttendance(messageFrom);
@@ -113,19 +113,9 @@ const processTextMessage = async (keyword, recipientNo) => {
 };
 
 const getTodaysAttendance = async (recipientNo) => {
-  let message = `*Today's Attendance*\n`;
-  const response = await Student.findOne(
-    { contact: recipientNo },
-    'id attendance.todays_attendance'
-  );
-  const { value: todays_attendance } = response.attendance.todays_attendance;
-  for (let subjectAttendance of todays_attendance) {
-    message += `
-Timing: ${subjectAttendance.time}
-Subject Code: ${subjectAttendance.sub_code}
-Attendance: ${subjectAttendance.attendance ? 'present' : 'absent'}\n`;
-  }
-  return message;
+	const { id } = await Student.findOne({ contact: recipientNo }, 'id');
+	const uri = `https://fa8b-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
+	await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
 const getOverallAttendance = async (recipientNo) => {
@@ -133,7 +123,7 @@ const getOverallAttendance = async (recipientNo) => {
   const response =  await Student.findOne(
     { contact: recipientNo },
     'id attendance.overall'
-  );
+  );  
   const { overall: overall_attendance } = response.attendance;
   for (let subjectAttendance of overall_attendance) {
     message += `
@@ -178,4 +168,33 @@ Grade: ${semResultMarks.grade}\n`;
   }
   message += `\n*Total CGPA: ${response.overall_cgpa}*`;
   return message;
+};
+
+// Webhook
+// Serve images and pdfs when requested from Meta
+export const getAttendanceImage = async (id, attendanceType) => {
+  let data, response;
+  switch (attendanceType) {
+    case 'today':
+			response = await Student.findOne(
+				{ id },
+				'name attendance.todays_attendance'
+			);
+			data = {
+				regNo: id,
+				name: response.name,
+				guardians: {
+					father: 'Mr. Sandeep Gupta',
+					mother: 'Mrs. Sangeeta Gupta'
+				},
+				courseCode: 'P132 :: Computer Science & Engineering',
+				session: '2021 - 2025',
+				attendance: response.attendance.todays_attendance.value
+			};
+      break;
+    case 'overall':
+      break;
+  }
+	const imageBuffer = await generateAttendanceImage(data, attendanceType);
+	return imageBuffer;
 };

@@ -26,3 +26,15 @@ export const processMessage = async (req, res) => {
     console.log(e);
   } 
 };
+
+export const getAttendanceImage = async (req, res) => {
+  try {
+    const { id, attendanceType } = req.query;
+    const imageBuffer = await webhookService.getAttendanceImage(id, attendanceType);
+    res.contentType('image/png');
+    res.setHeader('Content-disposition', 'inline; filename=Attendance.png');
+    res.send(imageBuffer);
+  } catch (e) {
+    console.log(e);
+  }
+};
