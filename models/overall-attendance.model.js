@@ -34,7 +34,8 @@ const OverallAttendance = sequelize.define('overall_attendance', {
   }
 }, {
   modelName: 'overall_attendance',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default OverallAttendance;

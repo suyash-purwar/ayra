@@ -1,16 +1,20 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/connect.js';
 
-const TodayAttendance = sequelize.define('today_attendance', {
+const CourseSubject = sequelize.define('course_subject', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   },
-  registratioNo: {
+  courseId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'course',
+      key: 'id'
+    }
   },
   subjectId: {
     type: DataTypes.INTEGER,
@@ -20,23 +24,26 @@ const TodayAttendance = sequelize.define('today_attendance', {
       key: 'id'
     }
   },
-  timing: {
-    type: DataTypes.STRING,
+  semester: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  lectureCount: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
-  attendanceStatus: {
-    type: DataTypes.ENUM,
-    values: ['P', 'A', 'N'],
+  tutorialCount: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
-  date: {
-    type: DataTypes.DATE,
+  practicalCount: {
+    type: DataTypes.INTEGER,
     allowNull: false
   }
 }, {
-  modelName: 'today_attendance',
+  modelName: 'course_subject',
   underscored: true,
   freezeTableName: true
 });
 
-export default TodayAttendance;
+export default CourseSubject;

@@ -34,7 +34,8 @@ const HostelLeave = sequelize.define('hostel_leave', {
   }
 }, {
   modelName: 'hostel_leave',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default HostelLeave;

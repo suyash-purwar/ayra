@@ -26,7 +26,8 @@ const Department = sequelize.define('department', {
   }
 }, {
   modelName: 'department',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Department;

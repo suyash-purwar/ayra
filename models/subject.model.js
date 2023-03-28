@@ -10,19 +10,17 @@ const Subject = sequelize.define('subject', {
   },
   subjectCode: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: 6
-    }
+    allowNull: false
   },
   credit: {
     type: DataTypes.ENUM,
-    values: [0, 1, 2, 3, 4],
+    values: ['0', '1', '2', '3', '4'],
     allowNull: false
   }
 }, {
   modelName: 'subject',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Subject;

@@ -11,22 +11,11 @@ const Course = sequelize.define('course', {
   courseCode: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  semester: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  subjectId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'subject',
-      key: 'id'
-    }
   }
 }, {
   modelName: 'course',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Course;

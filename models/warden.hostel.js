@@ -35,7 +35,8 @@ const Warden = sequelize.define('hostel', {
   }
 }, {
   modelName: 'warden',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Warden;

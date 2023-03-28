@@ -48,7 +48,8 @@ const Result = sequelize.define('result', {
   }
 }, {
   modelName: 'result',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Result;

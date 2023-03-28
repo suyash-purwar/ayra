@@ -35,7 +35,7 @@ const Student = sequelize.define('student', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'courses',
+      model: 'course',
       key: 'id'
     }
   },
@@ -43,7 +43,7 @@ const Student = sequelize.define('student', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'mentors',
+      model: 'mentor',
       key: 'id'
     }
   },
@@ -51,7 +51,7 @@ const Student = sequelize.define('student', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'hostels',
+      model: 'hostel',
       key: 'id'
     }
   },
@@ -81,7 +81,8 @@ const Student = sequelize.define('student', {
   }
 }, {
   modelName: 'student',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Student;

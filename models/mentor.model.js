@@ -29,7 +29,8 @@ const Mentor = sequelize.define('mentor', {
   }
 }, {
   modelName: 'mentor',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Mentor;

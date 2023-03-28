@@ -14,10 +14,20 @@ const Hostel = sequelize.define('hostel', {
     validate: {
       len: 3
     }
+  },
+  /**
+   * Sample
+   * blocks: {'A', 'B', 'C', 'D'}
+   */
+  blocks: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    allowNull: false,
+    // Add calidator to validae if the items inside the array are capitalized character
   }
 }, {
   modelName: 'hostel',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default Hostel;

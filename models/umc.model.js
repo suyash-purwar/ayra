@@ -34,7 +34,8 @@ const UMC = sequelize.define('umc', {
   }
 }, {
   modelName: 'umc',
-  underscored: true
+  underscored: true,
+  freezeTableName: true
 });
 
 export default UMC;
