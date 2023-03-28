@@ -8,7 +8,7 @@ const OverallAttendance = sequelize.define('overall_attendance', {
     autoIncrement: true,
     primaryKey: true,
   },
-  registratioNo: {
+  registrationNo: {
     type: DataTypes.INTEGER,
     allowNull: false
   },

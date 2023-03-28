@@ -39,6 +39,10 @@ const Student = sequelize.define('student', {
       key: 'id'
     }
   },
+  semester: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   mentorId: {
     type: DataTypes.INTEGER,
     allowNull: false,

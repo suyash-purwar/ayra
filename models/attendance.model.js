@@ -1,14 +1,14 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/connect.js';
 
-const TodayAttendance = sequelize.define('today_attendance', {
+const Attendance = sequelize.define('attendance', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
   },
-  registratioNo: {
+  registrationNo: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
@@ -20,9 +20,13 @@ const TodayAttendance = sequelize.define('today_attendance', {
       key: 'id'
     }
   },
-  timing: {
-    type: DataTypes.STRING,
-    allowNull: false
+  hourSlot: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'hour_slot',
+      key: 'id'
+    }
   },
   attendanceStatus: {
     type: DataTypes.ENUM,
@@ -34,9 +38,9 @@ const TodayAttendance = sequelize.define('today_attendance', {
     allowNull: false
   }
 }, {
-  modelName: 'today_attendance',
+  modelName: 'attendance',
   underscored: true,
   freezeTableName: true
 });
 
-export default TodayAttendance;
+export default Attendance;

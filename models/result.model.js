@@ -8,7 +8,7 @@ const Result = sequelize.define('result', {
     autoIncrement: true,
     primaryKey: true,
   },
-  registratioNo: {
+  registrationNo: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
@@ -38,13 +38,7 @@ const Result = sequelize.define('result', {
    */
   marks: {
     type: DataTypes.ARRAY(DataTypes.JSON),
-    allowNull: false,
-    get() {
-      return JSON.parse(this.getDataValue('marks'));
-    },
-    set(value) {
-      return this.setDataValue('marks', JSON.stringify(value));
-    }
+    allowNull: false
   }
 }, {
   modelName: 'result',

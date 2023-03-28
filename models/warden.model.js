@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/connect.js';
 
-const Warden = sequelize.define('hostel', {
+const Warden = sequelize.define('warden', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -30,7 +30,7 @@ const Warden = sequelize.define('hostel', {
     allowNull: false
   },
   contact: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false
   }
 }, {
