@@ -114,7 +114,7 @@ const processTextMessage = async (keyword, recipientNo) => {
 
 const getTodaysAttendance = async (recipientNo) => {
 	const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-	const uri = `https://fa8b-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
+	const uri = `https://80f6-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
 	await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
