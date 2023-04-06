@@ -8,23 +8,23 @@ import generateAttendanceImage from '../utils/generate-image.js';
 import { Op } from 'sequelize';
 import sequelize from '../db/connect.js';
 
-export const processMessage = async (msgInfo) => {
+export const processMessage = async (msgInfo, student) => {
   const { value, field } = msgInfo;
 
   if (field !== 'messages') return res.sendStatus(403);
 
   if ('messages' in value) {
-    const messageFrom = +value.contacts[0].wa_id
+    const messageFrom = +value.contacts[0].wa_id;
     const messageType = value.messages[0].type;
     switch (messageType) {
       case 'button':
         const button = value.messages[0].button.text;
-        await processButtonMessage(button, messageFrom);
+        await processButtonMessage(button, messageFrom, student);
         break;
       case 'text':
         const message = value.messages[0].text.body;
         const keyword = classifyMsg(message);
-        await processTextMessage(keyword, messageFrom);
+        await processTextMessage(keyword, messageFrom, student);
         break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
@@ -41,25 +41,25 @@ export const processMessage = async (msgInfo) => {
   }
 };
 
-const processButtonMessage = async (button, messageFrom) => {
+const processButtonMessage = async (button, messageFrom, student) => {
   let message;
   if (button === buttons.hey) await metaAPI.sendMenu(messageFrom, templates.hello.name);
   else if (button === buttons.help) await metaAPI.sendMenu(messageFrom, templates.help.name);
   else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result.name);
   else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance.name);
   else if (button === buttons.attendanceToday) {
-    await getTodaysAttendance(messageFrom);
+    await getTodaysAttendance(messageFrom, student);
   }
   else if (button === buttons.attendanceOverall) {
-    message = await getOverallAttendance(messageFrom);
+    message = await getOverallAttendance(messageFrom, student);
     await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.resultLastSemester) {
-    message = await getLastSemResult(messageFrom);
+    message = await getLastSemResult(messageFrom, student);
     await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.resultPreviousSemester) {
-    message = await getPreviousSemResult(messageFrom);
+    message = await getPreviousSemResult(messageFrom, student);
     await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, templates.moreOptions.name);
@@ -91,7 +91,7 @@ const classifyMsg = (msgText) => {
   return intent;
 };
 
-const processTextMessage = async (keyword, recipientNo) => {
+const processTextMessage = async (keyword, recipientNo, student) => {
   switch (keyword) {
     case 'hello':
       await metaAPI.sendMenu(recipientNo, templates.hello.name);
@@ -114,32 +114,14 @@ const processTextMessage = async (keyword, recipientNo) => {
   }
 };
 
-const getTodaysAttendance = async (recipientNo) => {
-  const student = await Student.findOne({
-    where: {
-      [Op.or]: [
-        { fatherContact: recipientNo.toString() },
-        { motherContact: recipientNo.toString() }
-      ]
-    },
-    attributes: [ 'registrationNo' ]
-  });
+const getTodaysAttendance = async (recipientNo, student) => {
   console.log(JSON.stringify(student));
 	// const { id } = await Student.findOne({ contact: recipientNo }, 'id');
 	// const uri = `https://fa8b-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
 	// await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
-const getOverallAttendance = async (recipientNo) => {
-  const student = await Student.findOne({
-    where: {
-      [Op.or]: [
-        { fatherContact: recipientNo.toString() },
-        { motherContact: recipientNo.toString() }
-      ]
-    },
-    attributes: [ 'registrationNo', 'semester' ]
-  });
+const getOverallAttendance = async (recipientNo, student) => {
   const [ attendance ] = await sequelize.query(`
 SELECT
 	subject_code,
@@ -158,7 +140,7 @@ Total Attendance: ${subjectAttendance.attendance}%\n`;
   return message;
 };
 
-const getLastSemResult = async (recipientNo) => {
+const getLastSemResult = async (recipientNo, student) => {
   const { id } = await Student.findOne({ contact: recipientNo }, 'id');
   let response = await Result.findOne(
     { id },
@@ -175,7 +157,7 @@ Grade: ${semResultMarks.grade}\n`;
   return message;
 };
 
-const getPreviousSemResult = async (recipientNo) => {
+const getPreviousSemResult = async (recipientNo, student) => {
   const { id } = await Student.findOne({ contact: recipientNo }, 'id');
   let response = await Result.findOne(
     { id },
