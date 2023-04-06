@@ -5,6 +5,8 @@ import buttons from './../botconfig/buttons.js';
 import templates from '../botconfig/templates.js';
 import dictionary from '../botconfig/dictionary.js';
 import generateAttendanceImage from '../utils/generate-image.js';
+import { Op } from 'sequelize';
+import sequelize from '../db/connect.js';
 
 export const processMessage = async (msgInfo) => {
   const { value, field } = msgInfo;
@@ -113,21 +115,44 @@ const processTextMessage = async (keyword, recipientNo) => {
 };
 
 const getTodaysAttendance = async (recipientNo) => {
-	const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-	const uri = `https://fa8b-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
-	await metaAPI.sendImageMessage(recipientNo, uri);
+  const student = await Student.findOne({
+    where: {
+      [Op.or]: [
+        { fatherContact: recipientNo.toString() },
+        { motherContact: recipientNo.toString() }
+      ]
+    },
+    attributes: [ 'registrationNo' ]
+  });
+  console.log(JSON.stringify(student));
+	// const { id } = await Student.findOne({ contact: recipientNo }, 'id');
+	// const uri = `https://fa8b-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
+	// await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
 const getOverallAttendance = async (recipientNo) => {
+  const student = await Student.findOne({
+    where: {
+      [Op.or]: [
+        { fatherContact: recipientNo.toString() },
+        { motherContact: recipientNo.toString() }
+      ]
+    },
+    attributes: [ 'registrationNo', 'semester' ]
+  });
+  const [ attendance ] = await sequelize.query(`
+SELECT
+	subject_code,
+	attendance
+FROM overall_attendance oa
+LEFT JOIN subject
+	ON subject.id = oa.subject_id
+WHERE registration_no=${student.registrationNo} AND semester=${student.semester};
+  `);
   let message = `*Overall Attendance*\n`;
-  const response =  await Student.findOne(
-    { contact: recipientNo },
-    'id attendance.overall'
-  );  
-  const { overall: overall_attendance } = response.attendance;
-  for (let subjectAttendance of overall_attendance) {
+  for (let subjectAttendance of attendance) {
     message += `
-Subject Code: ${subjectAttendance.sub_code}
+Subject: ${subjectAttendance.subject_code}
 Total Attendance: ${subjectAttendance.attendance}%\n`;
   }
   return message;
