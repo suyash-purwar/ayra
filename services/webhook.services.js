@@ -123,37 +123,45 @@ const getTodaysAttendance = async (recipientNo, student) => {
 
 const getOverallAttendance = async (recipientNo, student) => {
   const [ attendance ] = await sequelize.query(`
-SELECT
-	subject_code,
-	attendance
-FROM overall_attendance oa
-LEFT JOIN subject
-	ON subject.id = oa.subject_id
-WHERE registration_no=${student.registrationNo} AND semester=${student.semester};
+    SELECT
+      subject_code,
+      attendance
+    FROM overall_attendance oa
+    LEFT JOIN subject
+      ON subject.id = oa.subject_id
+    WHERE registration_no=${student.registrationNo} AND semester=${student.semester};
   `);
   let message = `*Overall Attendance*\n`;
   for (let subjectAttendance of attendance) {
     message += `
 Subject: ${subjectAttendance.subject_code}
-Total Attendance: ${subjectAttendance.attendance}%\n`;
+Attendance: ${subjectAttendance.attendance}%\n`;
   }
   return message;
 };
 
 const getLastSemResult = async (recipientNo, student) => {
-  const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-  let response = await Result.findOne(
-    { id },
-    'overall_cgpa semester_result'
-  );
-  const lastSem = response.semester_result[response.semester_result.length-1];
-  let message = `*Result of last semester (Semester: ${lastSem.semester})*\n`;
-  for (let semResultMarks of lastSem.marks) {
+  const [ result ] = await sequelize.query(`
+    SELECT semester, subject_code, grade, tgpa FROM (
+      SELECT
+        semester,
+        tgpa,
+        unnest(marks) ->> 'subjectId' AS subject_id,
+        unnest(marks) ->> 'grade' AS grade
+      FROM result
+      WHERE registration_no=${student.registrationNo} AND semester=${student.semester}
+    ) AS new_result
+    LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
+    ORDER BY semester;
+  `);
+  console.log(result);
+  let message = `*Result of last semester (Semester: ${student.semester})*\n`;
+  for (let subjectGrade of result) {
     message += `
-Subject Code: ${semResultMarks.sub_code}
-Grade: ${semResultMarks.grade}\n`;
+Subject Code: ${subjectGrade.subject_code}
+Grade: ${subjectGrade.grade}\n`;
   }
-  message += `\n*Semester ${lastSem.semester} TGPA: ${lastSem.tgpa}*`
+  message += `\n*Semester ${student.semester} TGPA: ${result[0].tgpa}*`
   return message;
 };
 
