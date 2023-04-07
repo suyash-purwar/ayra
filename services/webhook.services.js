@@ -115,10 +115,8 @@ const processTextMessage = async (keyword, recipientNo, student) => {
 };
 
 const getTodaysAttendance = async (recipientNo, student) => {
-  console.log(JSON.stringify(student));
-	// const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-	// const uri = `https://fa8b-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
-	// await metaAPI.sendImageMessage(recipientNo, uri);
+	const uri = `https://c563-49-156-108-121.ngrok.io/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=today`;
+	await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
 const getOverallAttendance = async (recipientNo, student) => {
@@ -188,28 +186,44 @@ Grade: ${semResultMarks.grade}\n`;
 // Webhook
 // Serve images and pdfs when requested from Meta
 export const getAttendanceImage = async (id, attendanceType) => {
-  let data, response;
+  const [ student ] = await sequelize.query(`
+    SELECT 
+      first_name,
+      middle_name,
+      last_name,
+      course_code
+    FROM student
+    LEFT JOIN course c
+      ON c.id = student.course_id
+    WHERE registration_no=${id};
+  `);
+  let data;
   switch (attendanceType) {
     case 'today':
-			response = await Student.findOne(
-				{ id },
-				'name attendance.todays_attendance'
-			);
-			data = {
-				regNo: id,
-				name: response.name,
-				guardians: {
-					father: 'Mr. Sandeep Gupta',
-					mother: 'Mrs. Sangeeta Gupta'
-				},
-				courseCode: 'P132 :: Computer Science & Engineering',
-				session: '2021 - 2025',
-				attendance: response.attendance.todays_attendance.value
-			};
+      const [ attendance ] = await sequelize.query(`
+        SELECT
+          subject_code,
+          hs.slot,
+          attendance_status,
+          date
+        FROM attendance
+        LEFT JOIN subject s
+          ON s.id = attendance.subject_id
+        LEFT JOIN hour_slot hs
+          ON hs.id = attendance.hour_slot
+        WHERE registration_no=${id}
+        ORDER BY date, hour_slot;
+      `);
+      data = {
+        registrationNo: id,
+        name: `${student[0].first_name} ${student[0].middle_name || ''} ${student[0].last_name}`,
+        courseCode: student[0].course_code,
+        attendance
+      };
       break;
     case 'overall':
       break;
   }
-	const imageBuffer = await generateAttendanceImage(data, attendanceType);
-	return imageBuffer;
+  const imageBuffer = await generateAttendanceImage(data, attendanceType);
+  return imageBuffer;
 };

@@ -1,16 +1,26 @@
-<div class="todays-attendance-card todays-attendance-card--<%= subject.attendance %>">
+<% let attendanceStatus; %>
+<% console.log(subject.attendance_status); %>
+<% if (subject.attendance_status === 'P') { %>
+  <% attendanceStatus = 'present'; %>
+<% } else if (subject.attendance_status === 'A') { %> 
+  <% attendanceStatus = 'absent'; %>
+<% } else if (subject.attendance_status === 'N') { %>
+  <% attendanceStatus = 'waiting'; %>
+<% } %>
+
+<div class="todays-attendance-card todays-attendance-card--<%= attendanceStatus %>">
   <div class="todays-attendance-left">
     <div class="todays-attendance-left-content">
-      <img src="data:image/png;base64,<%= pageAssets[subject.attendance + 'Img'] %>" alt="present">
+      <img src="data:image/png;base64,<%= pageAssets[attendanceStatus + 'Img'] %>" alt="present">
       <p class="attendance-status">
-        <%= subject.attendance %>
+        <%= attendanceStatus[0].toUpperCase() + attendanceStatus.slice(1) %>
       </p>
     </div>
   </div>
   <div class="todays-attendance-right">
     <div class="todays-attendance-right-content">
-      <h5 class="class-name"><%= subject.sub_code %></h5>
-      <p class="class-time">Timing: <%= subject.time %></p>
+      <h5 class="class-name"><%= subject.subject_code %></h5>
+      <p class="class-time">Timing: <%= subject.slot %></p>
     </div>
   </div>
 </div>
