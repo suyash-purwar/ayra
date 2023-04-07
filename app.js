@@ -1,33 +1,22 @@
 import express from 'express';
-import * as dotenv from 'dotenv';
 import routes from './routes/index.js';
-import connectBD from './db/connect.js';
+import sequelize from './db/connect.js';
+import loadConfig from './utils/config.js';
 
+loadConfig();
 const app = express();
-
-// Sets environment variables for development mode
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config({
-    path: `.env.dev`
-  });
-}
 
 app.use(express.urlencoded({
   extended: true
 }));
-app.use(express.json());
-app.use(routes);
 
-app.get('/', (req, res) => {
-  res.send({
-    status: 'Successful',
-    message: 'We are live! ✅'
-  });
-});
-
-connectBD()
-.then(() => {
-  app.listen(process.env.PORT, async () => {
-    console.log(`App is running on PORT=${process.env.PORT} ✅`)
-  });
+app.listen(process.env.PORT, async () => {
+  try {
+    console.log(`App is running on PORT=${process.env.PORT}. ✅`);
+    await sequelize.authenticate();
+    console.log('Database connection established. ✅');
+  } catch (e) {
+    console.log('Database connection failed. 🔴');
+    console.log(e.message);
+  }
 });

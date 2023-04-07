@@ -1,101 +1,92 @@
-import mongoose from 'mongoose';
+import { DataTypes } from 'sequelize';
+import sequelize from '../db/connect.js';
 
-mongoose.pluralize(null);
-
-const Student = mongoose.model('student', new mongoose.Schema({
+const Student = sequelize.define('student', {
   id: {
-    type: Number,
-    required: true
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true
   },
-  name: {
-    type: String,
-    required: true
+  registrationNo: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  firstName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  middleName: {
+    type: DataTypes.STRING,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  session: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   contact: {
-    type: String,
-    required: true
+    type: DataTypes.STRING,
+    allowNull: false
   },
-  guardians: {
-    name: {
-      type: String,
-      required: true
-    },
-    contact: {
-      type: String,
-      required: true
-    },
-    relation: {
-      type: String
+  courseId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'course',
+      key: 'id'
     }
   },
-  attendance: {
-    overall: [
-      {
-        sub_code: {
-          type: String,
-          required: true
-        },
-        attendance: {
-          type: Number,
-          required: true
-        }
-      }
-    ],
-    todays_attendance: {
-      date: Date,
-      value: [
-        {
-          sub_code: {
-            type: String,
-            required: true
-          },
-          time: {
-            type: String,
-            required: true
-          },
-          attendance: {
-            type: String,
-            required: true,
-            enum: ['present', 'absent', 'waiting']
-          },
-          type: {
-            type: String,
-            enum: ['L', 'T', 'P']
-          }
-        }
-      ]
+  semester: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  mentorId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'mentor',
+      key: 'id'
     }
   },
-  mentor: {
-    name: {
-      type: String,
-      required: true
-    },
-    contact: {
-      type: String,
-      required: true
+  hostelId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'hostel',
+      key: 'id'
     }
   },
-  is_hosteller: {
-    type: Boolean,
-    required: true
+  fatherName: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-  hostel: {
-    code: {
-      type: String
-    },
-    block: {
-      type: String,
-      enum: ['A', 'B', 'C', 'D', 'E']
-    },
-    room_no: {
-      type: Number
-    },
-    bed: {
-      type: String,
-      enum: ['A', 'B', 'C', 'D']
-    }
+  fatherContact: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  motherName: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  motherContact: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  section: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  rollNo: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
-}));
+}, {
+  modelName: 'student',
+  underscored: true,
+  freezeTableName: true
+});
 
 export default Student;

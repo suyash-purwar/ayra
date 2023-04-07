@@ -1,14 +1,15 @@
-import mongoose from 'mongoose';
+import { Sequelize } from 'sequelize';
+import loadConfig from '../utils/config.js';
 
-export default async function connectBD() {
-  const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/lpu-bot-prototype';
-  try {
-    mongoose.set('strictQuery', false);
-    await mongoose.connect(MONGODB_URI);
-    console.log('Database connection established on mongodb://localhost:27017/lpu-bot-prototype. ✅');
-  } catch (e) {
-    console.log('Database connection failed. 🛑');
-    console.log(e.message);
-    console.log(e);
-  }
-};
+loadConfig();
+
+const sequelize = new Sequelize({
+  database: process.env.POSTGRES_DB_NAME,
+  username: process.env.POSTGRES_DB_USER,
+  password: process.env.POSTGRES_DB_PASSWORD,
+  host: process.env.POSTGRES_HOST,
+  port: process.env.POSTGRES_PORT,
+  dialect: 'postgres'
+});
+
+export default sequelize;

@@ -1,28 +1,28 @@
 import * as metaAPI from './../apis/meta.api.js';
-import Student from '../models/student.model.js';
-import Result from '../models/result.model.js';
 import buttons from './../botconfig/buttons.js';
 import templates from '../botconfig/templates.js';
 import dictionary from '../botconfig/dictionary.js';
 import generateAttendanceImage from '../utils/generate-image.js';
+import { Op } from 'sequelize';
+import sequelize from '../db/connect.js';
 
-export const processMessage = async (msgInfo) => {
+export const processMessage = async (msgInfo, student) => {
   const { value, field } = msgInfo;
 
   if (field !== 'messages') return res.sendStatus(403);
 
   if ('messages' in value) {
-    const messageFrom = +value.contacts[0].wa_id
+    const messageFrom = +value.contacts[0].wa_id;
     const messageType = value.messages[0].type;
     switch (messageType) {
       case 'button':
         const button = value.messages[0].button.text;
-        await processButtonMessage(button, messageFrom);
+        await processButtonMessage(button, messageFrom, student);
         break;
       case 'text':
         const message = value.messages[0].text.body;
         const keyword = classifyMsg(message);
-        await processTextMessage(keyword, messageFrom);
+        await processTextMessage(keyword, messageFrom, student);
         break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
@@ -39,25 +39,25 @@ export const processMessage = async (msgInfo) => {
   }
 };
 
-const processButtonMessage = async (button, messageFrom) => {
+const processButtonMessage = async (button, messageFrom, student) => {
   let message;
   if (button === buttons.hey) await metaAPI.sendMenu(messageFrom, templates.hello.name);
   else if (button === buttons.help) await metaAPI.sendMenu(messageFrom, templates.help.name);
   else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result.name);
   else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance.name);
   else if (button === buttons.attendanceToday) {
-    await getTodaysAttendance(messageFrom);
+    await getTodaysAttendance(messageFrom, student);
   }
   else if (button === buttons.attendanceOverall) {
-    message = await getOverallAttendance(messageFrom);
+    message = await getOverallAttendance(messageFrom, student);
     await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.resultLastSemester) {
-    message = await getLastSemResult(messageFrom);
+    message = await getLastSemResult(messageFrom, student);
     await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.resultPreviousSemester) {
-    message = await getPreviousSemResult(messageFrom);
+    message = await getPreviousSemResult(messageFrom, student);
     await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, templates.moreOptions.name);
@@ -89,7 +89,7 @@ const classifyMsg = (msgText) => {
   return intent;
 };
 
-const processTextMessage = async (keyword, recipientNo) => {
+const processTextMessage = async (keyword, recipientNo, student) => {
   switch (keyword) {
     case 'hello':
       await metaAPI.sendMenu(recipientNo, templates.hello.name);
@@ -112,89 +112,126 @@ const processTextMessage = async (keyword, recipientNo) => {
   }
 };
 
-const getTodaysAttendance = async (recipientNo) => {
-	const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-	const uri = `https://80f6-112-196-33-226.ngrok.io/webhook/getAttendanceImage?id=${id}&attendanceType=today`;
+const getTodaysAttendance = async (recipientNo, student) => {
+	const uri = `https://c563-49-156-108-121.ngrok.io/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=today`;
 	await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
-const getOverallAttendance = async (recipientNo) => {
+const getOverallAttendance = async (recipientNo, student) => {
+  const [ attendance ] = await sequelize.query(`
+    SELECT
+      subject_code,
+      attendance
+    FROM overall_attendance oa
+    LEFT JOIN subject
+      ON subject.id = oa.subject_id
+    WHERE registration_no=${student.registrationNo} AND semester=${student.semester};
+  `);
   let message = `*Overall Attendance*\n`;
-  const response =  await Student.findOne(
-    { contact: recipientNo },
-    'id attendance.overall'
-  );  
-  const { overall: overall_attendance } = response.attendance;
-  for (let subjectAttendance of overall_attendance) {
+  for (let subjectAttendance of attendance) {
     message += `
-Subject Code: ${subjectAttendance.sub_code}
-Total Attendance: ${subjectAttendance.attendance}%\n`;
+Subject: ${subjectAttendance.subject_code}
+Attendance: ${subjectAttendance.attendance}%\n`;
   }
   return message;
 };
 
-const getLastSemResult = async (recipientNo) => {
-  const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-  let response = await Result.findOne(
-    { id },
-    'overall_cgpa semester_result'
-  );
-  const lastSem = response.semester_result[response.semester_result.length-1];
-  let message = `*Result of last semester (Semester: ${lastSem.semester})*\n`;
-  for (let semResultMarks of lastSem.marks) {
+const getLastSemResult = async (recipientNo, student) => {
+  const [ result ] = await sequelize.query(`
+    SELECT semester, subject_code, grade, tgpa FROM (
+      SELECT
+        semester,
+        tgpa,
+        unnest(marks) ->> 'subjectId' AS subject_id,
+        unnest(marks) ->> 'grade' AS grade
+      FROM result
+      WHERE registration_no=${student.registrationNo} AND semester=${student.semester}
+    ) AS new_result
+    LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
+    ORDER BY semester;
+  `);
+  let message = `*Result of last semester (Semester: ${student.semester})*\n`;
+  for (let subjectGrade of result) {
     message += `
-Subject Code: ${semResultMarks.sub_code}
-Grade: ${semResultMarks.grade}\n`;
+Subject Code: ${subjectGrade.subject_code}
+Grade: ${subjectGrade.grade}\n`;
   }
-  message += `\n*Semester ${lastSem.semester} TGPA: ${lastSem.tgpa}*`
+  message += `\n*Semester ${student.semester} TGPA: ${result[0].tgpa}*`
   return message;
 };
 
-const getPreviousSemResult = async (recipientNo) => {
-  const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-  let response = await Result.findOne(
-    { id },
-    'overall_cgpa semester_result'
-  );
-  let message = `*Result of all the semesters*\n\n`;
-  for (let semResult of response.semester_result) {
-    message += `_Semester ${semResult.semester} result:_\n`;
-    for (let semResultMarks of semResult.marks) {
-      message += `
-Subject Code: ${semResultMarks.sub_code}
-Grade: ${semResultMarks.grade}\n`;
+const getPreviousSemResult = async (recipientNo, student) => {
+  const [ result ] = await sequelize.query(`
+    SELECT semester, subject_code, grade, tgpa FROM (
+      SELECT
+        semester,
+        tgpa,
+        unnest(marks) ->> 'subjectId' AS subject_id,
+        unnest(marks) ->> 'grade' AS grade
+      FROM result
+      WHERE registration_no=${student.registrationNo}
+    ) AS new_result
+    LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
+    ORDER BY semester;
+  `);
+  let message = `*RESULT OF PREVIOUS ALL SEMESTERS*\n\n`;
+  let initialSem = null; let previousSubject;
+  for (let subject of result) {
+    if (initialSem != subject.semester) {
+      if (initialSem) message += `\n*Semester ${previousSubject.semester} TGPA: ${previousSubject.tgpa}*\n\n`;
+      initialSem = subject.semester;
+      previousSubject = subject;
+      message += `*Semester ${subject.semester} Result:*\n`;
     }
-    message += `\n*Semester ${semResult.semester} TGPA: ${semResult.tgpa}*\n\n`
+    message += `
+Subject Code: ${subject.subject_code}
+Grade: ${subject.grade}\n`;
   }
-  message += `\n*Total CGPA: ${response.overall_cgpa}*`;
+  message += `\n*Semester ${previousSubject.semester} TGPA: ${previousSubject.tgpa}*\n\n`;
   return message;
 };
 
 // Webhook
 // Serve images and pdfs when requested from Meta
 export const getAttendanceImage = async (id, attendanceType) => {
-  let data, response;
+  const [ student ] = await sequelize.query(`
+    SELECT 
+      first_name,
+      middle_name,
+      last_name,
+      course_code
+    FROM student
+    LEFT JOIN course c
+      ON c.id = student.course_id
+    WHERE registration_no=${id};
+  `);
+  let data;
   switch (attendanceType) {
     case 'today':
-			response = await Student.findOne(
-				{ id },
-				'name attendance.todays_attendance'
-			);
-			data = {
-				regNo: id,
-				name: response.name,
-				guardians: {
-					father: 'Mr. Sandeep Gupta',
-					mother: 'Mrs. Sangeeta Gupta'
-				},
-				courseCode: 'P132 :: Computer Science & Engineering',
-				session: '2021 - 2025',
-				attendance: response.attendance.todays_attendance.value
-			};
+      const [ attendance ] = await sequelize.query(`
+        SELECT
+          subject_code,
+          hs.slot,
+          attendance_status,
+          date
+        FROM attendance
+        LEFT JOIN subject s
+          ON s.id = attendance.subject_id
+        LEFT JOIN hour_slot hs
+          ON hs.id = attendance.hour_slot
+        WHERE registration_no=${id}
+        ORDER BY date, hour_slot;
+      `);
+      data = {
+        registrationNo: id,
+        name: `${student[0].first_name} ${student[0].middle_name || ''} ${student[0].last_name}`,
+        courseCode: student[0].course_code,
+        attendance
+      };
       break;
     case 'overall':
       break;
   }
-	const imageBuffer = await generateAttendanceImage(data, attendanceType);
-	return imageBuffer;
+  const imageBuffer = await generateAttendanceImage(data, attendanceType);
+  return imageBuffer;
 };

@@ -1,33 +1,36 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/connect.js';
 
-const Result = sequelize.define('result', {
+const Mentor = sequelize.define('mentor', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   },
   registrationNo: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  semester: {
-    type: DataTypes.INTEGER,
+  firstName: {
+    type: DataTypes.STRING,
     allowNull: false
   },
-  tgpa: {
-    type: DataTypes.FLOAT,
+  middleName: {
+    type: DataTypes.STRING
+  },
+  lastName: {
+    type: DataTypes.STRING,
     allowNull: false
   },
-  marks: {
-    type: DataTypes.ARRAY(DataTypes.JSON),
+  contact: {
+    type: DataTypes.STRING,
     allowNull: false
   }
 }, {
-  modelName: 'result',
+  modelName: 'mentor',
   underscored: true,
   freezeTableName: true
 });
 
-export default Result;
+export default Mentor;

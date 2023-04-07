@@ -15,6 +15,7 @@ Tables present in the system:
 9. Today's Attendance table
 10. Hostel Leave table
 11. UMC Cases table
+12. Warden table
 
 ### Student Table Schema
 

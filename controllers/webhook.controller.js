@@ -19,7 +19,9 @@ export const verifyWebhook = (req, res) => {
 export const processMessage = async (req, res) => {
   try {
     const msg = req.body.entry[0].changes[0];
-    await webhookService.processMessage(msg);
+    const { student } = req.body;
+
+    await webhookService.processMessage(msg, student);
     res.sendStatus(200);
   } catch (e) {
     res.sendStatus(200);

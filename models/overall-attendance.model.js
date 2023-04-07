@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/connect.js';
 
-const Result = sequelize.define('result', {
+const OverallAttendance = sequelize.define('overall_attendance', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -16,18 +16,26 @@ const Result = sequelize.define('result', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  tgpa: {
-    type: DataTypes.FLOAT,
-    allowNull: false
+  subjectId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'subject',
+      key: 'id'
+    }
   },
-  marks: {
-    type: DataTypes.ARRAY(DataTypes.JSON),
-    allowNull: false
+  attendance: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: {
+      max: 100,
+      min: 0
+    }
   }
 }, {
-  modelName: 'result',
+  modelName: 'overall_attendance',
   underscored: true,
   freezeTableName: true
 });
 
-export default Result;
+export default OverallAttendance;
