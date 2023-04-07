@@ -1,6 +1,4 @@
 import * as metaAPI from './../apis/meta.api.js';
-import Student from '../models/student.model.js';
-import Result from '../models/result.model.js';
 import buttons from './../botconfig/buttons.js';
 import templates from '../botconfig/templates.js';
 import dictionary from '../botconfig/dictionary.js';
