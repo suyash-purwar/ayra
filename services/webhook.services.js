@@ -152,7 +152,6 @@ const getLastSemResult = async (recipientNo, student) => {
     LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
     ORDER BY semester;
   `);
-  console.log(result);
   let message = `*Result of last semester (Semester: ${student.semester})*\n`;
   for (let subjectGrade of result) {
     message += `
@@ -164,22 +163,33 @@ Grade: ${subjectGrade.grade}\n`;
 };
 
 const getPreviousSemResult = async (recipientNo, student) => {
-  const { id } = await Student.findOne({ contact: recipientNo }, 'id');
-  let response = await Result.findOne(
-    { id },
-    'overall_cgpa semester_result'
-  );
-  let message = `*Result of all the semesters*\n\n`;
-  for (let semResult of response.semester_result) {
-    message += `_Semester ${semResult.semester} result:_\n`;
-    for (let semResultMarks of semResult.marks) {
-      message += `
-Subject Code: ${semResultMarks.sub_code}
-Grade: ${semResultMarks.grade}\n`;
+  const [ result ] = await sequelize.query(`
+    SELECT semester, subject_code, grade, tgpa FROM (
+      SELECT
+        semester,
+        tgpa,
+        unnest(marks) ->> 'subjectId' AS subject_id,
+        unnest(marks) ->> 'grade' AS grade
+      FROM result
+      WHERE registration_no=${student.registrationNo}
+    ) AS new_result
+    LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
+    ORDER BY semester;
+  `);
+  let message = `*RESULT OF PREVIOUS ALL SEMESTERS*\n\n`;
+  let initialSem = null; let previousSubject;
+  for (let subject of result) {
+    if (initialSem != subject.semester) {
+      if (initialSem) message += `\n*Semester ${previousSubject.semester} TGPA: ${previousSubject.tgpa}*\n\n`;
+      initialSem = subject.semester;
+      previousSubject = subject;
+      message += `*Semester ${subject.semester} Result:*\n`;
     }
-    message += `\n*Semester ${semResult.semester} TGPA: ${semResult.tgpa}*\n\n`
+    message += `
+Subject Code: ${subject.subject_code}
+Grade: ${subject.grade}\n`;
   }
-  message += `\n*Total CGPA: ${response.overall_cgpa}*`;
+  message += `\n*Semester ${previousSubject.semester} TGPA: ${previousSubject.tgpa}*\n\n`;
   return message;
 };
 
