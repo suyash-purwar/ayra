@@ -6,9 +6,15 @@ import loadConfig from './utils/config.js';
 loadConfig();
 const app = express();
 
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(express.json());
+app.use(routes);
+
+app.get('/', (req, res) => {
+  res.send({
+    status: 'Successful',
+    message: 'We are live! ✅'
+  });
+});
 
 app.listen(process.env.PORT, async () => {
   try {

@@ -3,8 +3,9 @@ import buttons from './../botconfig/buttons.js';
 import templates from '../botconfig/templates.js';
 import dictionary from '../botconfig/dictionary.js';
 import generateAttendanceImage from '../utils/generate-image.js';
-import { Op } from 'sequelize';
 import sequelize from '../db/connect.js';
+import loadConfig from '../utils/config.js';
+loadConfig();
 
 export const processMessage = async (msgInfo, student) => {
   const { value, field } = msgInfo;
@@ -49,8 +50,7 @@ const processButtonMessage = async (button, messageFrom, student) => {
     await getTodaysAttendance(messageFrom, student);
   }
   else if (button === buttons.attendanceOverall) {
-    message = await getOverallAttendance(messageFrom, student);
-    await metaAPI.sendTextMessage(messageFrom, message);
+    await getOverallAttendance(messageFrom, student);
   }
   else if (button === buttons.resultLastSemester) {
     message = await getLastSemResult(messageFrom, student);
@@ -113,27 +113,15 @@ const processTextMessage = async (keyword, recipientNo, student) => {
 };
 
 const getTodaysAttendance = async (recipientNo, student) => {
-	const uri = `https://c563-49-156-108-121.ngrok.io/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=today`;
+	const uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=today`;
+  console.log(uri);
 	await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
 const getOverallAttendance = async (recipientNo, student) => {
-  const [ attendance ] = await sequelize.query(`
-    SELECT
-      subject_code,
-      attendance
-    FROM overall_attendance oa
-    LEFT JOIN subject
-      ON subject.id = oa.subject_id
-    WHERE registration_no=${student.registrationNo} AND semester=${student.semester};
-  `);
-  let message = `*Overall Attendance*\n`;
-  for (let subjectAttendance of attendance) {
-    message += `
-Subject: ${subjectAttendance.subject_code}
-Attendance: ${subjectAttendance.attendance}%\n`;
-  }
-  return message;
+  const uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=overall`;
+  console.log(uri);
+  await metaAPI.sendImageMessage(recipientNo, uri);
 };
 
 const getLastSemResult = async (recipientNo, student) => {
@@ -199,16 +187,24 @@ export const getAttendanceImage = async (id, attendanceType) => {
       first_name,
       middle_name,
       last_name,
-      course_code
+      course_code,
+      semester
     FROM student
     LEFT JOIN course c
       ON c.id = student.course_id
     WHERE registration_no=${id};
   `);
-  let data;
+  const data = {
+    registrationNo: id,
+    name: `${student[0].first_name} ${student[0].middle_name || ''} ${student[0].last_name}`,
+    courseCode: student[0].course_code
+  };
+  console.log("Attendance type: " + attendanceType);
+  console.log("Id: " + id);
   switch (attendanceType) {
     case 'today':
-      const [ attendance ] = await sequelize.query(`
+      console.log('ef');
+      const [ todaysAttendance ] = await sequelize.query(`
         SELECT
           subject_code,
           hs.slot,
@@ -222,14 +218,19 @@ export const getAttendanceImage = async (id, attendanceType) => {
         WHERE registration_no=${id}
         ORDER BY date, hour_slot;
       `);
-      data = {
-        registrationNo: id,
-        name: `${student[0].first_name} ${student[0].middle_name || ''} ${student[0].last_name}`,
-        courseCode: student[0].course_code,
-        attendance
-      };
+      data.attendance = todaysAttendance;
       break;
     case 'overall':
+      const [ overallAttendance ] = await sequelize.query(`
+        SELECT
+          subject_code,
+          attendance
+        FROM overall_attendance oa
+        LEFT JOIN subject
+          ON subject.id = oa.subject_id
+        WHERE registration_no=${id} AND semester=${student[0].semester};
+      `);
+      data.attendance = overallAttendance;
       break;
   }
   const imageBuffer = await generateAttendanceImage(data, attendanceType);

@@ -32,6 +32,8 @@ export const processMessage = async (req, res) => {
 export const getAttendanceImage = async (req, res) => {
   try {
     const { id, attendanceType } = req.query;
+    console.log('-----')
+    console.log(id, attendanceType);
     const imageBuffer = await webhookService.getAttendanceImage(id, attendanceType);
     res.contentType('image/png');
     res.setHeader('Content-disposition', 'inline; filename=Attendance.png');

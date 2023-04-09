@@ -1,17 +1,20 @@
+<% let cardColor; %>
 <% let attendanceStatus; %>
-<% console.log(subject.attendance_status); %>
 <% if (subject.attendance_status === 'P') { %>
-  <% attendanceStatus = 'present'; %>
+  <% cardColor = 'green'; %>
+  <% attendanceStatus = 'present' %>
 <% } else if (subject.attendance_status === 'A') { %> 
-  <% attendanceStatus = 'absent'; %>
+  <% cardColor = 'red'; %>
+  <% attendanceStatus = 'absent' %>
 <% } else if (subject.attendance_status === 'N') { %>
-  <% attendanceStatus = 'waiting'; %>
+  <% cardColor = 'orange'; %>
+  <% attendanceStatus = 'waiting' %>
 <% } %>
 
-<div class="todays-attendance-card todays-attendance-card--<%= attendanceStatus %>">
+<div class="todays-attendance-card todays-attendance-card--<%= cardColor %>">
   <div class="todays-attendance-left">
     <div class="todays-attendance-left-content">
-      <img src="data:image/png;base64,<%= pageAssets[attendanceStatus + 'Img'] %>" alt="present">
+      <img src="data:image/png;base64,<%= pageAssets[attendanceStatus + 'Img'] %>" alt="<%= attendanceStatus %>">
       <p class="attendance-status">
         <%= attendanceStatus[0].toUpperCase() + attendanceStatus.slice(1) %>
       </p>
