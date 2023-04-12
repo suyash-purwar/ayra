@@ -1,0 +1,11 @@
+{
+  "name": "@ayra/lib",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Suyash Purwar",
+  "license": "ISC"
+}
