@@ -1,7 +1,7 @@
-import * as metaAPI from './../apis/meta.api.js';
-import buttons from './../botconfig/buttons.js';
-import templates from '../botconfig/templates.js';
-import dictionary from '../botconfig/dictionary.js';
+import * as metaAPI from '@ayra/lib/apis/meta.api.js';
+import buttons from '@ayra/lib/botconfig/buttons.js';
+import templates from '@ayra/lib/botconfig/templates.js';
+import dictionary from '@ayra/lib/botconfig/dictionary.js';
 import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';

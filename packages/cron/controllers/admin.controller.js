@@ -1,5 +1,14 @@
-import * as automatedServices from './../services/automated.services.js';
 import * as adminServices from './../services/admin.services.js';
+
+export const firstHello = async (req, res) => {
+  try {
+    const { recipientNo } = req.body;
+    await adminServices.firstHello(recipientNo);
+  } catch (e) {
+    console.log(e);
+  }
+  res.sendStatus(200);
+};
 
 export const admin = (req, res) => {
   res.send(`
@@ -54,7 +63,7 @@ export const admin = (req, res) => {
 
 export const publishResult = async (req, res) => {
   try {
-    await automatedServices.publishResult();
+    await adminServices.publishResult();
     res.sendStatus(200);
   } catch (e) {
     console.log(e);

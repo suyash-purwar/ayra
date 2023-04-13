@@ -1,19 +1,21 @@
 import express from 'express';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';
+import routes from './routes/index.js';
 
 loadConfig();
 const app = express();
 
 app.use(express.json());
+app.use(routes);
 
-app.get('/', (req, res) => {
-  console.log("CRON project setup");
+app.get('/ping', (req, res) => {
+  res.send('pong');
 });
 
 app.listen(process.env.CRON_PORT, async () => {
   try {
-    console.log(`App is running on PORT=${process.env.PORT}. ✅`);
+    console.log(`Cron jobs are running on PORT=${process.env.CRON_PORT}. ✅`);
     await sequelize.authenticate();
     console.log('Database connection established. ✅');
   } catch (e) {

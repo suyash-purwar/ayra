@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.listen(process.env.API_PORT, async () => {
   try {
-    console.log(`App is running on PORT=${process.env.PORT}. ✅`);
+    console.log(`API is running on PORT=${process.env.API_PORT}. ✅`);
     await sequelize.authenticate();
     console.log('Database connection established. ✅');
   } catch (e) {

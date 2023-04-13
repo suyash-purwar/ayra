@@ -26,7 +26,7 @@ export const processMessage = async (req, res) => {
   } catch (e) {
     res.sendStatus(200);
     console.log(e);
-  } 
+  }
 };
 
 export const getAttendanceImage = async (req, res) => {

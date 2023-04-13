@@ -1,5 +1,11 @@
 # Design Document
 
+### Admin Panel Features
+
+1. Mark UMC
+2. Publish Result
+3. Write Custom Message
+
 ## Database Design
 
 Tables present in the system:
@@ -16,11 +22,3 @@ Tables present in the system:
 10. Hostel Leave table
 11. UMC Cases table
 12. Warden table
-
-### Student Table Schema
-
-```
-CREATE TABLE Student (
-  
-)
-```
