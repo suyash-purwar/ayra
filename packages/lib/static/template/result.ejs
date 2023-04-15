@@ -4,49 +4,57 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/result.css">
+  <%- include('../css/result-style.ejs') %>
   <title>Result</title>
 </head>
 <body>
   <header class="header">
     <div class="logo-wrapper">
-      <img src="../../media/raw/full-lpu-logo-removebg-preview.png" alt="LPU logo" class="logo">
+      <img src="data:image/png;base64,<%= pageAssets.lpuLogo %>" alt="LPU logo" class="logo">
     </div>
-    <h1 class="header-heading">Academic Report of Semester 3</h1>
+    <h1 class="header-heading">
+      <%= (resultType === 'all semester') ? 'Academic Report Of All Semesters' : `Academic Report Of Semester ${lastSemester[0].semester}` %>
+    </h1>
   </header>
   <section class="student-info-section">
     <div class="student-info-profile">
-      <img src="../../media/misc/profile.png" alt="Profile Picture" class="profile">
+      <img src="data:image/png;base64,<%= pageAssets.profile %>" alt="Profile Picture" class="profile">
     </div>
     <div></div>
     <div class="student-info-content">
       <div class="student-info-row">
         <p class="student-info-field">Name:</p>
-        <p class="student-info-value">Suyash Purwar</p>
+        <p class="student-info-value"><%= `${student.first_name} ${student.middle_name || ''} ${student.last_name}` %></p>
 
         <p class="student-info-field">Registration No.:</p>
-        <p class="student-info-value">12100435</p>
+        <p class="student-info-value"><%= student.registration_no %></p>
 
         <p class="student-info-field">Father's Name:</p>
-        <p class="student-info-value">Mr. Sandeep Gupta</p>
+        <p class="student-info-value"><%= student.father_name %></p>
 
         <p class="student-info-field">Mother's Name:</p>
-        <p class="student-info-value">Mr. Sangeeta Gupta</p>
+        <p class="student-info-value"><%= student.mother_name %></p>
       </div>
     </div>
     <div></div>
     <div class="student-info-content">
       <div class="student-info-row">
         <p class="student-info-field">Programme: </p>
-        <p class="student-info-value">P132 :: Bachelor of Technology (Computer Science and Enigneering)</p>
+        <p class="student-info-value"><%= student.course_code %></p>
 
         <p class="student-info-field">Session:</p>
-        <p class="student-info-value">2021 - 2025</p>
+        <p class="student-info-value"><%= student.session %></p>
       </div>
     </div>
   </section>
+  <% if (resultType === 'all semester') { %>
+    <%- include('./partials/grade-scale.ejs') %>
+    <% for (let semester of allSemester) { %>
+      <%- include('./partials/semester-result.ejs', { semester }) %>
+    <% } %>
+  <% } else { %>
+    <%- include('./partials/semester-result.ejs', { semester: lastSemester }) %>
+    <%- include('./partials/grade-scale.ejs') %>
+  <% } %>
 </body>
 </html>

@@ -3,11 +3,11 @@ import ejs from 'ejs';
 import fs from 'node:fs/promises';
 
 const generateAttendanceImage = async (data, attendanceType) => {
-  const lpuLogoImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/bot-assets/Bot Profile Picture.png')).toString('base64');
-  const studentProfileImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/misc/profile.png')).toString('base64');
-  const presentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/misc/present.png')).toString('base64');
-  const waitingImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/misc/waiting.png')).toString('base64');
-  const absentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/misc/absent.png')).toString('base64');
+  const lpuLogoImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/bot-assets/Bot Profile Picture.png')).toString('base64');
+  const studentProfileImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/profile.png')).toString('base64');
+  const presentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/present.png')).toString('base64');
+  const waitingImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/waiting.png')).toString('base64');
+  const absentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/absent.png')).toString('base64');
  
   const html = await ejs.renderFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/attendance.ejs', {
     pageAssets: {
