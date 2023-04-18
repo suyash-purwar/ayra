@@ -1,5 +1,21 @@
 # Design Document
 
+### Features for Parents
+
+1. Check Result
+2. Check Attendance
+3. Department details: Fee, Admission, Loan, Scholarship Cell, 
+4. Authorities details: HOD, Mentor, Warden
+5. Show Schedule
+6. Hostel Leaves
+
+### Query Resolver
+
+1. Fees related issues
+2. Loan related issues
+3. Residential relates issues
+4. Scholarship related issues
+
 ### Admin Panel Features
 
 1. Mark UMC
