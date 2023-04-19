@@ -1,6 +1,5 @@
 import openai
 import requests
-import csv;
+import csv
 
 # Contains OpenAI API key
-import constants;
