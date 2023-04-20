@@ -4,12 +4,20 @@
 
 1. Check Result
 2. Check Attendance
-3. Department details: Fee, Admission, Loan, Scholarship Cell, 
+3. Department details: Fee, Admission, Loan, Scholarship Cell, DSR
 4. Authorities details: HOD, Mentor, Warden
 5. Show Schedule
-6. Hostel Leaves
 
-### Query Resolver
+### Classifier Classes
+1. Greetings
+2. Attendance
+3. Results
+4. Department Contacts
+5. Authorities Details
+6. Show Schedule
+7. Help
+
+### Query Resolver (Future feature)
 
 1. Fees related issues
 2. Loan related issues

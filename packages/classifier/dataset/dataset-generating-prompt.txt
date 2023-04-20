@@ -10,6 +10,6 @@ Sentence: show attendance of child
 
 
 
-I'm trying to make a chatbot that resolves parents' queries about their child's performance in college. Parents can ask questions like "What is my child's attendance', 'Show the result of last semester', etc. Help me with making a processed training data set for an NLP model. Rephrase the sentences I'm giving you in five different ways using synonyms and similar words. Make a few grammatical and spelling mistakes. Perform lemmatization and remove stop words and punctuations from the sentences. 
+I'm trying to make a chatbot that resolves parents' queries about their child's performance in college. Parents can ask questions like "What is my child's attendance', 'Show the result of last semester', etc. Help me with making a processed training data set for an NLP model. Rephrase the sentences I'm giving you in five different ways using synonyms and similar words. Make a few grammatical and spelling mistakes. Perform lemmatization and remove stop words and punctuations from the sentences. Make commonly made spelling mistakes
 
 Sentence: show attendance of child
