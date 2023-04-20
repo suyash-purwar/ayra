@@ -1,6 +1,439 @@
-Display my kid's attendance.
-Demonstrate attendance details of my offspring.
-Reveal the attendance record of my young one.
-Exhibit my child's attendance report.
-Present the attendance statistics of my progeny.
-Show attendance.
+prompt,completion
+hi there,0
+hey,0
+hello,0
+good morning,0
+good afternoon,0
+good evening,0
+greetings,0
+salutations,0
+howdy,0
+whats up,0
+yo,0
+hiya,0
+hola,0
+bonjour,0
+ciao,0
+namaste,0
+salaam,0
+konnichiwa,0
+gday mate,0
+sup,0
+ahoy,0
+aloha,0
+shalom,0
+kia ora,0
+hi-hey,0
+hey-hey,0
+whats cracking,0
+good to see you,0
+nice to meet you,0
+welcome,0
+how you doin,0
+sup,0
+wassup,0
+ayo,0
+raam raam,0
+kya haal chaal,0
+kaise ho,0
+display report card,1
+show scorecard,1
+present transcript,1
+reveal academic record child,1
+showcase result sheet,1
+what cumulative grade point average,1
+what overall gpa,1
+what cgpa child,1
+what cgpa value,1
+what final cgpa,1
+what score offspring exams,1
+what exam result progeny,1
+what mark exams,1
+what test score kid,1
+what examination performance juvenile,1
+displya perfomance rport,1
+exibit grade car,1
+prezent acadmic transcipt,1
+reveel scorcard,1
+shwocase result shet,1
+showcase report card recent semester,1
+send marks,1
+plz send marks,1
+send kid marks,1
+share child grades,1
+what child result,1
+mark out,1
+performance report issue,1
+publish grade,1
+result declare,1
+Please display tgpa previous semester,1
+tgpa child last semester,1
+can show tgpa score child last semester,1
+kindly provide tgpa report child's last semester,1
+Would like know tgpa child previous semester,1
+show marksheet 5 semester,1
+how many mark obtain child,1
+tell score achieve ward,1
+show mark obtain last semester,1
+result child performance college,1
+want know mark kid got,1
+bacche rasult dikhana,1
+bacche performence,1
+bache ka score batado,1
+bache ka skor batado,1
+child atendance kitna hai,1
+kid report card show,1
+childs marks,1
+present marks,1
+view academic performance,1
+child perform well college,1
+bacchi ka result dikhao,1
+display performance report,1
+exhibit grade card,1
+present academic transcript,1
+reveal scorecard,1
+showcase result sheet,1
+result batana,1
+result kya hua bacchi ka,1
+bacchi ka result bata do,1
+bacchi ka last sem ka result dikha do,1
+kya result aagya,1
+result nikla kya,1
+kya result aachuka h,1
+bacchi ka result agaya,1
+result aa gaya kya bacchi ka,1
+beti ka result show karo,1
+bete ke marksheet send kardo,1
+result aa gya kya,1
+result ka report send kro,1
+share karo result,1
+result ka screenshot bhejna,1
+result kaise check karein,1
+bacche ki performance ki jaankari,1
+mujhe apne bachche kee performance ke baare mein bataiye,1
+mera beta college mein kaisa perform kar raha hai,1
+bachche ke result ka pata kaise karein,1
+kya mere bachche ne exam mein achhe marks paaye hai,1
+bacche ke result mein koi improvement hai ya nahi,1
+pichle semester ke parinaam dikhao,1
+display kid attendance,2
+demonstrate offspring attendance details,2
+reveal young one attendance record,2
+exhibit child attendance report,2
+present progeny attendance statistics,2
+show attendance,2
+present attendance record,2
+exhibit attendance stats,2
+demonstrate attendance data,2
+display attendence details,2
+illustrate attendence report,2
+child attend class today,2
+kid attend class today,2
+offspring attend class today,2
+child go class today,2
+child present class today,2
+child show class today,2
+what child attendance,2
+attendance record child,2
+i want to see attendance record,2
+child attend rate,2
+child attendance rate,2
+attendance child,2
+attendance kya hai,2
+child attend lecture,2
+son daughter attend lecture,2
+lecture attend child,2
+kid present class,2
+child show up lecture,2
+atendance percentage child,2
+offspring attendance percent,2
+kid atteneance percentage required,2
+attendance percent child display,2
+tell attandance percent son/daughter,2
+kid attendance report tell,2
+display attendance report,2
+son/daughter attedance report show,2
+ward show lectures,2
+miss varsity,2
+skip class university,2
+awol school,2
+bunk college,2
+truant institute,2
+awol class,2
+miss lecture,2
+absent college,2
+child away class,2
+attendance,2
+present absent lecture,2
+child leave class,2
+aaj ka presenti dikha,2
+aaj ki class karnama,2
+aaj ki attendance,2
+aaj ke din bachche ki attendance,2
+aaj ki attendance record dikhao,2
+aaj bacha college tha kya,2
+kya aaj bacha attendance mein tha,2
+aaj meri aulad college hain kya,2
+kya bacha aaj school gaya tha,2
+aaj bacha college mein tha kya,2
+haziri dikhayiye,2
+bachche ki haziri bataiye,2
+bachche ki upasthiti bataye,2
+upasthiti ka vivaran dijiye,2
+bacche ki hadood dikhaiye,2
+baccha college ja raha,2
+bacchi attendance report send,2
+can you show the report of bacchi's attendance,2
+bacchi attendance report please give,2
+bacchi attandence report give it to me,2
+kindly send the attendance report of bacchi,2
+attendance ka report send kro,2
+baccha aaj college miss kr gya h kya,2
+aaj bacchi college jana bhool gya kya,2
+kya aaj baccha clg me nahi gya,2
+baccha aaj clg me absent h kya,2
+aaj baccha clg chhutti pe h kya,2
+attendance dikhao,2
+plz tell me my childs atndnce,2
+wht my kids attndnc status,2
+can u show my childs atndnc,2
+wat the attndnc report of my child,2
+my child's atndnc report plz,2
+bachche ke attendance ka proof bhejna,2
+bacche kee class attendance ka haal kya hai,2
+kya mere bachche college mein regular attendance de rahe hai,2
+mera beta college mein kitne din attend kiya hai,2
+bacche kee attendance ki jaankari,2
+attendance kaise dekhein,2
+display contact detail fee section,3
+exhibit fee department contact information,3
+present contact list fee office,3
+fee department phone number,3
+show department contact noumber,3
+fee office number,3
+show contact number all department,3
+contact number branch,3
+how to contact fee division,3
+cell phone no fee department,3
+landline no fee office,3
+give contact no admission office,3
+contact number help desk,3
+show contact admission division,3
+admission branch landline,3
+provide list department number,3
+share number admision,3
+admission telephone no,3
+enrollment section contact number,3
+contact number for admission department,3
+admission section phone no,3
+enrollment department contact info,3
+provide telephone number admissions division,3
+telephone number admission division,3
+want contact admission division,3
+send contact number scholarship cell,3
+share contact number scholarship department,3
+give scholarship cell phone number,3
+contact information scholarship center,3
+scholarship cell number send,3
+send contact details scholarship department,3
+provide scholarship office phone number,3
+send scholarship center contact number,3
+need contact number scholarship unit share,3
+want phone number scholarship division give,3
+please share contact number scholarship cell,3
+contact scholarship division,3
+contact number branch,3
+can phone digit department,3
+provide telephone number division,3
+please phone number division,3
+what phone number department,3
+give phone number depts,3
+what phone number depts,3
+plz phone number department,3
+share phone digit department,3
+what phone number depts,3
+share tele phone number dsr,3
+send contact no division student welfare,3
+dsr division contact no,3
+give dsr division no,3
+student welfare division contact info display,3
+display contact detail student welfare division,3
+fee department ka number share kardo,3
+number share karo fee department ka,3
+department ka number send karo,3
+saare departments ka telephone no bhejo,3
+kripya admission division ka no provide karein,3
+admission department ka no,3
+admission department ka no send kar dein please,3
+dsr department ki contact info bhejo,3
+admission department ki contact jankari share karo,3
+division student relationship dept ki contact details,3
+dsr cell k contact jankari bhejo,3
+dsr vibhag ka sampark suchna bhej dijiye,3
+sampark suchna scholarship cell,3
+send sampark suchna saare departments ki,3
+scholarship department ka telephone no,3
+number kya scholarship division ka,3
+landline no bhejo scholarship department,3
+scholarship dept ka landline number bhejo,3
+person approach question university,4
+i talk university contact,4
+to consultation university,4
+with consult university,4
+who person seek advice university,4
+in university approach consultation,4
+i question contact university,4
+whom consult university query,4
+query consult university,4
+whom seek advice university,4
+contact number head department (hod),4
+i hod phone number provide it,4
+can contact detail hod,4
+what hod number,4
+i contact them,4
+Please share phone number hod me,4
+i phone number hod me,4
+what phone number head department (hod),4
+can provide hod contact number,4
+contact details hod speak them,4
+can share hod phone number,4
+details mentor,4
+i talk teacher contact information,4
+what phone number guide,4
+mentor contact info,4
+can share mentor contact details me,4
+i contact mentor provide information,4
+what contact info mentor,4
+provide mentor contact information,4
+provide contact info mentor,4
+share mentors contact details me,4
+i contact mentor information,4
+what mentor contact info,4
+kindly provide mentor contact,4
+contact information hostel warden,4
+contact number hostel manager,4
+send contact hostel warden,4
+please share phone number warden responsible hostel,4
+provide contact details hostel warden,4
+bachche ke teachers se baat karao,4
+teacher se milna hai,4
+teacher se jaldi baat karwao,4
+college mein kuch baat karni hai,4
+kuch sawaal hai college se,4
+university se baat karni hai kaun se department mein jayein,4
+university ke kisi officer se baat karni hai,4
+kisse contact karun university mein,4
+university mein kaunsa teacher contact karna hai,4
+college mein kaunsi jagah hai baat karne ke liye,4
+university me kisko contact karein,4
+bachche ke university me kiske paas jaye,4
+university se madad kaise lein,4
+kis department se university me baat karni chahiye,4
+college me kis se sampark karein,4
+hostel warden ka contact number chahiye,4
+bachche ke hostel ka phone number de do,4
+hostel warden se baat karni hai,4
+warden ki email id chahiye,4
+hostel se koi sampark kaise kare,4
+warden ka phone number dedo,4
+warden ke contact number share karo,4
+hostel ke head se baat karni ha,4
+hostel supervisor ka number chahiye,4
+hostel ke head ka number do,4
+bachche ke hostel warden ka number kya hai,4
+hostel ke warden ko phone kaise karein,4
+doubts hai kisko contact karein,4
+thoda sa confusion hai baatchit karna chahte hain,4
+queries ka solution kahan milega,4
+mujhe apne bachay ki performance ke baare mein HOD se baat karni hai,4
+hod se baat karke meri beti ki presenti ki jankari lena hai,4
+hod ko contact karke baat karna hai,4
+mujhe hod se milna hai,4
+mentor se kuch sawal poochna hai,4
+mere mann mein mentor se kuch jankari chaahiye,4
+mentor se baat karna hai,4
+kuch sawal hai mentor se,4
+mentor se milna hai jankari ke liye,4
+mera mentaur se sawal hai,4
+mentor ka number batana hai,4
+mera bachche ka mentor ka number chahiye,4
+mentor ke number de do,4
+bachche ke performance ke liye mentor ka number chahiye,4
+mentor ka phone number dedo,4
+mentor ka number dedo,4
+bachche ke performance ke liye mentor ka number chahiye,4
+hostel ke caretaker se baat karni hai,4
+ward class timetable,5
+reveal class schedule,5
+present class itinerary,5
+show class calendar,5
+display class routine plan,5
+pls timetable kids class,5
+what schedule childs class,5
+please timetable offspring class,5
+what class timing,5
+give schedule kid class,5
+time child lecture,5
+what schedule kid class,5
+can pls lecture time,5
+please time class ,5
+give schedule lecture kid,5
+plz wen college start,5
+what time child reach college,5
+what time college start,5
+when young college,5
+what time kids college start,5
+time class start end,5
+time class child,5
+time class begin finish child,5
+class start end young one,5
+time kid class start end,5
+lecture start,5
+when class start,5
+what time class begin,5
+when lecture begin,5
+at time lecture start,5
+when class commence,5
+when lecture commence,5
+what lecture start time,5
+what time class start,5
+when lesson start,5
+lecture end,5
+when class end,5
+what time class begin,5
+when lecture begin,5
+at time lecture end,5
+when class conclude,5
+when lecture conclude,5
+what lecture end time,5
+what time class end,5
+when lesson end,5
+class khatam kitne baje hoti,5
+class ka timetable send kardo,5
+display timetable of lecture,5
+schedule kya hai class ka,5
+class ka routine kya hai,5
+kya time table hai college ke class ka,5
+mujhe batao class ki time table kya hai,5
+kya hain class ke schedule,5
+kya hai schedule college ke class ka,5
+lectures kitne baje shuru hota hai,5
+kab hota hai college mein lecture shuru,5
+lecture shuru hone ka samay kya hai,5
+kya aap bata sakte hain ki lecture kitne baje se shuru hote hain,5
+lecture shuru hone ka samay kitna hota hai college mein,5
+kitni baje tak lecture chalte hai,5
+lecture ka ant kitne baje se hoti hai,5
+kitne baje tak lecturers hote hai,5
+help,6
+guide,6
+how to use,6
+teach me how to use,6
+guide how to use,6
+give me assistance,6
+assist me,6
+need your help,6
+madad kariye,6
+aap kaun ho,6
+kaise use karein,6
+use karna sikhao,6
