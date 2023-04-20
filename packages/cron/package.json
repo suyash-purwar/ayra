@@ -9,7 +9,7 @@
     "start:dev": "nodemon app.js"
   },
   "dependencies": {
-    "ayra/lib": "*"
+    "@ayra/lib": "*"
   },
   "author": "Suyash Purwar",
   "license": "ISC"

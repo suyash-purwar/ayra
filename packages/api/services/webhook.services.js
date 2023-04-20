@@ -1,7 +1,8 @@
 import * as metaAPI from '@ayra/lib/apis/meta.api.js';
+import classifier from '@ayra/lib/apis/openai.api.js';
 import buttons from '@ayra/lib/botconfig/buttons.js';
 import templates from '@ayra/lib/botconfig/templates.js';
-import dictionary from '@ayra/lib/botconfig/dictionary.js';
+import intentList from '@ayra/lib/botconfig/intent.js';
 import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';
@@ -22,7 +23,7 @@ export const processMessage = async (msgInfo, student) => {
         break;
       case 'text':
         const message = value.messages[0].text.body;
-        const keyword = classifyMsg(message);
+        const keyword = await classifyMsg(message);
         await processTextMessage(keyword, messageFrom, student);
         break;
       default:
@@ -73,42 +74,34 @@ const processButtonMessage = async (button, messageFrom, student) => {
   }
 };
 
-/**
- * Following is the mock implementation of text classifier
- */
-const classifyMsg = (msgText) => {
-  let intent;
-  for (let keywordClass in dictionary) {
-    for (let keyword of dictionary[keywordClass]) {
-      if (msgText.toLowerCase().indexOf(keyword) !== -1) {
-        intent = keywordClass;
-        break;
-      }
-    }
-  }
-  return intent;
+// Handle the cases where the probability for a class
+// is below a certain threshold
+const classifyMsg = async (msgText) => {
+  const intentId = await classifier(msgText);
+  console.log(intentId);
+
+  return intentList[intentId];
 };
 
-const processTextMessage = async (keyword, recipientNo, student) => {
-  switch (keyword) {
-    case 'hello':
-      await metaAPI.sendMenu(recipientNo, templates.hello.name);
-      break;
-    case 'help':
-      await metaAPI.sendMenu(recipientNo, templates.help.name);
-      break;
-    case 'result':
-      await metaAPI.sendMenu(recipientNo, templates.result.name);
-      break;
-    case 'attendance':
-      await metaAPI.sendMenu(recipientNo, templates.attendance.name);
-      break;
-    case 'warden':
-      console.log("Sending hostel warden details");
-      break;
-    default:
-      console.log("Unknown keyword");
-      await metaAPI.sendTextMessage(recipientNo, "Sorry, I didn't understood your message.");
+const processTextMessage = async (intent, recipientNo, student) => {
+  if (intent === intentList[0]) {
+    await metaAPI.sendMenu(recipientNo, templates.hello.name);
+  } else if (intent === intentList[1]) {
+    await metaAPI.sendMenu(recipientNo, templates.result.name);
+  } else if (intent === intentList[2]) {
+    await metaAPI.sendMenu(recipientNo, templates.attendance.name);
+  } else if (intent === intentList[3]) {
+    // Send message with a menu
+    // Menu - Show more contacts
+  } else if (intent === intentList[4]) {
+    // Send authorities details
+  } else if (intent === intentList[5]) {
+    // Send Schedule
+  } else if (intent === intentList[6]) {
+    await metaAPI.sendMenu(recipientNo, templates.help.name);
+  } else {
+    console.log("Unknown intent");
+    await metaAPI.sendTextMessage(recipientNo, "Intent not recognized");
   }
 };
 
