@@ -14,7 +14,7 @@ import CourseSubject from '../models/course-subject.model.js';
 import HourSlot from '../models/hour-slot.model.js';
 import Query from '../models/query.model.js';
 
-await Query.sync();
+// await Query.sync();
 // await Attedance.sync({ alter: true });
 // await Course.sync({ alter: true });
 // await Department.sync();
@@ -22,7 +22,7 @@ await Query.sync();
 // await Hostel.sync({ alter: true });
 // await Mentor.sync();
 // await OverallAttendance.sync({ alter: true });
-// await Result.sync({ alter: true });
+// await Result.sync({ force: true });
 // await Student.sync({ alter: true });
 // await Subject.sync()
 // await UMC.sync();

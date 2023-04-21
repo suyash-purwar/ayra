@@ -10,1930 +10,1930 @@ import Attendance from "../models/attendance.model.js";
 import HourSlot from "../models/hour-slot.model.js";
 import Result from '../models/result.model.js';
 
-// await Result.bulkCreate([
-  // {
-  //   id: 1,
-  //   registrationNo: 12100435,
-  //   semester: 1,
-  //   tgpa: 5.34,
-  //   marks: [
-  //     {
-  //       subjectId: 19,
-  //       grade: "B+",
-  //       ca: 24,
-  //       mte: 0,
-  //       ete: 38,
-  //       attendance: 4
-  //     },
-  //     {
-  //       subjectId: 26,
-  //       grade: "A",
-  //       ca: 18,
-  //       mte: 20,
-  //       ete: 44,
-  //       attendance: 5
-  //     },
-  //     {
-  //       subjectId: 15,
-  //       grade: "O",
-  //       ca: 11,
-  //       mte: 16,
-  //       ete: 28,
-  //       attendance: 0
-  //     },
-  //     {
-  //       subjectId: 22,
-  //       grade: "A",
-  //       ca: 4,
-  //       mte: 2,
-  //       ete: 12,
-  //       attendance: 3
-  //     },
-  //     {
-  //       subjectId: 17,
-  //       grade: "+A",
-  //       ca: 24,
-  //       mte: 16,
-  //       ete: 28,
-  //       attendance: 4
-  //     },
-  //     {
-  //       subjectId: 24,
-  //       grade: "B+",
-  //       ca: 24,
-  //       mte: 5,
-  //       ete: 47,
-  //       attendance: 5
-  //     },
-  //     {
-  //       subjectId: 23,
-  //       grade: "C",
-  //       ca: 11,
-  //       mte: 7,
-  //       ete: 40,
-  //       attendance: 1
-  //     },
-  //     {
-  //       subjectId: 1,
-  //       grade: "+A",
-  //       ca: 14,
-  //       mte: 10,
-  //       ete: 49,
-  //       attendance: 5
-  //     }
-  //   ]
-  // }, {
-  //   id: 2,
-  //   registrationNo: 12100435,
-  //   semester: 2,
-  //   tgpa: 4.79,
-  //   marks: [
-  //     {
-  //       subjectId: 29,
-  //       grade: "A",
-  //       ca: 18,
-  //       mte: 13,
-  //       ete: 36,
-  //       attendance: 3
-  //     },
-  //     {
-  //       subjectId: 30,
-  //       grade: "B+",
-  //       ca: 7,
-  //       mte: 4,
-  //       ete: 10,
-  //       attendance: 3
-  //     },
-  //     {
-  //       subjectId: 24,
-  //       grade: "D",
-  //       ca: 20,
-  //       mte: 8,
-  //       ete: 33,
-  //       attendance: 3
-  //     },
-  //     {
-  //       subjectId: 11,
-  //       grade: "C",
-  //       ca: 16,
-  //       mte: 18,
-  //       ete: 24,
-  //       attendance: 3
-  //     },
-  //     {
-  //       subjectId: 26,
-  //       grade: "C",
-  //       ca: 13,
-  //       mte: 15,
-  //       ete: 1,
-  //       attendance: 2
-  //     },
-  //     {
-  //       subjectId: 3,
-  //       grade: "O",
-  //       ca: 19,
-  //       mte: 20,
-  //       ete: 41,
-  //       attendance: 5
-  //     },
-  //     {
-  //       subjectId: 13,
-  //       grade: "C",
-  //       ca: 20,
-  //       mte: 13,
-  //       ete: 47,
-  //       attendance: 2
-  //     },
-  //     {
-  //       subjectId: 24,
-  //       grade: "A",
-  //       ca: 3,
-  //       mte: 11,
-  //       ete: 9,
-  //       attendance: 1
-  //     }
-  //   ]
-  // }, {
-  //   id: 3,
-  //   registrationNo: 12100435,
-  //   semester: 3,
-  //   tgpa: 8.64,
-  //   marks: [
-  //     {
-  //       subjectId: 23,
-  //       grade: "A",
-  //       ca: 14,
-  //       mte: 7,
-  //       ete: 25,
-  //       attendance: 0
-  //     },
-  //     {
-  //       subjectId: 26,
-  //       grade: "B+",
-  //       ca: 25,
-  //       mte: 13,
-  //       ete: 39,
-  //       attendance: 2
-  //     },
-  //     {
-  //       subjectId: 12,
-  //       grade: "C",
-  //       ca: 0,
-  //       mte: 12,
-  //       ete: 0,
-  //       attendance: 4
-  //     },
-  //     {
-  //       subjectId: 17,
-  //       grade: "+A",
-  //       ca: 21,
-  //       mte: 6,
-  //       ete: 5,
-  //       attendance: 1
-  //     },
-  //     {
-  //       subjectId: 27,
-  //       grade: "B",
-  //       ca: 20,
-  //       mte: 13,
-  //       ete: 31,
-  //       attendance: 4
-  //     },
-  //     {
-  //       subjectId: 7,
-  //       grade: "D",
-  //       ca: 5,
-  //       mte: 7,
-  //       ete: 1,
-  //       attendance: 1
-  //     },
-  //     {
-  //       subjectId: 19,
-  //       grade: "O",
-  //       ca: 24,
-  //       mte: 0,
-  //       ete: 42,
-  //       attendance: 2
-  //     },
-  //     {
-  //       subjectId: 22,
-  //       grade: "B+",
-  //       ca: 18,
-  //       mte: 10,
-  //       ete: 7,
-  //       attendance: 5
-  //     }
-  //   ]
-  // }
-//   {
-//     "id": 4,
-//     "registrationNo": 11937798,
-//     "semester": 1,
-//     "tgpa": 7.74,
-//     "marks": [
-//       {
-//         "subjectId": 12,
-//         "grade": "O",
-//         "ca": 12,
-//         "mte": 17,
-//         "ete": 17,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 23,
-//         "grade": "B+",
-//         "ca": 10,
-//         "mte": 13,
-//         "ete": 17,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "B",
-//         "ca": 13,
-//         "mte": 16,
-//         "ete": 4,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 29,
-//         "grade": "C",
-//         "ca": 10,
-//         "mte": 9,
-//         "ete": 12,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 20,
-//         "grade": "D",
-//         "ca": 13,
-//         "mte": 8,
-//         "ete": 4,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 13,
-//         "grade": "O",
-//         "ca": 7,
-//         "mte": 17,
-//         "ete": 44,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 2,
-//         "grade": "A",
-//         "ca": 20,
-//         "mte": 20,
-//         "ete": 22,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "O",
-//         "ca": 10,
-//         "mte": 2,
-//         "ete": 20,
-//         "attendance": 1
-//       }
-//     ]
-//   }, {
-//     "id": 5,
-//     "registrationNo": 11937798,
-//     "semester": 2,
-//     "tgpa": 3.22,
-//     "marks": [
-//       {
-//         "subjectId": 8,
-//         "grade": "D",
-//         "ca": 9,
-//         "mte": 12,
-//         "ete": 28,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "O",
-//         "ca": 24,
-//         "mte": 20,
-//         "ete": 26,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 15,
-//         "grade": "B+",
-//         "ca": 23,
-//         "mte": 20,
-//         "ete": 26,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 14,
-//         "grade": "C",
-//         "ca": 24,
-//         "mte": 16,
-//         "ete": 33,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 28,
-//         "grade": "C",
-//         "ca": 10,
-//         "mte": 10,
-//         "ete": 26,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "C",
-//         "ca": 11,
-//         "mte": 12,
-//         "ete": 47,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "A",
-//         "ca": 18,
-//         "mte": 4,
-//         "ete": 26,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "B",
-//         "ca": 13,
-//         "mte": 9,
-//         "ete": 11,
-//         "attendance": 2
-//       }
-//     ]
-//   }, {
-//     "id": 6,
-//     "registrationNo": 11937798,
-//     "semester": 3,
-//     "tgpa": 7.38,
-//     "marks": [
-//       {
-//         "subjectId": 7,
-//         "grade": "+A",
-//         "ca": 7,
-//         "mte": 8,
-//         "ete": 23,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "+A",
-//         "ca": 5,
-//         "mte": 18,
-//         "ete": 3,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 2,
-//         "grade": "+A",
-//         "ca": 1,
-//         "mte": 15,
-//         "ete": 31,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 16,
-//         "grade": "O",
-//         "ca": 23,
-//         "mte": 0,
-//         "ete": 28,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 26,
-//         "grade": "C",
-//         "ca": 6,
-//         "mte": 18,
-//         "ete": 24,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "D",
-//         "ca": 4,
-//         "mte": 13,
-//         "ete": 46,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 16,
-//         "grade": "B+",
-//         "ca": 9,
-//         "mte": 20,
-//         "ete": 27,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 14,
-//         "grade": "C",
-//         "ca": 6,
-//         "mte": 16,
-//         "ete": 39,
-//         "attendance": 2
-//       }
-//     ]
-//   }, {
-//     "id": 7,
-//     "registrationNo": 11937798,
-//     "semester": 4,
-//     "tgpa": 6.94,
-//     "marks": [
-//       {
-//         "subjectId": 28,
-//         "grade": "B+",
-//         "ca": 12,
-//         "mte": 17,
-//         "ete": 27,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 15,
-//         "grade": "O",
-//         "ca": 25,
-//         "mte": 3,
-//         "ete": 47,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 24,
-//         "grade": "B+",
-//         "ca": 20,
-//         "mte": 20,
-//         "ete": 9,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 16,
-//         "grade": "D",
-//         "ca": 6,
-//         "mte": 15,
-//         "ete": 36,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 2,
-//         "grade": "D",
-//         "ca": 22,
-//         "mte": 6,
-//         "ete": 5,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 5,
-//         "grade": "D",
-//         "ca": 1,
-//         "mte": 12,
-//         "ete": 3,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "D",
-//         "ca": 23,
-//         "mte": 11,
-//         "ete": 7,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 27,
-//         "grade": "B+",
-//         "ca": 9,
-//         "mte": 4,
-//         "ete": 17,
-//         "attendance": 5
-//       }
-//     ]
-//   }, {
-//     "id": 8,
-//     "registrationNo": 11937798,
-//     "semester": 5,
-//     "tgpa": 8.34,
-//     "marks": [
-//       {
-//         "subjectId": 4,
-//         "grade": "D",
-//         "ca": 8,
-//         "mte": 12,
-//         "ete": 15,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 20,
-//         "grade": "B",
-//         "ca": 12,
-//         "mte": 12,
-//         "ete": 26,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 19,
-//         "grade": "O",
-//         "ca": 18,
-//         "mte": 13,
-//         "ete": 27,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 18,
-//         "grade": "A",
-//         "ca": 4,
-//         "mte": 18,
-//         "ete": 15,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 2,
-//         "grade": "+A",
-//         "ca": 13,
-//         "mte": 14,
-//         "ete": 32,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 16,
-//         "grade": "D",
-//         "ca": 17,
-//         "mte": 1,
-//         "ete": 20,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 13,
-//         "grade": "+A",
-//         "ca": 19,
-//         "mte": 13,
-//         "ete": 5,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 22,
-//         "grade": "D",
-//         "ca": 4,
-//         "mte": 11,
-//         "ete": 12,
-//         "attendance": 4
-//       }
-//     ]
-//   }, {
-//     "id": 9,
-//     "registrationNo": 11937798,
-//     "semester": 6,
-//     "tgpa": 8.07,
-//     "marks": [
-//       {
-//         "subjectId": 21,
-//         "grade": "+A",
-//         "ca": 13,
-//         "mte": 6,
-//         "ete": 8,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 23,
-//         "grade": "B",
-//         "ca": 7,
-//         "mte": 8,
-//         "ete": 34,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "+A",
-//         "ca": 1,
-//         "mte": 10,
-//         "ete": 11,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "C",
-//         "ca": 24,
-//         "mte": 6,
-//         "ete": 2,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "O",
-//         "ca": 8,
-//         "mte": 17,
-//         "ete": 25,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 26,
-//         "grade": "B",
-//         "ca": 18,
-//         "mte": 15,
-//         "ete": 26,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 23,
-//         "grade": "A",
-//         "ca": 7,
-//         "mte": 9,
-//         "ete": 42,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 24,
-//         "grade": "D",
-//         "ca": 15,
-//         "mte": 10,
-//         "ete": 28,
-//         "attendance": 3
-//       }
-//     ]
-//   }, {
-//     "id": 10,
-//     "registrationNo": 11937798,
-//     "semester": 7,
-//     "tgpa": 6.79,
-//     "marks": [
-//       {
-//         "subjectId": 9,
-//         "grade": "C",
-//         "ca": 2,
-//         "mte": 2,
-//         "ete": 31,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 5,
-//         "grade": "D",
-//         "ca": 22,
-//         "mte": 13,
-//         "ete": 9,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 26,
-//         "grade": "A",
-//         "ca": 20,
-//         "mte": 10,
-//         "ete": 40,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 23,
-//         "grade": "C",
-//         "ca": 21,
-//         "mte": 16,
-//         "ete": 20,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 23,
-//         "grade": "B+",
-//         "ca": 13,
-//         "mte": 13,
-//         "ete": 38,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "C",
-//         "ca": 7,
-//         "mte": 11,
-//         "ete": 22,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 30,
-//         "grade": "O",
-//         "ca": 19,
-//         "mte": 6,
-//         "ete": 27,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 6,
-//         "grade": "D",
-//         "ca": 0,
-//         "mte": 17,
-//         "ete": 11,
-//         "attendance": 1
-//       }
-//     ]
-//   },
-//   {
-//     "id": 11,
-//     "registrationNo": 12142622,
-//     "semester": 1,
-//     "tgpa": 5.02,
-//     "marks": [
-//       {
-//         "subjectId": 8,
-//         "grade": "C",
-//         "ca": 23,
-//         "mte": 14,
-//         "ete": 10,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "+A",
-//         "ca": 0,
-//         "mte": 3,
-//         "ete": 44,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 16,
-//         "grade": "C",
-//         "ca": 20,
-//         "mte": 14,
-//         "ete": 21,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "+A",
-//         "ca": 8,
-//         "mte": 7,
-//         "ete": 12,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "O",
-//         "ca": 19,
-//         "mte": 10,
-//         "ete": 6,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 19,
-//         "grade": "C",
-//         "ca": 8,
-//         "mte": 13,
-//         "ete": 47,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 10,
-//         "grade": "A",
-//         "ca": 20,
-//         "mte": 19,
-//         "ete": 34,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "+A",
-//         "ca": 16,
-//         "mte": 9,
-//         "ete": 44,
-//         "attendance": 0
-//       }
-//     ]
-//   }, {
-//     "id": 12,
-//     "registrationNo": 12142622,
-//     "semester": 2,
-//     "tgpa": 8.19,
-//     "marks": [
-//       {
-//         "subjectId": 23,
-//         "grade": "+A",
-//         "ca": 8,
-//         "mte": 15,
-//         "ete": 38,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 29,
-//         "grade": "C",
-//         "ca": 25,
-//         "mte": 0,
-//         "ete": 50,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 10,
-//         "grade": "C",
-//         "ca": 22,
-//         "mte": 19,
-//         "ete": 25,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 30,
-//         "grade": "O",
-//         "ca": 16,
-//         "mte": 20,
-//         "ete": 35,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 20,
-//         "grade": "B",
-//         "ca": 5,
-//         "mte": 14,
-//         "ete": 20,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 5,
-//         "grade": "O",
-//         "ca": 13,
-//         "mte": 18,
-//         "ete": 16,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 28,
-//         "grade": "A",
-//         "ca": 15,
-//         "mte": 9,
-//         "ete": 49,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 23,
-//         "grade": "O",
-//         "ca": 7,
-//         "mte": 20,
-//         "ete": 12,
-//         "attendance": 5
-//       }
-//     ]
-//   }, {
-//     "id": 13,
-//     "registrationNo": 12142622,
-//     "semester": 3,
-//     "tgpa": 9.52,
-//     "marks": [
-//       {
-//         "subjectId": 3,
-//         "grade": "O",
-//         "ca": 3,
-//         "mte": 5,
-//         "ete": 26,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "A",
-//         "ca": 2,
-//         "mte": 8,
-//         "ete": 27,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 15,
-//         "grade": "+A",
-//         "ca": 13,
-//         "mte": 11,
-//         "ete": 22,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "C",
-//         "ca": 5,
-//         "mte": 12,
-//         "ete": 13,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 5,
-//         "grade": "B",
-//         "ca": 22,
-//         "mte": 18,
-//         "ete": 35,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 25,
-//         "grade": "C",
-//         "ca": 11,
-//         "mte": 3,
-//         "ete": 15,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 24,
-//         "grade": "B",
-//         "ca": 10,
-//         "mte": 5,
-//         "ete": 27,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 19,
-//         "grade": "A",
-//         "ca": 18,
-//         "mte": 1,
-//         "ete": 44,
-//         "attendance": 5
-//       }
-//     ]
-//   }, {
-//     "id": 14,
-//     "registrationNo": 12142622,
-//     "semester": 4,
-//     "tgpa": 8.12,
-//     "marks": [
-//       {
-//         "subjectId": 7,
-//         "grade": "D",
-//         "ca": 17,
-//         "mte": 1,
-//         "ete": 32,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 16,
-//         "grade": "C",
-//         "ca": 1,
-//         "mte": 15,
-//         "ete": 13,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 14,
-//         "grade": "D",
-//         "ca": 11,
-//         "mte": 14,
-//         "ete": 12,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 6,
-//         "grade": "+A",
-//         "ca": 6,
-//         "mte": 12,
-//         "ete": 16,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "A",
-//         "ca": 12,
-//         "mte": 6,
-//         "ete": 36,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 17,
-//         "grade": "C",
-//         "ca": 24,
-//         "mte": 11,
-//         "ete": 25,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "O",
-//         "ca": 10,
-//         "mte": 8,
-//         "ete": 24,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 30,
-//         "grade": "D",
-//         "ca": 4,
-//         "mte": 0,
-//         "ete": 26,
-//         "attendance": 0
-//       }
-//     ]
-//   },
-//   {
-//     "id": 15,
-//     "registrationNo": 12276829,
-//     "semester": 1,
-//     "tgpa": 9.03,
-//     "marks": [
-//       {
-//         "subjectId": 10,
-//         "grade": "D",
-//         "ca": 18,
-//         "mte": 8,
-//         "ete": 3,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 15,
-//         "grade": "B",
-//         "ca": 22,
-//         "mte": 17,
-//         "ete": 37,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 4,
-//         "grade": "B+",
-//         "ca": 21,
-//         "mte": 7,
-//         "ete": 3,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 26,
-//         "grade": "A",
-//         "ca": 21,
-//         "mte": 15,
-//         "ete": 47,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "C",
-//         "ca": 23,
-//         "mte": 10,
-//         "ete": 22,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 25,
-//         "grade": "B+",
-//         "ca": 12,
-//         "mte": 2,
-//         "ete": 29,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "B+",
-//         "ca": 4,
-//         "mte": 5,
-//         "ete": 35,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 10,
-//         "grade": "D",
-//         "ca": 8,
-//         "mte": 8,
-//         "ete": 6,
-//         "attendance": 1
-//       }
-//     ]
-//   }, {
-//     "id": 16,
-//     "registrationNo": 12276829,
-//     "semester": 2,
-//     "tgpa": 8.51,
-//     "marks": [
-//       {
-//         "subjectId": 30,
-//         "grade": "C",
-//         "ca": 24,
-//         "mte": 0,
-//         "ete": 16,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 19,
-//         "grade": "C",
-//         "ca": 0,
-//         "mte": 6,
-//         "ete": 18,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 25,
-//         "grade": "D",
-//         "ca": 4,
-//         "mte": 12,
-//         "ete": 1,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 14,
-//         "grade": "D",
-//         "ca": 24,
-//         "mte": 9,
-//         "ete": 5,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "C",
-//         "ca": 0,
-//         "mte": 6,
-//         "ete": 8,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 17,
-//         "grade": "B",
-//         "ca": 21,
-//         "mte": 2,
-//         "ete": 25,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 5,
-//         "grade": "C",
-//         "ca": 3,
-//         "mte": 13,
-//         "ete": 33,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 12,
-//         "grade": "O",
-//         "ca": 3,
-//         "mte": 8,
-//         "ete": 19,
-//         "attendance": 5
-//       }
-//     ]
-//   }, {
-//     "id": 17,
-//     "registrationNo": 12276829,
-//     "semester": 3,
-//     "tgpa": 9.05,
-//     "marks": [
-//       {
-//         "subjectId": 2,
-//         "grade": "+A",
-//         "ca": 25,
-//         "mte": 3,
-//         "ete": 26,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 13,
-//         "grade": "D",
-//         "ca": 24,
-//         "mte": 16,
-//         "ete": 12,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 25,
-//         "grade": "D",
-//         "ca": 22,
-//         "mte": 18,
-//         "ete": 22,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "B+",
-//         "ca": 12,
-//         "mte": 0,
-//         "ete": 6,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "B+",
-//         "ca": 22,
-//         "mte": 3,
-//         "ete": 32,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 15,
-//         "grade": "C",
-//         "ca": 22,
-//         "mte": 15,
-//         "ete": 38,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 17,
-//         "grade": "+A",
-//         "ca": 15,
-//         "mte": 13,
-//         "ete": 37,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 27,
-//         "grade": "C",
-//         "ca": 24,
-//         "mte": 13,
-//         "ete": 2,
-//         "attendance": 5
-//       }
-//     ]
-//   }, {
-//     "id": 18,
-//     "registrationNo": 12276829,
-//     "semester": 4,
-//     "tgpa": 7.9,
-//     "marks": [
-//       {
-//         "subjectId": 12,
-//         "grade": "B+",
-//         "ca": 25,
-//         "mte": 2,
-//         "ete": 24,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 15,
-//         "grade": "B",
-//         "ca": 2,
-//         "mte": 4,
-//         "ete": 8,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 27,
-//         "grade": "+A",
-//         "ca": 16,
-//         "mte": 9,
-//         "ete": 42,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 17,
-//         "grade": "D",
-//         "ca": 20,
-//         "mte": 1,
-//         "ete": 19,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "B",
-//         "ca": 21,
-//         "mte": 14,
-//         "ete": 19,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "C",
-//         "ca": 23,
-//         "mte": 2,
-//         "ete": 37,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 17,
-//         "grade": "C",
-//         "ca": 12,
-//         "mte": 5,
-//         "ete": 40,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 20,
-//         "grade": "D",
-//         "ca": 15,
-//         "mte": 16,
-//         "ete": 39,
-//         "attendance": 1
-//       }
-//     ]
-//   }, {
-//     "id": 19,
-//     "registrationNo": 12276829,
-//     "semester": 5,
-//     "tgpa": 3.61,
-//     "marks": [
-//       {
-//         "subjectId": 28,
-//         "grade": "B+",
-//         "ca": 2,
-//         "mte": 12,
-//         "ete": 47,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 18,
-//         "grade": "D",
-//         "ca": 9,
-//         "mte": 4,
-//         "ete": 29,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 12,
-//         "grade": "+A",
-//         "ca": 22,
-//         "mte": 12,
-//         "ete": 2,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 6,
-//         "grade": "B",
-//         "ca": 17,
-//         "mte": 2,
-//         "ete": 17,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "O",
-//         "ca": 11,
-//         "mte": 1,
-//         "ete": 21,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 4,
-//         "grade": "A",
-//         "ca": 16,
-//         "mte": 5,
-//         "ete": 41,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "A",
-//         "ca": 16,
-//         "mte": 12,
-//         "ete": 11,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 27,
-//         "grade": "B",
-//         "ca": 16,
-//         "mte": 20,
-//         "ete": 38,
-//         "attendance": 1
-//       }
-//     ]
-//   }, {
-//     "id": 20,
-//     "registrationNo": 12276829,
-//     "semester": 6,
-//     "tgpa": 2.84,
-//     "marks": [
-//       {
-//         "subjectId": 11,
-//         "grade": "C",
-//         "ca": 24,
-//         "mte": 13,
-//         "ete": 33,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 6,
-//         "grade": "B",
-//         "ca": 9,
-//         "mte": 13,
-//         "ete": 44,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "+A",
-//         "ca": 10,
-//         "mte": 0,
-//         "ete": 11,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 20,
-//         "grade": "O",
-//         "ca": 16,
-//         "mte": 1,
-//         "ete": 28,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 10,
-//         "grade": "B+",
-//         "ca": 15,
-//         "mte": 4,
-//         "ete": 40,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "B",
-//         "ca": 19,
-//         "mte": 6,
-//         "ete": 27,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "B",
-//         "ca": 11,
-//         "mte": 12,
-//         "ete": 26,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "B",
-//         "ca": 1,
-//         "mte": 12,
-//         "ete": 11,
-//         "attendance": 5
-//       }
-//     ]
-//   }, {
-//     "id": 21,
-//     "registrationNo": 12276829,
-//     "semester": 7,
-//     "tgpa": 8.11,
-//     "marks": [
-//       {
-//         "subjectId": 9,
-//         "grade": "D",
-//         "ca": 10,
-//         "mte": 6,
-//         "ete": 16,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 2,
-//         "grade": "+A",
-//         "ca": 11,
-//         "mte": 2,
-//         "ete": 10,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 23,
-//         "grade": "C",
-//         "ca": 20,
-//         "mte": 2,
-//         "ete": 44,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 26,
-//         "grade": "B+",
-//         "ca": 19,
-//         "mte": 4,
-//         "ete": 32,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 19,
-//         "grade": "A",
-//         "ca": 8,
-//         "mte": 15,
-//         "ete": 13,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 11,
-//         "grade": "O",
-//         "ca": 14,
-//         "mte": 1,
-//         "ete": 0,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "A",
-//         "ca": 24,
-//         "mte": 17,
-//         "ete": 17,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 22,
-//         "grade": "O",
-//         "ca": 22,
-//         "mte": 11,
-//         "ete": 34,
-//         "attendance": 4
-//       }
-//     ]
-//   }, {
-//     "id": 22,
-//     "registrationNo": 12276829,
-//     "semester": 8,
-//     "tgpa": 3.74,
-//     "marks": [
-//       {
-//         "subjectId": 20,
-//         "grade": "B",
-//         "ca": 18,
-//         "mte": 2,
-//         "ete": 2,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 2,
-//         "grade": "B+",
-//         "ca": 17,
-//         "mte": 3,
-//         "ete": 25,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "A",
-//         "ca": 3,
-//         "mte": 4,
-//         "ete": 5,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "A",
-//         "ca": 25,
-//         "mte": 19,
-//         "ete": 46,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 24,
-//         "grade": "B+",
-//         "ca": 5,
-//         "mte": 20,
-//         "ete": 0,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 10,
-//         "grade": "C",
-//         "ca": 15,
-//         "mte": 20,
-//         "ete": 21,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 26,
-//         "grade": "B+",
-//         "ca": 8,
-//         "mte": 18,
-//         "ete": 37,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 28,
-//         "grade": "B+",
-//         "ca": 22,
-//         "mte": 17,
-//         "ete": 19,
-//         "attendance": 5
-//       }
-//     ]
-//   },
-//   {
-//     "id": 23,
-//     "registrationNo": 12100734,
-//     "semester": 1,
-//     "tgpa": 3.84,
-//     "marks": [
-//       {
-//         "subjectId": 23,
-//         "grade": "O",
-//         "ca": 10,
-//         "mte": 2,
-//         "ete": 23,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "B+",
-//         "ca": 4,
-//         "mte": 15,
-//         "ete": 12,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 20,
-//         "grade": "B",
-//         "ca": 11,
-//         "mte": 10,
-//         "ete": 32,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 28,
-//         "grade": "+A",
-//         "ca": 16,
-//         "mte": 0,
-//         "ete": 14,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 19,
-//         "grade": "B+",
-//         "ca": 7,
-//         "mte": 17,
-//         "ete": 38,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "B+",
-//         "ca": 11,
-//         "mte": 2,
-//         "ete": 4,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "A",
-//         "ca": 18,
-//         "mte": 9,
-//         "ete": 22,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 16,
-//         "grade": "B",
-//         "ca": 24,
-//         "mte": 15,
-//         "ete": 14,
-//         "attendance": 1
-//       }
-//     ]
-//   }, {
-//     "id": 24,
-//     "registrationNo": 12100734,
-//     "semester": 2,
-//     "tgpa": 1.01,
-//     "marks": [
-//       {
-//         "subjectId": 11,
-//         "grade": "C",
-//         "ca": 15,
-//         "mte": 19,
-//         "ete": 47,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 27,
-//         "grade": "+A",
-//         "ca": 25,
-//         "mte": 2,
-//         "ete": 9,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 25,
-//         "grade": "B",
-//         "ca": 3,
-//         "mte": 10,
-//         "ete": 16,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "C",
-//         "ca": 12,
-//         "mte": 9,
-//         "ete": 48,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 14,
-//         "grade": "+A",
-//         "ca": 20,
-//         "mte": 13,
-//         "ete": 25,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "C",
-//         "ca": 1,
-//         "mte": 10,
-//         "ete": 13,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "+A",
-//         "ca": 17,
-//         "mte": 16,
-//         "ete": 7,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 1,
-//         "grade": "B+",
-//         "ca": 18,
-//         "mte": 13,
-//         "ete": 35,
-//         "attendance": 3
-//       }
-//     ]
-//   }, {
-//     "id": 25,
-//     "registrationNo": 12100734,
-//     "semester": 3,
-//     "tgpa": 7.49,
-//     "marks": [
-//       {
-//         "subjectId": 25,
-//         "grade": "+A",
-//         "ca": 9,
-//         "mte": 0,
-//         "ete": 10,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 28,
-//         "grade": "C",
-//         "ca": 21,
-//         "mte": 13,
-//         "ete": 12,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 12,
-//         "grade": "B+",
-//         "ca": 25,
-//         "mte": 15,
-//         "ete": 27,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 21,
-//         "grade": "B+",
-//         "ca": 3,
-//         "mte": 17,
-//         "ete": 10,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 11,
-//         "grade": "C",
-//         "ca": 13,
-//         "mte": 1,
-//         "ete": 1,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 2,
-//         "grade": "A",
-//         "ca": 17,
-//         "mte": 1,
-//         "ete": 46,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "B+",
-//         "ca": 12,
-//         "mte": 11,
-//         "ete": 33,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 8,
-//         "grade": "O",
-//         "ca": 11,
-//         "mte": 7,
-//         "ete": 32,
-//         "attendance": 1
-//       }
-//     ]
-//   }, {
-//     "id": 26,
-//     "registrationNo": 12100734,
-//     "semester": 4,
-//     "tgpa": 2.19,
-//     "marks": [
-//       {
-//         "subjectId": 16,
-//         "grade": "+A",
-//         "ca": 14,
-//         "mte": 12,
-//         "ete": 32,
-//         "attendance": 4
-//       },
-//       {
-//         "subjectId": 26,
-//         "grade": "B+",
-//         "ca": 6,
-//         "mte": 3,
-//         "ete": 20,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 30,
-//         "grade": "C",
-//         "ca": 4,
-//         "mte": 19,
-//         "ete": 2,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "B",
-//         "ca": 9,
-//         "mte": 16,
-//         "ete": 37,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 13,
-//         "grade": "D",
-//         "ca": 12,
-//         "mte": 16,
-//         "ete": 44,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 3,
-//         "grade": "C",
-//         "ca": 25,
-//         "mte": 3,
-//         "ete": 26,
-//         "attendance": 0
-//       },
-//       {
-//         "subjectId": 22,
-//         "grade": "+A",
-//         "ca": 24,
-//         "mte": 0,
-//         "ete": 33,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 29,
-//         "grade": "B+",
-//         "ca": 13,
-//         "mte": 3,
-//         "ete": 27,
-//         "attendance": 5
-//       }
-//     ]
-//   }, {
-//     "id": 27,
-//     "registrationNo": 12100734,
-//     "semester": 5,
-//     "tgpa": 6.71,
-//     "marks": [
-//       {
-//         "subjectId": 1,
-//         "grade": "C",
-//         "ca": 0,
-//         "mte": 9,
-//         "ete": 21,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 10,
-//         "grade": "A",
-//         "ca": 20,
-//         "mte": 15,
-//         "ete": 47,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 7,
-//         "grade": "C",
-//         "ca": 24,
-//         "mte": 10,
-//         "ete": 14,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 11,
-//         "grade": "O",
-//         "ca": 22,
-//         "mte": 13,
-//         "ete": 44,
-//         "attendance": 2
-//       },
-//       {
-//         "subjectId": 25,
-//         "grade": "O",
-//         "ca": 25,
-//         "mte": 19,
-//         "ete": 45,
-//         "attendance": 3
-//       },
-//       {
-//         "subjectId": 18,
-//         "grade": "C",
-//         "ca": 2,
-//         "mte": 16,
-//         "ete": 7,
-//         "attendance": 1
-//       },
-//       {
-//         "subjectId": 9,
-//         "grade": "D",
-//         "ca": 11,
-//         "mte": 15,
-//         "ete": 39,
-//         "attendance": 5
-//       },
-//       {
-//         "subjectId": 12,
-//         "grade": "O",
-//         "ca": 2,
-//         "mte": 17,
-//         "ete": 29,
-//         "attendance": 4
-//       }
-//     ]
-//   }
-// ]);
+await Result.bulkCreate([
+  {
+    id: 1,
+    registrationNo: 12100435,
+    semester: 1,
+    tgpa: 5.34,
+    marks: [
+      {
+        subjectId: 19,
+        grade: "B+",
+        ca: 24,
+        mte: 0,
+        ete: 38,
+        attendance: 4
+      },
+      {
+        subjectId: 26,
+        grade: "A",
+        ca: 18,
+        mte: 20,
+        ete: 44,
+        attendance: 5
+      },
+      {
+        subjectId: 15,
+        grade: "O",
+        ca: 11,
+        mte: 16,
+        ete: 28,
+        attendance: 0
+      },
+      {
+        subjectId: 22,
+        grade: "A",
+        ca: 4,
+        mte: 2,
+        ete: 12,
+        attendance: 3
+      },
+      {
+        subjectId: 17,
+        grade: "A+",
+        ca: 24,
+        mte: 16,
+        ete: 28,
+        attendance: 4
+      },
+      {
+        subjectId: 24,
+        grade: "B+",
+        ca: 24,
+        mte: 5,
+        ete: 47,
+        attendance: 5
+      },
+      {
+        subjectId: 23,
+        grade: "C",
+        ca: 11,
+        mte: 7,
+        ete: 40,
+        attendance: 1
+      },
+      {
+        subjectId: 1,
+        grade: "A+",
+        ca: 14,
+        mte: 10,
+        ete: 49,
+        attendance: 5
+      }
+    ]
+  }, {
+    id: 2,
+    registrationNo: 12100435,
+    semester: 2,
+    tgpa: 4.79,
+    marks: [
+      {
+        subjectId: 29,
+        grade: "A",
+        ca: 18,
+        mte: 13,
+        ete: 36,
+        attendance: 3
+      },
+      {
+        subjectId: 30,
+        grade: "B+",
+        ca: 7,
+        mte: 4,
+        ete: 10,
+        attendance: 3
+      },
+      {
+        subjectId: 24,
+        grade: "D",
+        ca: 20,
+        mte: 8,
+        ete: 33,
+        attendance: 3
+      },
+      {
+        subjectId: 11,
+        grade: "C",
+        ca: 16,
+        mte: 18,
+        ete: 24,
+        attendance: 3
+      },
+      {
+        subjectId: 26,
+        grade: "C",
+        ca: 13,
+        mte: 15,
+        ete: 1,
+        attendance: 2
+      },
+      {
+        subjectId: 3,
+        grade: "O",
+        ca: 19,
+        mte: 20,
+        ete: 41,
+        attendance: 5
+      },
+      {
+        subjectId: 13,
+        grade: "C",
+        ca: 20,
+        mte: 13,
+        ete: 47,
+        attendance: 2
+      },
+      {
+        subjectId: 24,
+        grade: "A",
+        ca: 3,
+        mte: 11,
+        ete: 9,
+        attendance: 1
+      }
+    ]
+  }, {
+    id: 3,
+    registrationNo: 12100435,
+    semester: 3,
+    tgpa: 8.64,
+    marks: [
+      {
+        subjectId: 23,
+        grade: "A",
+        ca: 14,
+        mte: 7,
+        ete: 25,
+        attendance: 0
+      },
+      {
+        subjectId: 26,
+        grade: "B+",
+        ca: 25,
+        mte: 13,
+        ete: 39,
+        attendance: 2
+      },
+      {
+        subjectId: 12,
+        grade: "C",
+        ca: 0,
+        mte: 12,
+        ete: 0,
+        attendance: 4
+      },
+      {
+        subjectId: 17,
+        grade: "A+",
+        ca: 21,
+        mte: 6,
+        ete: 5,
+        attendance: 1
+      },
+      {
+        subjectId: 27,
+        grade: "B",
+        ca: 20,
+        mte: 13,
+        ete: 31,
+        attendance: 4
+      },
+      {
+        subjectId: 7,
+        grade: "D",
+        ca: 5,
+        mte: 7,
+        ete: 1,
+        attendance: 1
+      },
+      {
+        subjectId: 19,
+        grade: "O",
+        ca: 24,
+        mte: 0,
+        ete: 42,
+        attendance: 2
+      },
+      {
+        subjectId: 22,
+        grade: "B+",
+        ca: 18,
+        mte: 10,
+        ete: 7,
+        attendance: 5
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "registrationNo": 11937798,
+    "semester": 1,
+    "tgpa": 7.74,
+    "marks": [
+      {
+        "subjectId": 12,
+        "grade": "O",
+        "ca": 12,
+        "mte": 17,
+        "ete": 17,
+        "attendance": 1
+      },
+      {
+        "subjectId": 23,
+        "grade": "B+",
+        "ca": 10,
+        "mte": 13,
+        "ete": 17,
+        "attendance": 0
+      },
+      {
+        "subjectId": 9,
+        "grade": "B",
+        "ca": 13,
+        "mte": 16,
+        "ete": 4,
+        "attendance": 3
+      },
+      {
+        "subjectId": 29,
+        "grade": "C",
+        "ca": 10,
+        "mte": 9,
+        "ete": 12,
+        "attendance": 3
+      },
+      {
+        "subjectId": 20,
+        "grade": "D",
+        "ca": 13,
+        "mte": 8,
+        "ete": 4,
+        "attendance": 1
+      },
+      {
+        "subjectId": 13,
+        "grade": "O",
+        "ca": 7,
+        "mte": 17,
+        "ete": 44,
+        "attendance": 3
+      },
+      {
+        "subjectId": 2,
+        "grade": "A",
+        "ca": 20,
+        "mte": 20,
+        "ete": 22,
+        "attendance": 5
+      },
+      {
+        "subjectId": 9,
+        "grade": "O",
+        "ca": 10,
+        "mte": 2,
+        "ete": 20,
+        "attendance": 1
+      }
+    ]
+  }, {
+    "id": 5,
+    "registrationNo": 11937798,
+    "semester": 2,
+    "tgpa": 3.22,
+    "marks": [
+      {
+        "subjectId": 8,
+        "grade": "D",
+        "ca": 9,
+        "mte": 12,
+        "ete": 28,
+        "attendance": 1
+      },
+      {
+        "subjectId": 3,
+        "grade": "O",
+        "ca": 24,
+        "mte": 20,
+        "ete": 26,
+        "attendance": 1
+      },
+      {
+        "subjectId": 15,
+        "grade": "B+",
+        "ca": 23,
+        "mte": 20,
+        "ete": 26,
+        "attendance": 3
+      },
+      {
+        "subjectId": 14,
+        "grade": "C",
+        "ca": 24,
+        "mte": 16,
+        "ete": 33,
+        "attendance": 5
+      },
+      {
+        "subjectId": 28,
+        "grade": "C",
+        "ca": 10,
+        "mte": 10,
+        "ete": 26,
+        "attendance": 5
+      },
+      {
+        "subjectId": 21,
+        "grade": "C",
+        "ca": 11,
+        "mte": 12,
+        "ete": 47,
+        "attendance": 3
+      },
+      {
+        "subjectId": 9,
+        "grade": "A",
+        "ca": 18,
+        "mte": 4,
+        "ete": 26,
+        "attendance": 2
+      },
+      {
+        "subjectId": 7,
+        "grade": "B",
+        "ca": 13,
+        "mte": 9,
+        "ete": 11,
+        "attendance": 2
+      }
+    ]
+  }, {
+    "id": 6,
+    "registrationNo": 11937798,
+    "semester": 3,
+    "tgpa": 7.38,
+    "marks": [
+      {
+        "subjectId": 7,
+        "grade": "A+",
+        "ca": 7,
+        "mte": 8,
+        "ete": 23,
+        "attendance": 1
+      },
+      {
+        "subjectId": 3,
+        "grade": "A+",
+        "ca": 5,
+        "mte": 18,
+        "ete": 3,
+        "attendance": 3
+      },
+      {
+        "subjectId": 2,
+        "grade": "A+",
+        "ca": 1,
+        "mte": 15,
+        "ete": 31,
+        "attendance": 1
+      },
+      {
+        "subjectId": 16,
+        "grade": "O",
+        "ca": 23,
+        "mte": 0,
+        "ete": 28,
+        "attendance": 5
+      },
+      {
+        "subjectId": 26,
+        "grade": "C",
+        "ca": 6,
+        "mte": 18,
+        "ete": 24,
+        "attendance": 1
+      },
+      {
+        "subjectId": 7,
+        "grade": "D",
+        "ca": 4,
+        "mte": 13,
+        "ete": 46,
+        "attendance": 4
+      },
+      {
+        "subjectId": 16,
+        "grade": "B+",
+        "ca": 9,
+        "mte": 20,
+        "ete": 27,
+        "attendance": 0
+      },
+      {
+        "subjectId": 14,
+        "grade": "C",
+        "ca": 6,
+        "mte": 16,
+        "ete": 39,
+        "attendance": 2
+      }
+    ]
+  }, {
+    "id": 7,
+    "registrationNo": 11937798,
+    "semester": 4,
+    "tgpa": 6.94,
+    "marks": [
+      {
+        "subjectId": 28,
+        "grade": "B+",
+        "ca": 12,
+        "mte": 17,
+        "ete": 27,
+        "attendance": 4
+      },
+      {
+        "subjectId": 15,
+        "grade": "O",
+        "ca": 25,
+        "mte": 3,
+        "ete": 47,
+        "attendance": 4
+      },
+      {
+        "subjectId": 24,
+        "grade": "B+",
+        "ca": 20,
+        "mte": 20,
+        "ete": 9,
+        "attendance": 0
+      },
+      {
+        "subjectId": 16,
+        "grade": "D",
+        "ca": 6,
+        "mte": 15,
+        "ete": 36,
+        "attendance": 0
+      },
+      {
+        "subjectId": 2,
+        "grade": "D",
+        "ca": 22,
+        "mte": 6,
+        "ete": 5,
+        "attendance": 2
+      },
+      {
+        "subjectId": 5,
+        "grade": "D",
+        "ca": 1,
+        "mte": 12,
+        "ete": 3,
+        "attendance": 1
+      },
+      {
+        "subjectId": 7,
+        "grade": "D",
+        "ca": 23,
+        "mte": 11,
+        "ete": 7,
+        "attendance": 3
+      },
+      {
+        "subjectId": 27,
+        "grade": "B+",
+        "ca": 9,
+        "mte": 4,
+        "ete": 17,
+        "attendance": 5
+      }
+    ]
+  }, {
+    "id": 8,
+    "registrationNo": 11937798,
+    "semester": 5,
+    "tgpa": 8.34,
+    "marks": [
+      {
+        "subjectId": 4,
+        "grade": "D",
+        "ca": 8,
+        "mte": 12,
+        "ete": 15,
+        "attendance": 3
+      },
+      {
+        "subjectId": 20,
+        "grade": "B",
+        "ca": 12,
+        "mte": 12,
+        "ete": 26,
+        "attendance": 2
+      },
+      {
+        "subjectId": 19,
+        "grade": "O",
+        "ca": 18,
+        "mte": 13,
+        "ete": 27,
+        "attendance": 0
+      },
+      {
+        "subjectId": 18,
+        "grade": "A",
+        "ca": 4,
+        "mte": 18,
+        "ete": 15,
+        "attendance": 0
+      },
+      {
+        "subjectId": 2,
+        "grade": "A+",
+        "ca": 13,
+        "mte": 14,
+        "ete": 32,
+        "attendance": 2
+      },
+      {
+        "subjectId": 16,
+        "grade": "D",
+        "ca": 17,
+        "mte": 1,
+        "ete": 20,
+        "attendance": 0
+      },
+      {
+        "subjectId": 13,
+        "grade": "A+",
+        "ca": 19,
+        "mte": 13,
+        "ete": 5,
+        "attendance": 4
+      },
+      {
+        "subjectId": 22,
+        "grade": "D",
+        "ca": 4,
+        "mte": 11,
+        "ete": 12,
+        "attendance": 4
+      }
+    ]
+  }, {
+    "id": 9,
+    "registrationNo": 11937798,
+    "semester": 6,
+    "tgpa": 8.07,
+    "marks": [
+      {
+        "subjectId": 21,
+        "grade": "A+",
+        "ca": 13,
+        "mte": 6,
+        "ete": 8,
+        "attendance": 2
+      },
+      {
+        "subjectId": 23,
+        "grade": "B",
+        "ca": 7,
+        "mte": 8,
+        "ete": 34,
+        "attendance": 2
+      },
+      {
+        "subjectId": 1,
+        "grade": "A+",
+        "ca": 1,
+        "mte": 10,
+        "ete": 11,
+        "attendance": 2
+      },
+      {
+        "subjectId": 1,
+        "grade": "C",
+        "ca": 24,
+        "mte": 6,
+        "ete": 2,
+        "attendance": 3
+      },
+      {
+        "subjectId": 1,
+        "grade": "O",
+        "ca": 8,
+        "mte": 17,
+        "ete": 25,
+        "attendance": 0
+      },
+      {
+        "subjectId": 26,
+        "grade": "B",
+        "ca": 18,
+        "mte": 15,
+        "ete": 26,
+        "attendance": 0
+      },
+      {
+        "subjectId": 23,
+        "grade": "A",
+        "ca": 7,
+        "mte": 9,
+        "ete": 42,
+        "attendance": 2
+      },
+      {
+        "subjectId": 24,
+        "grade": "D",
+        "ca": 15,
+        "mte": 10,
+        "ete": 28,
+        "attendance": 3
+      }
+    ]
+  }, {
+    "id": 10,
+    "registrationNo": 11937798,
+    "semester": 7,
+    "tgpa": 6.79,
+    "marks": [
+      {
+        "subjectId": 9,
+        "grade": "C",
+        "ca": 2,
+        "mte": 2,
+        "ete": 31,
+        "attendance": 0
+      },
+      {
+        "subjectId": 5,
+        "grade": "D",
+        "ca": 22,
+        "mte": 13,
+        "ete": 9,
+        "attendance": 3
+      },
+      {
+        "subjectId": 26,
+        "grade": "A",
+        "ca": 20,
+        "mte": 10,
+        "ete": 40,
+        "attendance": 5
+      },
+      {
+        "subjectId": 23,
+        "grade": "C",
+        "ca": 21,
+        "mte": 16,
+        "ete": 20,
+        "attendance": 2
+      },
+      {
+        "subjectId": 23,
+        "grade": "B+",
+        "ca": 13,
+        "mte": 13,
+        "ete": 38,
+        "attendance": 2
+      },
+      {
+        "subjectId": 21,
+        "grade": "C",
+        "ca": 7,
+        "mte": 11,
+        "ete": 22,
+        "attendance": 5
+      },
+      {
+        "subjectId": 30,
+        "grade": "O",
+        "ca": 19,
+        "mte": 6,
+        "ete": 27,
+        "attendance": 5
+      },
+      {
+        "subjectId": 6,
+        "grade": "D",
+        "ca": 0,
+        "mte": 17,
+        "ete": 11,
+        "attendance": 1
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "registrationNo": 12142622,
+    "semester": 1,
+    "tgpa": 5.02,
+    "marks": [
+      {
+        "subjectId": 8,
+        "grade": "C",
+        "ca": 23,
+        "mte": 14,
+        "ete": 10,
+        "attendance": 0
+      },
+      {
+        "subjectId": 8,
+        "grade": "A+",
+        "ca": 0,
+        "mte": 3,
+        "ete": 44,
+        "attendance": 2
+      },
+      {
+        "subjectId": 16,
+        "grade": "C",
+        "ca": 20,
+        "mte": 14,
+        "ete": 21,
+        "attendance": 4
+      },
+      {
+        "subjectId": 9,
+        "grade": "A+",
+        "ca": 8,
+        "mte": 7,
+        "ete": 12,
+        "attendance": 5
+      },
+      {
+        "subjectId": 9,
+        "grade": "O",
+        "ca": 19,
+        "mte": 10,
+        "ete": 6,
+        "attendance": 1
+      },
+      {
+        "subjectId": 19,
+        "grade": "C",
+        "ca": 8,
+        "mte": 13,
+        "ete": 47,
+        "attendance": 1
+      },
+      {
+        "subjectId": 10,
+        "grade": "A",
+        "ca": 20,
+        "mte": 19,
+        "ete": 34,
+        "attendance": 3
+      },
+      {
+        "subjectId": 8,
+        "grade": "A+",
+        "ca": 16,
+        "mte": 9,
+        "ete": 44,
+        "attendance": 0
+      }
+    ]
+  }, {
+    "id": 12,
+    "registrationNo": 12142622,
+    "semester": 2,
+    "tgpa": 8.19,
+    "marks": [
+      {
+        "subjectId": 23,
+        "grade": "A+",
+        "ca": 8,
+        "mte": 15,
+        "ete": 38,
+        "attendance": 3
+      },
+      {
+        "subjectId": 29,
+        "grade": "C",
+        "ca": 25,
+        "mte": 0,
+        "ete": 50,
+        "attendance": 1
+      },
+      {
+        "subjectId": 10,
+        "grade": "C",
+        "ca": 22,
+        "mte": 19,
+        "ete": 25,
+        "attendance": 4
+      },
+      {
+        "subjectId": 30,
+        "grade": "O",
+        "ca": 16,
+        "mte": 20,
+        "ete": 35,
+        "attendance": 1
+      },
+      {
+        "subjectId": 20,
+        "grade": "B",
+        "ca": 5,
+        "mte": 14,
+        "ete": 20,
+        "attendance": 5
+      },
+      {
+        "subjectId": 5,
+        "grade": "O",
+        "ca": 13,
+        "mte": 18,
+        "ete": 16,
+        "attendance": 3
+      },
+      {
+        "subjectId": 28,
+        "grade": "A",
+        "ca": 15,
+        "mte": 9,
+        "ete": 49,
+        "attendance": 3
+      },
+      {
+        "subjectId": 23,
+        "grade": "O",
+        "ca": 7,
+        "mte": 20,
+        "ete": 12,
+        "attendance": 5
+      }
+    ]
+  }, {
+    "id": 13,
+    "registrationNo": 12142622,
+    "semester": 3,
+    "tgpa": 9.52,
+    "marks": [
+      {
+        "subjectId": 3,
+        "grade": "O",
+        "ca": 3,
+        "mte": 5,
+        "ete": 26,
+        "attendance": 2
+      },
+      {
+        "subjectId": 8,
+        "grade": "A",
+        "ca": 2,
+        "mte": 8,
+        "ete": 27,
+        "attendance": 3
+      },
+      {
+        "subjectId": 15,
+        "grade": "A+",
+        "ca": 13,
+        "mte": 11,
+        "ete": 22,
+        "attendance": 1
+      },
+      {
+        "subjectId": 7,
+        "grade": "C",
+        "ca": 5,
+        "mte": 12,
+        "ete": 13,
+        "attendance": 4
+      },
+      {
+        "subjectId": 5,
+        "grade": "B",
+        "ca": 22,
+        "mte": 18,
+        "ete": 35,
+        "attendance": 3
+      },
+      {
+        "subjectId": 25,
+        "grade": "C",
+        "ca": 11,
+        "mte": 3,
+        "ete": 15,
+        "attendance": 0
+      },
+      {
+        "subjectId": 24,
+        "grade": "B",
+        "ca": 10,
+        "mte": 5,
+        "ete": 27,
+        "attendance": 5
+      },
+      {
+        "subjectId": 19,
+        "grade": "A",
+        "ca": 18,
+        "mte": 1,
+        "ete": 44,
+        "attendance": 5
+      }
+    ]
+  }, {
+    "id": 14,
+    "registrationNo": 12142622,
+    "semester": 4,
+    "tgpa": 8.12,
+    "marks": [
+      {
+        "subjectId": 7,
+        "grade": "D",
+        "ca": 17,
+        "mte": 1,
+        "ete": 32,
+        "attendance": 5
+      },
+      {
+        "subjectId": 16,
+        "grade": "C",
+        "ca": 1,
+        "mte": 15,
+        "ete": 13,
+        "attendance": 4
+      },
+      {
+        "subjectId": 14,
+        "grade": "D",
+        "ca": 11,
+        "mte": 14,
+        "ete": 12,
+        "attendance": 5
+      },
+      {
+        "subjectId": 6,
+        "grade": "A+",
+        "ca": 6,
+        "mte": 12,
+        "ete": 16,
+        "attendance": 1
+      },
+      {
+        "subjectId": 1,
+        "grade": "A",
+        "ca": 12,
+        "mte": 6,
+        "ete": 36,
+        "attendance": 0
+      },
+      {
+        "subjectId": 17,
+        "grade": "C",
+        "ca": 24,
+        "mte": 11,
+        "ete": 25,
+        "attendance": 2
+      },
+      {
+        "subjectId": 21,
+        "grade": "O",
+        "ca": 10,
+        "mte": 8,
+        "ete": 24,
+        "attendance": 1
+      },
+      {
+        "subjectId": 30,
+        "grade": "D",
+        "ca": 4,
+        "mte": 0,
+        "ete": 26,
+        "attendance": 0
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "registrationNo": 12276829,
+    "semester": 1,
+    "tgpa": 9.03,
+    "marks": [
+      {
+        "subjectId": 10,
+        "grade": "D",
+        "ca": 18,
+        "mte": 8,
+        "ete": 3,
+        "attendance": 0
+      },
+      {
+        "subjectId": 15,
+        "grade": "B",
+        "ca": 22,
+        "mte": 17,
+        "ete": 37,
+        "attendance": 3
+      },
+      {
+        "subjectId": 4,
+        "grade": "B+",
+        "ca": 21,
+        "mte": 7,
+        "ete": 3,
+        "attendance": 0
+      },
+      {
+        "subjectId": 26,
+        "grade": "A",
+        "ca": 21,
+        "mte": 15,
+        "ete": 47,
+        "attendance": 3
+      },
+      {
+        "subjectId": 8,
+        "grade": "C",
+        "ca": 23,
+        "mte": 10,
+        "ete": 22,
+        "attendance": 4
+      },
+      {
+        "subjectId": 25,
+        "grade": "B+",
+        "ca": 12,
+        "mte": 2,
+        "ete": 29,
+        "attendance": 0
+      },
+      {
+        "subjectId": 3,
+        "grade": "B+",
+        "ca": 4,
+        "mte": 5,
+        "ete": 35,
+        "attendance": 3
+      },
+      {
+        "subjectId": 10,
+        "grade": "D",
+        "ca": 8,
+        "mte": 8,
+        "ete": 6,
+        "attendance": 1
+      }
+    ]
+  }, {
+    "id": 16,
+    "registrationNo": 12276829,
+    "semester": 2,
+    "tgpa": 8.51,
+    "marks": [
+      {
+        "subjectId": 30,
+        "grade": "C",
+        "ca": 24,
+        "mte": 0,
+        "ete": 16,
+        "attendance": 3
+      },
+      {
+        "subjectId": 19,
+        "grade": "C",
+        "ca": 0,
+        "mte": 6,
+        "ete": 18,
+        "attendance": 2
+      },
+      {
+        "subjectId": 25,
+        "grade": "D",
+        "ca": 4,
+        "mte": 12,
+        "ete": 1,
+        "attendance": 2
+      },
+      {
+        "subjectId": 14,
+        "grade": "D",
+        "ca": 24,
+        "mte": 9,
+        "ete": 5,
+        "attendance": 0
+      },
+      {
+        "subjectId": 7,
+        "grade": "C",
+        "ca": 0,
+        "mte": 6,
+        "ete": 8,
+        "attendance": 2
+      },
+      {
+        "subjectId": 17,
+        "grade": "B",
+        "ca": 21,
+        "mte": 2,
+        "ete": 25,
+        "attendance": 3
+      },
+      {
+        "subjectId": 5,
+        "grade": "C",
+        "ca": 3,
+        "mte": 13,
+        "ete": 33,
+        "attendance": 2
+      },
+      {
+        "subjectId": 12,
+        "grade": "O",
+        "ca": 3,
+        "mte": 8,
+        "ete": 19,
+        "attendance": 5
+      }
+    ]
+  }, {
+    "id": 17,
+    "registrationNo": 12276829,
+    "semester": 3,
+    "tgpa": 9.05,
+    "marks": [
+      {
+        "subjectId": 2,
+        "grade": "A+",
+        "ca": 25,
+        "mte": 3,
+        "ete": 26,
+        "attendance": 1
+      },
+      {
+        "subjectId": 13,
+        "grade": "D",
+        "ca": 24,
+        "mte": 16,
+        "ete": 12,
+        "attendance": 4
+      },
+      {
+        "subjectId": 25,
+        "grade": "D",
+        "ca": 22,
+        "mte": 18,
+        "ete": 22,
+        "attendance": 5
+      },
+      {
+        "subjectId": 3,
+        "grade": "B+",
+        "ca": 12,
+        "mte": 0,
+        "ete": 6,
+        "attendance": 5
+      },
+      {
+        "subjectId": 21,
+        "grade": "B+",
+        "ca": 22,
+        "mte": 3,
+        "ete": 32,
+        "attendance": 1
+      },
+      {
+        "subjectId": 15,
+        "grade": "C",
+        "ca": 22,
+        "mte": 15,
+        "ete": 38,
+        "attendance": 5
+      },
+      {
+        "subjectId": 17,
+        "grade": "A+",
+        "ca": 15,
+        "mte": 13,
+        "ete": 37,
+        "attendance": 4
+      },
+      {
+        "subjectId": 27,
+        "grade": "C",
+        "ca": 24,
+        "mte": 13,
+        "ete": 2,
+        "attendance": 5
+      }
+    ]
+  }, {
+    "id": 18,
+    "registrationNo": 12276829,
+    "semester": 4,
+    "tgpa": 7.9,
+    "marks": [
+      {
+        "subjectId": 12,
+        "grade": "B+",
+        "ca": 25,
+        "mte": 2,
+        "ete": 24,
+        "attendance": 0
+      },
+      {
+        "subjectId": 15,
+        "grade": "B",
+        "ca": 2,
+        "mte": 4,
+        "ete": 8,
+        "attendance": 0
+      },
+      {
+        "subjectId": 27,
+        "grade": "A+",
+        "ca": 16,
+        "mte": 9,
+        "ete": 42,
+        "attendance": 2
+      },
+      {
+        "subjectId": 17,
+        "grade": "D",
+        "ca": 20,
+        "mte": 1,
+        "ete": 19,
+        "attendance": 0
+      },
+      {
+        "subjectId": 21,
+        "grade": "B",
+        "ca": 21,
+        "mte": 14,
+        "ete": 19,
+        "attendance": 0
+      },
+      {
+        "subjectId": 1,
+        "grade": "C",
+        "ca": 23,
+        "mte": 2,
+        "ete": 37,
+        "attendance": 4
+      },
+      {
+        "subjectId": 17,
+        "grade": "C",
+        "ca": 12,
+        "mte": 5,
+        "ete": 40,
+        "attendance": 1
+      },
+      {
+        "subjectId": 20,
+        "grade": "D",
+        "ca": 15,
+        "mte": 16,
+        "ete": 39,
+        "attendance": 1
+      }
+    ]
+  }, {
+    "id": 19,
+    "registrationNo": 12276829,
+    "semester": 5,
+    "tgpa": 3.61,
+    "marks": [
+      {
+        "subjectId": 28,
+        "grade": "B+",
+        "ca": 2,
+        "mte": 12,
+        "ete": 47,
+        "attendance": 4
+      },
+      {
+        "subjectId": 18,
+        "grade": "D",
+        "ca": 9,
+        "mte": 4,
+        "ete": 29,
+        "attendance": 2
+      },
+      {
+        "subjectId": 12,
+        "grade": "A+",
+        "ca": 22,
+        "mte": 12,
+        "ete": 2,
+        "attendance": 0
+      },
+      {
+        "subjectId": 6,
+        "grade": "B",
+        "ca": 17,
+        "mte": 2,
+        "ete": 17,
+        "attendance": 0
+      },
+      {
+        "subjectId": 1,
+        "grade": "O",
+        "ca": 11,
+        "mte": 1,
+        "ete": 21,
+        "attendance": 2
+      },
+      {
+        "subjectId": 4,
+        "grade": "A",
+        "ca": 16,
+        "mte": 5,
+        "ete": 41,
+        "attendance": 2
+      },
+      {
+        "subjectId": 3,
+        "grade": "A",
+        "ca": 16,
+        "mte": 12,
+        "ete": 11,
+        "attendance": 2
+      },
+      {
+        "subjectId": 27,
+        "grade": "B",
+        "ca": 16,
+        "mte": 20,
+        "ete": 38,
+        "attendance": 1
+      }
+    ]
+  }, {
+    "id": 20,
+    "registrationNo": 12276829,
+    "semester": 6,
+    "tgpa": 2.84,
+    "marks": [
+      {
+        "subjectId": 11,
+        "grade": "C",
+        "ca": 24,
+        "mte": 13,
+        "ete": 33,
+        "attendance": 3
+      },
+      {
+        "subjectId": 6,
+        "grade": "B",
+        "ca": 9,
+        "mte": 13,
+        "ete": 44,
+        "attendance": 3
+      },
+      {
+        "subjectId": 7,
+        "grade": "A+",
+        "ca": 10,
+        "mte": 0,
+        "ete": 11,
+        "attendance": 1
+      },
+      {
+        "subjectId": 20,
+        "grade": "O",
+        "ca": 16,
+        "mte": 1,
+        "ete": 28,
+        "attendance": 0
+      },
+      {
+        "subjectId": 10,
+        "grade": "B+",
+        "ca": 15,
+        "mte": 4,
+        "ete": 40,
+        "attendance": 3
+      },
+      {
+        "subjectId": 9,
+        "grade": "B",
+        "ca": 19,
+        "mte": 6,
+        "ete": 27,
+        "attendance": 0
+      },
+      {
+        "subjectId": 1,
+        "grade": "B",
+        "ca": 11,
+        "mte": 12,
+        "ete": 26,
+        "attendance": 3
+      },
+      {
+        "subjectId": 21,
+        "grade": "B",
+        "ca": 1,
+        "mte": 12,
+        "ete": 11,
+        "attendance": 5
+      }
+    ]
+  }, {
+    "id": 21,
+    "registrationNo": 12276829,
+    "semester": 7,
+    "tgpa": 8.11,
+    "marks": [
+      {
+        "subjectId": 9,
+        "grade": "D",
+        "ca": 10,
+        "mte": 6,
+        "ete": 16,
+        "attendance": 0
+      },
+      {
+        "subjectId": 2,
+        "grade": "A+",
+        "ca": 11,
+        "mte": 2,
+        "ete": 10,
+        "attendance": 3
+      },
+      {
+        "subjectId": 23,
+        "grade": "C",
+        "ca": 20,
+        "mte": 2,
+        "ete": 44,
+        "attendance": 4
+      },
+      {
+        "subjectId": 26,
+        "grade": "B+",
+        "ca": 19,
+        "mte": 4,
+        "ete": 32,
+        "attendance": 4
+      },
+      {
+        "subjectId": 19,
+        "grade": "A",
+        "ca": 8,
+        "mte": 15,
+        "ete": 13,
+        "attendance": 1
+      },
+      {
+        "subjectId": 11,
+        "grade": "O",
+        "ca": 14,
+        "mte": 1,
+        "ete": 0,
+        "attendance": 5
+      },
+      {
+        "subjectId": 8,
+        "grade": "A",
+        "ca": 24,
+        "mte": 17,
+        "ete": 17,
+        "attendance": 0
+      },
+      {
+        "subjectId": 22,
+        "grade": "O",
+        "ca": 22,
+        "mte": 11,
+        "ete": 34,
+        "attendance": 4
+      }
+    ]
+  }, {
+    "id": 22,
+    "registrationNo": 12276829,
+    "semester": 8,
+    "tgpa": 3.74,
+    "marks": [
+      {
+        "subjectId": 20,
+        "grade": "B",
+        "ca": 18,
+        "mte": 2,
+        "ete": 2,
+        "attendance": 5
+      },
+      {
+        "subjectId": 2,
+        "grade": "B+",
+        "ca": 17,
+        "mte": 3,
+        "ete": 25,
+        "attendance": 0
+      },
+      {
+        "subjectId": 9,
+        "grade": "A",
+        "ca": 3,
+        "mte": 4,
+        "ete": 5,
+        "attendance": 1
+      },
+      {
+        "subjectId": 8,
+        "grade": "A",
+        "ca": 25,
+        "mte": 19,
+        "ete": 46,
+        "attendance": 5
+      },
+      {
+        "subjectId": 24,
+        "grade": "B+",
+        "ca": 5,
+        "mte": 20,
+        "ete": 0,
+        "attendance": 3
+      },
+      {
+        "subjectId": 10,
+        "grade": "C",
+        "ca": 15,
+        "mte": 20,
+        "ete": 21,
+        "attendance": 5
+      },
+      {
+        "subjectId": 26,
+        "grade": "B+",
+        "ca": 8,
+        "mte": 18,
+        "ete": 37,
+        "attendance": 3
+      },
+      {
+        "subjectId": 28,
+        "grade": "B+",
+        "ca": 22,
+        "mte": 17,
+        "ete": 19,
+        "attendance": 5
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "registrationNo": 12100734,
+    "semester": 1,
+    "tgpa": 3.84,
+    "marks": [
+      {
+        "subjectId": 23,
+        "grade": "O",
+        "ca": 10,
+        "mte": 2,
+        "ete": 23,
+        "attendance": 2
+      },
+      {
+        "subjectId": 7,
+        "grade": "B+",
+        "ca": 4,
+        "mte": 15,
+        "ete": 12,
+        "attendance": 1
+      },
+      {
+        "subjectId": 20,
+        "grade": "B",
+        "ca": 11,
+        "mte": 10,
+        "ete": 32,
+        "attendance": 2
+      },
+      {
+        "subjectId": 28,
+        "grade": "A+",
+        "ca": 16,
+        "mte": 0,
+        "ete": 14,
+        "attendance": 5
+      },
+      {
+        "subjectId": 19,
+        "grade": "B+",
+        "ca": 7,
+        "mte": 17,
+        "ete": 38,
+        "attendance": 2
+      },
+      {
+        "subjectId": 8,
+        "grade": "B+",
+        "ca": 11,
+        "mte": 2,
+        "ete": 4,
+        "attendance": 3
+      },
+      {
+        "subjectId": 9,
+        "grade": "A",
+        "ca": 18,
+        "mte": 9,
+        "ete": 22,
+        "attendance": 3
+      },
+      {
+        "subjectId": 16,
+        "grade": "B",
+        "ca": 24,
+        "mte": 15,
+        "ete": 14,
+        "attendance": 1
+      }
+    ]
+  }, {
+    "id": 24,
+    "registrationNo": 12100734,
+    "semester": 2,
+    "tgpa": 1.01,
+    "marks": [
+      {
+        "subjectId": 11,
+        "grade": "C",
+        "ca": 15,
+        "mte": 19,
+        "ete": 47,
+        "attendance": 1
+      },
+      {
+        "subjectId": 27,
+        "grade": "A+",
+        "ca": 25,
+        "mte": 2,
+        "ete": 9,
+        "attendance": 1
+      },
+      {
+        "subjectId": 25,
+        "grade": "B",
+        "ca": 3,
+        "mte": 10,
+        "ete": 16,
+        "attendance": 3
+      },
+      {
+        "subjectId": 3,
+        "grade": "C",
+        "ca": 12,
+        "mte": 9,
+        "ete": 48,
+        "attendance": 0
+      },
+      {
+        "subjectId": 14,
+        "grade": "A+",
+        "ca": 20,
+        "mte": 13,
+        "ete": 25,
+        "attendance": 2
+      },
+      {
+        "subjectId": 21,
+        "grade": "C",
+        "ca": 1,
+        "mte": 10,
+        "ete": 13,
+        "attendance": 3
+      },
+      {
+        "subjectId": 8,
+        "grade": "A+",
+        "ca": 17,
+        "mte": 16,
+        "ete": 7,
+        "attendance": 0
+      },
+      {
+        "subjectId": 1,
+        "grade": "B+",
+        "ca": 18,
+        "mte": 13,
+        "ete": 35,
+        "attendance": 3
+      }
+    ]
+  }, {
+    "id": 25,
+    "registrationNo": 12100734,
+    "semester": 3,
+    "tgpa": 7.49,
+    "marks": [
+      {
+        "subjectId": 25,
+        "grade": "A+",
+        "ca": 9,
+        "mte": 0,
+        "ete": 10,
+        "attendance": 5
+      },
+      {
+        "subjectId": 28,
+        "grade": "C",
+        "ca": 21,
+        "mte": 13,
+        "ete": 12,
+        "attendance": 5
+      },
+      {
+        "subjectId": 12,
+        "grade": "B+",
+        "ca": 25,
+        "mte": 15,
+        "ete": 27,
+        "attendance": 5
+      },
+      {
+        "subjectId": 21,
+        "grade": "B+",
+        "ca": 3,
+        "mte": 17,
+        "ete": 10,
+        "attendance": 0
+      },
+      {
+        "subjectId": 11,
+        "grade": "C",
+        "ca": 13,
+        "mte": 1,
+        "ete": 1,
+        "attendance": 4
+      },
+      {
+        "subjectId": 2,
+        "grade": "A",
+        "ca": 17,
+        "mte": 1,
+        "ete": 46,
+        "attendance": 5
+      },
+      {
+        "subjectId": 3,
+        "grade": "B+",
+        "ca": 12,
+        "mte": 11,
+        "ete": 33,
+        "attendance": 4
+      },
+      {
+        "subjectId": 8,
+        "grade": "O",
+        "ca": 11,
+        "mte": 7,
+        "ete": 32,
+        "attendance": 1
+      }
+    ]
+  }, {
+    "id": 26,
+    "registrationNo": 12100734,
+    "semester": 4,
+    "tgpa": 2.19,
+    "marks": [
+      {
+        "subjectId": 16,
+        "grade": "A+",
+        "ca": 14,
+        "mte": 12,
+        "ete": 32,
+        "attendance": 4
+      },
+      {
+        "subjectId": 26,
+        "grade": "B+",
+        "ca": 6,
+        "mte": 3,
+        "ete": 20,
+        "attendance": 5
+      },
+      {
+        "subjectId": 30,
+        "grade": "C",
+        "ca": 4,
+        "mte": 19,
+        "ete": 2,
+        "attendance": 3
+      },
+      {
+        "subjectId": 9,
+        "grade": "B",
+        "ca": 9,
+        "mte": 16,
+        "ete": 37,
+        "attendance": 1
+      },
+      {
+        "subjectId": 13,
+        "grade": "D",
+        "ca": 12,
+        "mte": 16,
+        "ete": 44,
+        "attendance": 0
+      },
+      {
+        "subjectId": 3,
+        "grade": "C",
+        "ca": 25,
+        "mte": 3,
+        "ete": 26,
+        "attendance": 0
+      },
+      {
+        "subjectId": 22,
+        "grade": "A+",
+        "ca": 24,
+        "mte": 0,
+        "ete": 33,
+        "attendance": 1
+      },
+      {
+        "subjectId": 29,
+        "grade": "B+",
+        "ca": 13,
+        "mte": 3,
+        "ete": 27,
+        "attendance": 5
+      }
+    ]
+  }, {
+    "id": 27,
+    "registrationNo": 12100734,
+    "semester": 5,
+    "tgpa": 6.71,
+    "marks": [
+      {
+        "subjectId": 1,
+        "grade": "C",
+        "ca": 0,
+        "mte": 9,
+        "ete": 21,
+        "attendance": 2
+      },
+      {
+        "subjectId": 10,
+        "grade": "A",
+        "ca": 20,
+        "mte": 15,
+        "ete": 47,
+        "attendance": 2
+      },
+      {
+        "subjectId": 7,
+        "grade": "C",
+        "ca": 24,
+        "mte": 10,
+        "ete": 14,
+        "attendance": 3
+      },
+      {
+        "subjectId": 11,
+        "grade": "O",
+        "ca": 22,
+        "mte": 13,
+        "ete": 44,
+        "attendance": 2
+      },
+      {
+        "subjectId": 25,
+        "grade": "O",
+        "ca": 25,
+        "mte": 19,
+        "ete": 45,
+        "attendance": 3
+      },
+      {
+        "subjectId": 18,
+        "grade": "C",
+        "ca": 2,
+        "mte": 16,
+        "ete": 7,
+        "attendance": 1
+      },
+      {
+        "subjectId": 9,
+        "grade": "D",
+        "ca": 11,
+        "mte": 15,
+        "ete": 39,
+        "attendance": 5
+      },
+      {
+        "subjectId": 12,
+        "grade": "O",
+        "ca": 2,
+        "mte": 17,
+        "ete": 29,
+        "attendance": 4
+      }
+    ]
+  }
+]);
 
 // await Attendance.bulkCreate([
 //   // {

@@ -6,6 +6,7 @@ import intentList from '@ayra/lib/botconfig/intent.js';
 import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';
+import { getObjectURL } from '@ayra/lib/utils/aws.js';
 loadConfig();
 
 export const processMessage = async (msgInfo, student) => {
@@ -54,12 +55,12 @@ const processButtonMessage = async (button, messageFrom, student) => {
     await getOverallAttendance(messageFrom, student);
   }
   else if (button === buttons.resultLastSemester) {
-    message = await getLastSemResult(messageFrom, student);
-    await metaAPI.sendTextMessage(messageFrom, message);
+    await getLastSemResult(messageFrom, student);
+    // await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.resultPreviousSemester) {
-    message = await getPreviousSemResult(messageFrom, student);
-    await metaAPI.sendTextMessage(messageFrom, message);
+    await getPreviousSemResult(messageFrom, student);
+    // await metaAPI.sendTextMessage(messageFrom, message);
   }
   else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, templates.moreOptions.name);
   else if (
@@ -108,72 +109,29 @@ const processTextMessage = async (intent, recipientNo, student) => {
 const getTodaysAttendance = async (recipientNo, student) => {
 	const uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=today`;
   console.log(uri);
-	await metaAPI.sendImageMessage(recipientNo, uri);
+	await metaAPI.sendMediaMessage(recipientNo, 'image', uri);
 };
 
 const getOverallAttendance = async (recipientNo, student) => {
   const uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=overall`;
   console.log(uri);
-  await metaAPI.sendImageMessage(recipientNo, uri);
+  await metaAPI.sendMediaMessage(recipientNo, 'image', uri);
 };
 
 const getLastSemResult = async (recipientNo, student) => {
-  const [ result ] = await sequelize.query(`
-    SELECT semester, subject_code, grade, tgpa FROM (
-      SELECT
-        semester,
-        tgpa,
-        unnest(marks) ->> 'subjectId' AS subject_id,
-        unnest(marks) ->> 'grade' AS grade
-      FROM result
-      WHERE registration_no=${student.registrationNo} AND semester=${student.semester}
-    ) AS new_result
-    LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
-    ORDER BY semester;
-  `);
-  let message = `*Result of last semester (Semester: ${student.semester})*\n`;
-  for (let subjectGrade of result) {
-    message += `
-Subject Code: ${subjectGrade.subject_code}
-Grade: ${subjectGrade.grade}\n`;
-  }
-  message += `\n*Semester ${student.semester} TGPA: ${result[0].tgpa}*`
-  return message;
+  const fileName = `Last Semester Result ${student.registrationNo}.pdf`;
+  const url = await getObjectURL('result', fileName);
+  await metaAPI.sendMediaMessage(recipientNo, 'document', fileName, url);
 };
 
 const getPreviousSemResult = async (recipientNo, student) => {
-  const [ result ] = await sequelize.query(`
-    SELECT semester, subject_code, grade, tgpa FROM (
-      SELECT
-        semester,
-        tgpa,
-        unnest(marks) ->> 'subjectId' AS subject_id,
-        unnest(marks) ->> 'grade' AS grade
-      FROM result
-      WHERE registration_no=${student.registrationNo}
-    ) AS new_result
-    LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
-    ORDER BY semester;
-  `);
-  let message = `*RESULT OF PREVIOUS ALL SEMESTERS*\n\n`;
-  let initialSem = null; let previousSubject;
-  for (let subject of result) {
-    if (initialSem != subject.semester) {
-      if (initialSem) message += `\n*Semester ${previousSubject.semester} TGPA: ${previousSubject.tgpa}*\n\n`;
-      initialSem = subject.semester;
-      previousSubject = subject;
-      message += `*Semester ${subject.semester} Result:*\n`;
-    }
-    message += `
-Subject Code: ${subject.subject_code}
-Grade: ${subject.grade}\n`;
-  }
-  message += `\n*Semester ${previousSubject.semester} TGPA: ${previousSubject.tgpa}*\n\n`;
-  return message;
+  const fileName = `All Semester Result ${student.registrationNo}.pdf`;
+  const url = await getObjectURL('result', fileName);
+  await metaAPI.sendMediaMessage(recipientNo, 'document', fileName, url);
 };
 
 // Webhook
-// Serve images and pdfs when requested from Meta
+// Serve attendance images when requested from Meta
 export const getAttendanceImage = async (id, attendanceType) => {
   const [ student ] = await sequelize.query(`
     SELECT 

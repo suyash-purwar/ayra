@@ -15,6 +15,7 @@ export const firstHello = async (recipientNo) => {
  * 5. Generate result of last semester
  * 6. Clear the S3 bucket
  * 7. Save the results PDF (last semester and overall semester pdf)
+ * 8. Push results every parent
  */
 
 export const publishResult = async () => {
@@ -30,15 +31,13 @@ export const publishResult = async () => {
       FROM result
     ) AS new_result
     LEFT JOIN subject ON subject.id = CAST (new_result.subject_id AS INTEGER)
+    WHERE registration_no IN (12100435, 11937798)
     ORDER BY registration_no, semester;
   `);
 
   // Organizes the subjectGrades 1d array into 3d array
   const allSemesterResult = convertToStudentAndSemesterWiseGrades(subjectGrades);
   
-  // console.log(allSemesterResult);
-  // console.log(lastSemesterResult);
-
   await generatePDFAndUploadToS3(allSemesterResult);
 };
 

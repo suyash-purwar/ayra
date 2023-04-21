@@ -2,6 +2,8 @@ import ejs from 'ejs';
 import puppeteer from 'puppeteer';
 import fs from 'node:fs/promises';
 import sequelize from '../db/index.js';
+import { sendMediaMessage } from '../apis/meta.api.js';
+import { addToBucket, getObjectURL } from './aws.js';
 
 const generatePDFAndUploadToS3 = async (results) => {
   const lpuLogo = (await fs.readFile("/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/raw/full-logo-no-bg.png")).toString("base64");
@@ -18,6 +20,9 @@ const generatePDFAndUploadToS3 = async (results) => {
   const pageForAllSemesterPDF = await browser.newPage();
   const pageForLastSemesterPDF = await browser.newPage();
 
+  const lastSemesterPDFFileName = `Last Semester Result ${registrationNo}.pdf`;
+  const allSemesterPDFFileName = `All Semester Result ${registrationNo}.pdf`;
+
   for (let result of results) {
     let registrationNo = result[0][0].registration_no;
     let [ student ] = await sequelize.query(`
@@ -28,6 +33,7 @@ const generatePDFAndUploadToS3 = async (results) => {
         course_code,
         father_name,
         mother_name,
+        father_contact,
         session
       FROM student
       LEFT JOIN course c
@@ -46,26 +52,32 @@ const generatePDFAndUploadToS3 = async (results) => {
     await pageForAllSemesterPDF.emulateMediaType('screen');
 
     const allSemesterPdfBuffer = await pageForAllSemesterPDF.pdf({
-      // path: `./${registrationNo} All Semesters Result.pdf`,
       printBackground: true,
       format: 'A4'
     });
 
-    
     pdfData.resultType = "last semester";
     const lastSemesterPdfHTML = await ejs.renderFile("/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/result.ejs", pdfData);
     await pageForLastSemesterPDF.setContent(lastSemesterPdfHTML, { waitUntil: 'domcontentloaded' });
     await pageForLastSemesterPDF.emulateMediaType('screen');
     
     const lastSemesterPdfBuffer = await pageForLastSemesterPDF.pdf({
-      // path: `./${registrationNo} Last Semester Result.pdf`,
       printBackground: true,
       format: 'A4'
     });
 
-    // console.log(allSemesterPdfBuffer);
+    // Push last semester result to bucket and get it's url
+    addToBucket('result', lastSemesterPDFFileName, lastSemesterPdfBuffer);
+
+    // Push all semester result to bucket
+    addToBucket('result', allSemesterPDFFileName, allSemesterPdfBuffer);
+
+    const lastSemesterResultPDFUri = await getObjectURL('result', lastSemesterPDFFileName);
+
+    // Push to father's contact number for now
+    sendMediaMessage(student[0].father_contact, 'document', lastSemesterPDFFileName, lastSemesterResultPDFUri);
   };
-    
+
   await pageForLastSemesterPDF.close();
   await pageForAllSemesterPDF.close();
   browser.close();

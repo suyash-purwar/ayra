@@ -77,16 +77,17 @@ export const sendMenu = async (recipientNo, menuType) => {
   );
 };
 
-export const sendImageMessage = async (recipientNo, uri) => {
-  const image = {
+export const sendMediaMessage = async (recipientNo, mediaType, mediaName, uri) => {
+  const mediaData = {
     link: uri
   };
+  if (mediaName) mediaData['filename'] = mediaName;
   const response = await sendAPICall(
     'messages',
     'post',
     recipientNo,
-    'image',
-    image
+    mediaType,
+    mediaData,
   );
   return response;
 };
