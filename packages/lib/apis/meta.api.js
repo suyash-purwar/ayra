@@ -79,7 +79,7 @@ export const sendMenu = async (recipientNo, menuType) => {
 
 export const sendMediaMessage = async (recipientNo, mediaType, mediaName, uri) => {
   const mediaData = {
-    link: uri
+    link: uri,
   };
   if (mediaName) mediaData['filename'] = mediaName;
   const response = await sendAPICall(

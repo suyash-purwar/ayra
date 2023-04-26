@@ -6,20 +6,10 @@ import generatePDFAndUploadToS3 from '@ayra/lib/utils/generate-pdf.js';
 export const firstHello = async (recipientNo) => {
   await metaAPI.sendMenu(recipientNo, templates.initialHello.name);
 };
-/**
- * Responsibilities:
- * 1. Fetch the results (all)
- * 2. Group the result of all subject semester wise
- * 3. Group the semester wise results student wise
- * 4. Generate result of all semesters
- * 5. Generate result of last semester
- * 6. Clear the S3 bucket
- * 7. Save the results PDF (last semester and overall semester pdf)
- * 8. Push results every parent
- */
 
 export const publishResult = async () => {
   // Fetches the grades of every subject in every semester for every student
+  // As of now, targeting only two students
   const [ subjectGrades ] = await sequelize.query(`
     SELECT registration_no, semester, subject_code, grade, tgpa FROM (
       SELECT

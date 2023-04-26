@@ -43,25 +43,14 @@ export const processMessage = async (msgInfo, student) => {
 };
 
 const processButtonMessage = async (button, messageFrom, student) => {
-  let message;
   if (button === buttons.hey) await metaAPI.sendMenu(messageFrom, templates.hello.name);
   else if (button === buttons.help) await metaAPI.sendMenu(messageFrom, templates.help.name);
   else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result.name);
   else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance.name);
-  else if (button === buttons.attendanceToday) {
-    await getTodaysAttendance(messageFrom, student);
-  }
-  else if (button === buttons.attendanceOverall) {
-    await getOverallAttendance(messageFrom, student);
-  }
-  else if (button === buttons.resultLastSemester) {
-    await getLastSemResult(messageFrom, student);
-    // await metaAPI.sendTextMessage(messageFrom, message);
-  }
-  else if (button === buttons.resultPreviousSemester) {
-    await getPreviousSemResult(messageFrom, student);
-    // await metaAPI.sendTextMessage(messageFrom, message);
-  }
+  else if (button === buttons.attendanceToday ) await getAttendance(messageFrom, student, 'today');
+  else if (button === buttons.attendanceOverall) await getAttendance(messageFrom, student, 'overall');
+  else if (button === buttons.resultLastSemester) await getResult(messageFrom, student, 'last semester');
+  else if (button === buttons.resultPreviousSemester) await getResult(messageFrom, student, 'all semester');
   else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, templates.moreOptions.name);
   else if (
     button === buttons.allOptions ||
@@ -106,26 +95,21 @@ const processTextMessage = async (intent, recipientNo, student) => {
   }
 };
 
-const getTodaysAttendance = async (recipientNo, student) => {
-	const uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=today`;
-  console.log(uri);
-	await metaAPI.sendMediaMessage(recipientNo, 'image', uri);
+const getAttendance = async (recipientNo, student, attendanceType) => {
+  let uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=${attendanceType}`;
+	await metaAPI.sendMediaMessage(recipientNo, 'image', null, uri);
 };
 
-const getOverallAttendance = async (recipientNo, student) => {
-  const uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=overall`;
-  console.log(uri);
-  await metaAPI.sendMediaMessage(recipientNo, 'image', uri);
-};
-
-const getLastSemResult = async (recipientNo, student) => {
-  const fileName = `Last Semester Result ${student.registrationNo}.pdf`;
-  const url = await getObjectURL('result', fileName);
-  await metaAPI.sendMediaMessage(recipientNo, 'document', fileName, url);
-};
-
-const getPreviousSemResult = async (recipientNo, student) => {
-  const fileName = `All Semester Result ${student.registrationNo}.pdf`;
+const getResult = async (recipientNo, student, resultType) => {
+  let fileName;
+  switch (resultType) {
+    case 'last semester':
+      fileName = `Last Semester Result ${student.registrationNo}.pdf`;
+      break;
+    case 'all semester':
+      fileName = `All Semester Result ${student.registrationNo}.pdf`;
+      break;
+  }
   const url = await getObjectURL('result', fileName);
   await metaAPI.sendMediaMessage(recipientNo, 'document', fileName, url);
 };

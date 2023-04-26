@@ -3,16 +3,14 @@ import puppeteer from 'puppeteer';
 import fs from 'node:fs/promises';
 import sequelize from '../db/index.js';
 import { sendMediaMessage } from '../apis/meta.api.js';
-import { addToBucket, getObjectURL } from './aws.js';
+import { addToBucket, getObject, getObjectURL } from './aws.js';
 
 const generatePDFAndUploadToS3 = async (results) => {
   const lpuLogo = (await fs.readFile("/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/raw/full-logo-no-bg.png")).toString("base64");
-  const profile = (await fs.readFile("/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/profile.png")).toString("base64");
   const resultTemplatePath = "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/result.ejs";
   const pdfData = {
     pageAssets: {
-      lpuLogo,
-      profile
+      lpuLogo
     }
   };
 
@@ -20,11 +18,15 @@ const generatePDFAndUploadToS3 = async (results) => {
   const pageForAllSemesterPDF = await browser.newPage();
   const pageForLastSemesterPDF = await browser.newPage();
 
-  const lastSemesterPDFFileName = `Last Semester Result ${registrationNo}.pdf`;
-  const allSemesterPDFFileName = `All Semester Result ${registrationNo}.pdf`;
+  let lastSemesterPDFFileName;
+  let allSemesterPDFFileName;
 
   for (let result of results) {
     let registrationNo = result[0][0].registration_no;
+    lastSemesterPDFFileName = `Last Semester Result ${registrationNo}.pdf`;
+    allSemesterPDFFileName = `All Semester Result ${registrationNo}.pdf`;
+    pdfData.pageAssets.profile = await getObject('profile-image', `${registrationNo}.png`);
+
     let [ student ] = await sequelize.query(`
       SELECT 
         first_name,
@@ -47,7 +49,7 @@ const generatePDFAndUploadToS3 = async (results) => {
     pdfData["lastSemester"] = result[result.length - 1];
     
     pdfData.resultType = "all semester";
-    const allSemesterPdfHTML = await ejs.renderFile("/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/result.ejs", pdfData);
+    const allSemesterPdfHTML = await ejs.renderFile(resultTemplatePath, pdfData);
     await pageForAllSemesterPDF.setContent(allSemesterPdfHTML, { waitUntil: 'domcontentloaded' });
     await pageForAllSemesterPDF.emulateMediaType('screen');
 
@@ -57,7 +59,7 @@ const generatePDFAndUploadToS3 = async (results) => {
     });
 
     pdfData.resultType = "last semester";
-    const lastSemesterPdfHTML = await ejs.renderFile("/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/result.ejs", pdfData);
+    const lastSemesterPdfHTML = await ejs.renderFile(resultTemplatePath, pdfData);
     await pageForLastSemesterPDF.setContent(lastSemesterPdfHTML, { waitUntil: 'domcontentloaded' });
     await pageForLastSemesterPDF.emulateMediaType('screen');
     
