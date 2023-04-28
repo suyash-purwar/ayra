@@ -12,14 +12,15 @@ const Query = sequelize.define('query', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  label: {
+  completion: {
     type: DataTypes.ENUM,
     allowNull: false,
-    values: ['1', '2', '3', '4', '5', '6', '7']
+    values: ['0', '1', '2', '3', '4', '5', '6']
   }
 }, {
   modelName: 'query',
   underscored: true,
+  timestamps: false,
   freezeTableName: true
 });
 

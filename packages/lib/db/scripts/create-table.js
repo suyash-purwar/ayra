@@ -14,7 +14,7 @@ import CourseSubject from '../models/course-subject.model.js';
 import HourSlot from '../models/hour-slot.model.js';
 import Query from '../models/query.model.js';
 
-// await Query.sync();
+await Query.sync({ force: true });
 // await Attedance.sync({ alter: true });
 // await Course.sync({ alter: true });
 // await Department.sync();
