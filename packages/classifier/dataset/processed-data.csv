@@ -36,6 +36,12 @@ ayo,0
 raam raam,0
 kya haal chaal,0
 kaise ho,0
+report card,1
+attendance,1
+marksheet,1
+performance,1
+performence report,1
+exam result,1
 display report card,1
 show scorecard,1
 present transcript,1
@@ -116,6 +122,9 @@ bachche ke result ka pata kaise karein,1
 kya mere bachche ne exam mein achhe marks paaye hai,1
 bacche ke result mein koi improvement hai ya nahi,1
 pichle semester ke parinaam dikhao,1
+attandance,2
+present,2
+absent,2
 display kid attendance,2
 demonstrate offspring attendance details,2
 reveal young one attendance record,2
@@ -166,6 +175,7 @@ child away class,2
 attendance,2
 present absent lecture,2
 child leave class,2
+absent or present,2
 aaj ka presenti dikha,2
 aaj ki class karnama,2
 aaj ki attendance,2
@@ -364,6 +374,8 @@ mentor ka number dedo,4
 bachche ke performance ke liye mentor ka number chahiye,4
 hostel ke caretaker se baat karni hai,4
 ward class timetable,5
+schedule,5
+class today,5
 reveal class schedule,5
 present class itinerary,5
 show class calendar,5
@@ -426,6 +438,7 @@ kitni baje tak lecture chalte hai,5
 lecture ka ant kitne baje se hoti hai,5
 kitne baje tak lecturers hote hai,5
 help,6
+madad,6
 guide,6
 how to use,6
 teach me how to use,6
@@ -437,3 +450,5 @@ madad kariye,6
 aap kaun ho,6
 kaise use karein,6
 use karna sikhao,6
+chalate kaise hein,6
+sikhao use karna,6

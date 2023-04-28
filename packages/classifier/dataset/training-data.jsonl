@@ -35,6 +35,12 @@
 {"prompt":"raam raam","completion":0}
 {"prompt":"kya haal chaal","completion":0}
 {"prompt":"kaise ho","completion":0}
+{"prompt":"report card","completion":1}
+{"prompt":"attendance","completion":1}
+{"prompt":"marksheet","completion":1}
+{"prompt":"performance","completion":1}
+{"prompt":"performence report","completion":1}
+{"prompt":"exam result","completion":1}
 {"prompt":"display report card","completion":1}
 {"prompt":"show scorecard","completion":1}
 {"prompt":"present transcript","completion":1}
@@ -115,6 +121,9 @@
 {"prompt":"kya mere bachche ne exam mein achhe marks paaye hai","completion":1}
 {"prompt":"bacche ke result mein koi improvement hai ya nahi","completion":1}
 {"prompt":"pichle semester ke parinaam dikhao","completion":1}
+{"prompt":"attandance","completion":2}
+{"prompt":"present","completion":2}
+{"prompt":"absent","completion":2}
 {"prompt":"display kid attendance","completion":2}
 {"prompt":"demonstrate offspring attendance details","completion":2}
 {"prompt":"reveal young one attendance record","completion":2}
@@ -165,6 +174,7 @@
 {"prompt":"attendance","completion":2}
 {"prompt":"present absent lecture","completion":2}
 {"prompt":"child leave class","completion":2}
+{"prompt":"absent or present","completion":2}
 {"prompt":"aaj ka presenti dikha","completion":2}
 {"prompt":"aaj ki class karnama","completion":2}
 {"prompt":"aaj ki attendance","completion":2}
@@ -363,6 +373,8 @@
 {"prompt":"bachche ke performance ke liye mentor ka number chahiye","completion":4}
 {"prompt":"hostel ke caretaker se baat karni hai","completion":4}
 {"prompt":"ward class timetable","completion":5}
+{"prompt":"schedule","completion":5}
+{"prompt":"class today","completion":5}
 {"prompt":"reveal class schedule","completion":5}
 {"prompt":"present class itinerary","completion":5}
 {"prompt":"show class calendar","completion":5}
@@ -425,6 +437,7 @@
 {"prompt":"lecture ka ant kitne baje se hoti hai","completion":5}
 {"prompt":"kitne baje tak lecturers hote hai","completion":5}
 {"prompt":"help","completion":6}
+{"prompt":"madad","completion":6}
 {"prompt":"guide","completion":6}
 {"prompt":"how to use","completion":6}
 {"prompt":"teach me how to use","completion":6}
@@ -436,3 +449,5 @@
 {"prompt":"aap kaun ho","completion":6}
 {"prompt":"kaise use karein","completion":6}
 {"prompt":"use karna sikhao","completion":6}
+{"prompt":"chalate kaise hein","completion":6}
+{"prompt":"sikhao use karna","completion":6}
