@@ -7,13 +7,17 @@ const classifier = async (query) => {
     const configuration = new Configuration({ apiKey: process.env.OPENAI_ACCESS_TOKEN });
     const openai = new OpenAIApi(configuration);
     const response = await openai.createCompletion({
-      model: 'ada:ft-personal-2023-04-20-00-40-20',
+      model: process.env.OPENAI_MODEL_NAME,
       prompt: `${query} ->`,
       max_tokens: 1,
-      temperature: .7,
+      temperature: 2,
+      logprobs: 2
     });
-    console.log(response.data.choices[0])
-    return +response.data.choices[0].text.trim();
+    console.log(response.data.choices[0].logprobs);
+    return {
+      intent: +response.data.choices[0].text.trim(),
+      logprobs: response.data.choices[0].logprobs.token_logprobs[0]
+    };
   } catch (e) {
     switch (e.message) {
       default:

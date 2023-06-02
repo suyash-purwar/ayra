@@ -4,7 +4,7 @@ import csv
 
 # Read credentials
 config = configparser.ConfigParser()
-config.read('./config/config.ini')
+config.read('../config/config.ini')
 
 # Connect to db
 """ Connect to database """
@@ -18,12 +18,14 @@ connection = psycopg2.connect(
 
 cursor = connection.cursor()
 
-queries_file = open('./dataset/processed-data.csv')
+# Add the iteration number for which data needs to populated in the db
+queries_file = open('../dataset/iteration-2/raw-data.csv')
 queries_reader = csv.reader(queries_file, delimiter=',')
 
 next(queries_reader)
 
-id = 1
+# id equals to the the id of last of record
+id = 518
 
 for query in queries_reader:
   cursor.execute(f"INSERT INTO query(id, query, completion) VALUES ({id}, '{query[0]}', '{query[1]}');")
