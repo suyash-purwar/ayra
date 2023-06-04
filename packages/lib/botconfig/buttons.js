@@ -3,6 +3,8 @@ export default {
   
   help: "Help",
   usageExample: "Give an example",
+  anotherExample: "Give another example",
+  moreExamples: "See more examples",
 
   result: "Show Result",
   resultLastSemester: "Last Semester",

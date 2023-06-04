@@ -16,22 +16,22 @@ export const processMessage = async (msgInfo, student) => {
   if (field !== 'messages') return res.sendStatus(403);
 
   if ('messages' in value) {
-    const messageFrom = +value.contacts[0].wa_id;
+    const recipientNo = +value.contacts[0].wa_id;
     const messageType = value.messages[0].type;
     let button;
     switch (messageType) {
       case 'interactive':
         button = value.messages[0].interactive.button_reply.title;
-        await processButtonMessage(button, messageFrom, student);
+        await processButtonMessage(button, recipientNo, student);
         break;
       case 'button':
         button = value.messages[0].button.text;
-        await processButtonMessage(button, messageFrom, student);
+        await processButtonMessage(button, recipientNo, student);
         break;
       case 'text':
         const message = value.messages[0].text.body;
         const keyword = await classifyMsg(message);
-        await processTextMessage(keyword, messageFrom, student);
+        await processTextMessage(keyword, recipientNo, student);
         break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
@@ -39,34 +39,38 @@ export const processMessage = async (msgInfo, student) => {
     }
   } else if ('statuses' in value) {
     const messageStatus = value.statuses[0].status;
-    const messageFrom = value.statuses[0].recipient_id;
-    console.log(messageStatus, messageFrom);
+    const recipientNo = value.statuses[0].recipient_id;
+    console.log(messageStatus, recipientNo);
   } else {
     console.log(field);
     console.log(value);
   }
 };
 
-const processButtonMessage = async (button, messageFrom, student) => {
-  if (button === buttons.hey) await metaAPI.sendTemplate(messageFrom, templates.hello.name);
-  else if (button === buttons.help) await sendHelpMessage(messageFrom);
-  else if (button === buttons.result) await sendResultMessage(messageFrom);
-  else if (button === buttons.attendance) await sendAttendanceMessage(messageFrom);
-  else if (button === buttons.attendanceToday ) await getAttendance(messageFrom, student, 'today');
-  else if (button === buttons.attendanceOverall) await getAttendance(messageFrom, student, 'overall');
-  else if (button === buttons.resultLastSemester) await getResult(messageFrom, student, 'last semester');
-  else if (button === buttons.resultPreviousSemester) await getResult(messageFrom, student, 'all semester');
-  else if (button === buttons.moreOptions) await sendMoreOptionMessage(messageFrom);
-  else if (button === buttons.contactMentor) await sendMentorContactMessage(messageFrom, student);
+const processButtonMessage = async (button, recipientNo, student) => {
+  if (button === buttons.hey) await metaAPI.sendTemplate(recipientNo, templates.hello.name);
+  else if (button === buttons.help) await sendHelpMessage(recipientNo);
+  else if (button === buttons.result) await sendResultMessage(recipientNo);
+  else if (button === buttons.attendance) await sendAttendanceMessage(recipientNo);
+  else if (button === buttons.attendanceToday ) await getAttendance(recipientNo, student, 'today');
+  else if (button === buttons.attendanceOverall) await getAttendance(recipientNo, student, 'overall');
+  else if (button === buttons.resultLastSemester) await getResult(recipientNo, student, 'last semester');
+  else if (button === buttons.resultPreviousSemester) await getResult(recipientNo, student, 'all semester');
+  else if (button === buttons.moreOptions) await sendMoreOptionMessage(recipientNo);
+  else if (button === buttons.contactMentor) await sendMentorContactMessage(recipientNo, student);
   else if (button === buttons.classSchedule) console.log("Under development!");
   else if (
     button === buttons.allOptions ||
-    button === buttons.usageExample ||
-    button === buttons.howToUse
-  ) {
-    // await metaAPI.sendMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
-    console.log("Under development");
-  }
+    button === buttons.moreExamples
+  ) await sendAllOptionsMessage(recipientNo);
+  else if (button === buttons.usageExample) await sendUsageExampleMessage(recipientNo);
+  else if (button === buttons.anotherExample) await sendAnotherExampleMessage(recipientNo);
+  // else if (
+  //   button === buttons.howToUse
+  // ) {
+  //   // await metaAPI.sendMessage(recipientNo, 'This part of the application is under development. Sorry for the inconvenience.');
+  //   console.log("Under development");
+  // }
 };
 
 // Handle the cases where the probability for a class
@@ -283,6 +287,82 @@ const sendMentorContactMessage = async (recipientNo, student) => {
     }]
   }];
   await metaAPI.sendMessage(recipientNo, message, "contacts");
+};
+
+const sendAllOptionsMessage = async (recipientNo) => {
+  const text = `
+Ayra can help you with following things:
+
+1. Your ward's marks
+    Example: show marks
+
+2. Your ward's attendance
+    Example: show attendance
+   
+3. Ward's class schedule
+    Example: show time table
+
+4. Contact number of different departments
+    Example: contact number of fee/admission/dsr department
+   
+5. Contact number of teachers, mentors, and HOD
+    Example: phone number of teachers/mentor/HOD`;
+
+  const message = {
+    body: text
+  };
+
+  await metaAPI.sendMessage(recipientNo, message, "text");
+};
+
+const sendUsageExampleMessage = async (recipientNo) => {
+  const text = `
+Sure, let's start off with an easy example.
+
+*Type "Show time table" and hit enter.* I'll show you the schedule of classes.`;
+
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "another-example",
+            title: "Give another example"
+          }
+        }
+      ]
+    }
+  };
+
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendAnotherExampleMessage = async (recipientNo) => {
+  const text = `
+Sure, here's another example.
+  
+*Type "Show attendance" and hit send*. In return, I'll ask you whether you want to see today's attendance or overall attendance.`
+
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "all-option-examples",
+            title: "See more examples"
+          }
+        }
+      ]
+    }
+  };
+
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
 const getAttendance = async (recipientNo, student, attendanceType) => {
