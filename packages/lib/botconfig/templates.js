@@ -3,7 +3,7 @@ export default {
     name: 'first_hello',
     media: [{
       description: 'Header LPU Logo',
-      mediaId: "3523431781227117"
+      mediaId: "216995051134830"
     }]
   },
   help:{

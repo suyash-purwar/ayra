@@ -7,6 +7,7 @@ import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';
 import { getObjectURL } from '@ayra/lib/utils/aws.js';
+import { Department } from '@ayra/lib/db/index.js';
 loadConfig();
 
 export const processMessage = async (msgInfo, student) => {
@@ -27,9 +28,13 @@ export const processMessage = async (msgInfo, student) => {
         const keyword = await classifyMsg(message);
         await processTextMessage(keyword, messageFrom, student);
         break;
+      // case 'interactive':
+      //   const something = value.messages[0];
+      //   console.log(something);
+      //   break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
-        await metaAPI.sendTextMessage(messageFrom, `Sorry! I'm unable to process ${messageType} messages.`);
+        await metaAPI.sendMessage(messageFrom, `Sorry! I'm unable to process ${messageType} messages.`);
         return;
     }
   } else if ('statuses' in value) {
@@ -56,11 +61,9 @@ const processButtonMessage = async (button, messageFrom, student) => {
     button === buttons.allOptions ||
     button === buttons.usageExample ||
     button === buttons.howToUse ||
-    button === buttons.classSchedule ||
-    button === buttons.wardenDetails ||
-    button === buttons.feeDues
+    button === buttons.classSchedule
   ) {
-    await metaAPI.sendTextMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
+    await metaAPI.sendMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
   }
 };
 
@@ -81,8 +84,9 @@ const processTextMessage = async (intent, recipientNo, student) => {
   } else if (intent === intentList[2]) {
     await metaAPI.sendMenu(recipientNo, templates.attendance.name);
   } else if (intent === intentList[3]) {
-    // Send message with a menu
-    // Menu - Show more contacts
+    await sendDepartmentContact(recipientNo, student);
+    // Commonly requested department details
+    // Menu - Show more departments
   } else if (intent === intentList[4]) {
     // Send authorities details
   } else if (intent === intentList[5]) {
@@ -91,7 +95,7 @@ const processTextMessage = async (intent, recipientNo, student) => {
     await metaAPI.sendMenu(recipientNo, templates.help.name);
   } else {
     console.log("Unknown intent");
-    await metaAPI.sendTextMessage(recipientNo, "Intent not recognized");
+    await metaAPI.sendMessage(recipientNo, "Intent not recognized");
   }
 };
 
@@ -167,4 +171,20 @@ export const getAttendanceImage = async (id, attendanceType) => {
   }
   const imageBuffer = await generateAttendanceImage(data, attendanceType);
   return imageBuffer;
+};
+
+const sendDepartmentContact = async (recipientNo, student) => {
+  const departments = await Department.findAll({
+    attributes: ['name', 'block', 'contact'],
+    limit: 3
+  });
+  let message = `*Following are the contact details of some commonly requested departments.*\n`;
+  for (let department of departments) {
+    message += `
+Department Name: ${department.name}
+Building Block: ${department.block}
+Contact Number: ${department.contact}\n`;
+  }
+  message += `\nIf you're looking for some other department, press on the below button to see contact details of all department.`;
+  await metaAPI.sendMessage(recipientNo, message);
 };

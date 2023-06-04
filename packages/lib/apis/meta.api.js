@@ -35,7 +35,7 @@ const sendAPICall = async (
   return response;
 };
 
-export const sendTextMessage = async (recipientNo, message) => {
+export const sendMessage = async (recipientNo, message) => {
   const text = {
     preview_url: false,
     body: message
