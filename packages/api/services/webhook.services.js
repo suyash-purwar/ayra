@@ -48,15 +48,15 @@ export const processMessage = async (msgInfo, student) => {
 };
 
 const processButtonMessage = async (button, messageFrom, student) => {
-  if (button === buttons.hey) await metaAPI.sendMenu(messageFrom, templates.hello.name);
-  else if (button === buttons.help) await metaAPI.sendMenu(messageFrom, templates.help.name);
-  else if (button === buttons.result) await metaAPI.sendMenu(messageFrom, templates.result.name);
-  else if (button === buttons.attendance) await metaAPI.sendMenu(messageFrom, templates.attendance.name);
+  if (button === buttons.hey) await metaAPI.sendTemplate(messageFrom, templates.hello.name);
+  else if (button === buttons.help) await metaAPI.sendMessage(messageFrom, templates.help.name);
+  else if (button === buttons.result) await metaAPI.sendTemplate(messageFrom, templates.result.name);
+  else if (button === buttons.attendance) await metaAPI.sendTemplate(messageFrom, templates.attendance.name);
   else if (button === buttons.attendanceToday ) await getAttendance(messageFrom, student, 'today');
   else if (button === buttons.attendanceOverall) await getAttendance(messageFrom, student, 'overall');
   else if (button === buttons.resultLastSemester) await getResult(messageFrom, student, 'last semester');
   else if (button === buttons.resultPreviousSemester) await getResult(messageFrom, student, 'all semester');
-  else if (button === buttons.moreOptions) await metaAPI.sendMenu(messageFrom, templates.moreOptions.name);
+  else if (button === buttons.moreOptions) await metaAPI.sendTemplate(messageFrom, templates.moreOptions.name);
   else if (
     button === buttons.allOptions ||
     button === buttons.usageExample ||
@@ -76,15 +76,17 @@ const classifyMsg = async (msgText) => {
   return intentList[intentId];
 };
 
-const processTextMessage = async (intent, recipientNo, student) => {
+const processTextMessage = async (intent, recipientNo) => {
   if (intent === intentList[0]) {
-    await metaAPI.sendMenu(recipientNo, templates.hello.name);
+    await metaAPI.sendTemplate(recipientNo, templates.hello.name);
   } else if (intent === intentList[1]) {
-    await metaAPI.sendMenu(recipientNo, templates.result.name);
+    await sendResultMessage(recipientNo);
+    // await metaAPI.sendTemplate(recipientNo, templates.result.name);
   } else if (intent === intentList[2]) {
-    await metaAPI.sendMenu(recipientNo, templates.attendance.name);
+    // await metaAPI.sendTemplate(recipientNo, templates.attendance.name);
+    await sendAttendanceMessage(recipientNo);
   } else if (intent === intentList[3]) {
-    await sendDepartmentContact(recipientNo, student);
+    await sendDepartmentContactMessage(recipientNo);
     // Commonly requested department details
     // Menu - Show more departments
   } else if (intent === intentList[4]) {
@@ -92,11 +94,145 @@ const processTextMessage = async (intent, recipientNo, student) => {
   } else if (intent === intentList[5]) {
     // Send Schedule
   } else if (intent === intentList[6]) {
-    await metaAPI.sendMenu(recipientNo, templates.help.name);
+    await sendHelpMessage(recipientNo);
   } else {
-    console.log("Unknown intent");
-    await metaAPI.sendMessage(recipientNo, "Intent not recognized");
+    await sendIntentNotRecognizedMessage(recipientNo);
   }
+};
+
+const sendResultMessage = async (recipientNo) => {
+  const message = {
+    type: "button",
+    body: {
+      text: "Do you want to see the result of the last semester or of all the semesters?"
+    },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "last-sem-result",
+            title: "Last Semester"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "overall-result",
+            title: "All Semester"
+          }
+        }
+      ]
+    }
+  };
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendAttendanceMessage = async (recipientNo) => {
+  const message = {
+    type: "button",
+    body: {
+      text: "Do you want to see today's attendance or overall attendance?"
+    },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "today-attendance",
+            title: "Today's Attendance"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "overall-attendance",
+            title: "Overall Attendance"
+          }
+        }
+      ]
+    }
+  };
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendHelpMessage = async (recipientNo) => {
+  const text = `
+*What is Ayra?*
+I'm here to keep you updated on your child's progress. I can tell you about your child's attendance, result, warden number, and more. Click on 'Show All Options' to see all that you can ask me.
+
+*How to use Ayra?*
+Whenever you have a query, text me 'Hey' or directly ask me the question. For example, write 'attendance' and I'll show your child's attendance.`;
+
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "hello",
+            title: "Send Hey"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "all-options",
+            title: "Show all options"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: 'example',
+            title: "Give me an example"
+          }
+        }
+      ]
+    }
+  };
+
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendDepartmentContactMessage = async (recipientNo) => {
+  const departments = await Department.findAll({
+    attributes: ['name', 'block', 'contact'],
+    limit: 3
+  });
+  let text = `*Following are the contact details of some commonly requested departments.*\n`;
+  for (let department of departments) {
+    text += `
+Department Name: ${department.name}
+Building Block: ${department.block}
+Contact Number: ${department.contact}\n`;
+  }
+  text += `\nIf you're looking for some other department, press on the below button to see contact details of all department.`;
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "show-all-department-number",
+            title: "Show all numbers"
+          }
+        }
+      ]
+    }
+  };
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendIntentNotRecognizedMessage = async (recipientNo) => {
+  const message = {
+    body: "Intent not recognized"
+  };
+  await metaAPI.sendMessage(recipientNo, message);
 };
 
 const getAttendance = async (recipientNo, student, attendanceType) => {
@@ -171,20 +307,4 @@ export const getAttendanceImage = async (id, attendanceType) => {
   }
   const imageBuffer = await generateAttendanceImage(data, attendanceType);
   return imageBuffer;
-};
-
-const sendDepartmentContact = async (recipientNo, student) => {
-  const departments = await Department.findAll({
-    attributes: ['name', 'block', 'contact'],
-    limit: 3
-  });
-  let message = `*Following are the contact details of some commonly requested departments.*\n`;
-  for (let department of departments) {
-    message += `
-Department Name: ${department.name}
-Building Block: ${department.block}
-Contact Number: ${department.contact}\n`;
-  }
-  message += `\nIf you're looking for some other department, press on the below button to see contact details of all department.`;
-  await metaAPI.sendMessage(recipientNo, message);
 };

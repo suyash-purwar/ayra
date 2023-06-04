@@ -35,22 +35,18 @@ const sendAPICall = async (
   return response;
 };
 
-export const sendMessage = async (recipientNo, message) => {
-  const text = {
-    preview_url: false,
-    body: message
-  };
+export const sendMessage = async (recipientNo, message, messageType='text') => {
   const response = await sendAPICall(
     'messages',
     'post',
     recipientNo,
-    'text',
-    text
+    messageType,
+    message
   );
   return response;
 };
 
-export const sendMenu = async (recipientNo, menuType) => {
+export const sendTemplate = async (recipientNo, menuType) => {
   const template = {
     name: menuType,
     language: {
