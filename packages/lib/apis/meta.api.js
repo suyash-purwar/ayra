@@ -72,18 +72,3 @@ export const sendTemplate = async (recipientNo, menuType) => {
     template
   );
 };
-
-export const sendMediaMessage = async (recipientNo, mediaType, mediaName, uri) => {
-  const mediaData = {
-    link: uri,
-  };
-  if (mediaName) mediaData['filename'] = mediaName;
-  const response = await sendAPICall(
-    'messages',
-    'post',
-    recipientNo,
-    mediaType,
-    mediaData,
-  );
-  return response;
-};

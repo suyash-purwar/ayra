@@ -2,11 +2,11 @@ export default {
   hey: "Send Hey",
   
   help: "Help",
-  usageExample: "Give me more examples!",
+  usageExample: "Give an example",
 
   result: "Show Result",
   resultLastSemester: "Last Semester",
-  resultPreviousSemester: "Previous All Semesters",
+  resultPreviousSemester: "All Semesters",
 
   attendance: "Show Attendance",
   attendanceToday: "Today's Attendance",

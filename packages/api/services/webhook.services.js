@@ -18,9 +18,14 @@ export const processMessage = async (msgInfo, student) => {
   if ('messages' in value) {
     const messageFrom = +value.contacts[0].wa_id;
     const messageType = value.messages[0].type;
+    let button;
     switch (messageType) {
+      case 'interactive':
+        button = value.messages[0].interactive.button_reply.title;
+        await processButtonMessage(button, messageFrom, student);
+        break;
       case 'button':
-        const button = value.messages[0].button.text;
+        button = value.messages[0].button.text;
         await processButtonMessage(button, messageFrom, student);
         break;
       case 'text':
@@ -28,10 +33,6 @@ export const processMessage = async (msgInfo, student) => {
         const keyword = await classifyMsg(message);
         await processTextMessage(keyword, messageFrom, student);
         break;
-      // case 'interactive':
-      //   const something = value.messages[0];
-      //   console.log(something);
-      //   break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
         await metaAPI.sendMessage(messageFrom, `Sorry! I'm unable to process ${messageType} messages.`);
@@ -81,9 +82,7 @@ const processTextMessage = async (intent, recipientNo) => {
     await metaAPI.sendTemplate(recipientNo, templates.hello.name);
   } else if (intent === intentList[1]) {
     await sendResultMessage(recipientNo);
-    // await metaAPI.sendTemplate(recipientNo, templates.result.name);
   } else if (intent === intentList[2]) {
-    // await metaAPI.sendTemplate(recipientNo, templates.attendance.name);
     await sendAttendanceMessage(recipientNo);
   } else if (intent === intentList[3]) {
     await sendDepartmentContactMessage(recipientNo);
@@ -119,7 +118,7 @@ const sendResultMessage = async (recipientNo) => {
           type: "reply",
           reply: {
             id: "overall-result",
-            title: "All Semester"
+            title: "All Semesters"
           }
         }
       ]
@@ -187,7 +186,7 @@ Whenever you have a query, text me 'Hey' or directly ask me the question. For ex
           type: "reply",
           reply: {
             id: 'example',
-            title: "Give me an example"
+            title: "Give an example"
           }
         }
       ]
@@ -237,7 +236,10 @@ const sendIntentNotRecognizedMessage = async (recipientNo) => {
 
 const getAttendance = async (recipientNo, student, attendanceType) => {
   let uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=${attendanceType}`;
-	await metaAPI.sendMediaMessage(recipientNo, 'image', null, uri);
+  const message = {
+    link:  uri
+  };
+  await metaAPI.sendMessage(recipientNo, message, "image");
 };
 
 const getResult = async (recipientNo, student, resultType) => {
@@ -251,7 +253,11 @@ const getResult = async (recipientNo, student, resultType) => {
       break;
   }
   const url = await getObjectURL('result', fileName);
-  await metaAPI.sendMediaMessage(recipientNo, 'document', fileName, url);
+  const message = {
+    link: url,
+    filename: fileName
+  }
+  await metaAPI.sendMessage(recipientNo, message, "document");
 };
 
 // Webhook
