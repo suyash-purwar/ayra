@@ -355,7 +355,7 @@ Sure, here's another example.
           type: "reply",
           reply: {
             id: "all-option-examples",
-            title: "See more examples"
+            title: "Show more examples"
           }
         }
       ]
