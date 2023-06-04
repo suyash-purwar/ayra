@@ -7,7 +7,7 @@ import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';
 import { getObjectURL } from '@ayra/lib/utils/aws.js';
-import { Department } from '@ayra/lib/db/index.js';
+import { Department, Mentor } from '@ayra/lib/db/index.js';
 loadConfig();
 
 export const processMessage = async (msgInfo, student) => {
@@ -35,7 +35,6 @@ export const processMessage = async (msgInfo, student) => {
         break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
-        await metaAPI.sendMessage(messageFrom, `Sorry! I'm unable to process ${messageType} messages.`);
         return;
     }
   } else if ('statuses' in value) {
@@ -50,21 +49,23 @@ export const processMessage = async (msgInfo, student) => {
 
 const processButtonMessage = async (button, messageFrom, student) => {
   if (button === buttons.hey) await metaAPI.sendTemplate(messageFrom, templates.hello.name);
-  else if (button === buttons.help) await metaAPI.sendMessage(messageFrom, templates.help.name);
-  else if (button === buttons.result) await metaAPI.sendTemplate(messageFrom, templates.result.name);
-  else if (button === buttons.attendance) await metaAPI.sendTemplate(messageFrom, templates.attendance.name);
+  else if (button === buttons.help) await sendHelpMessage(messageFrom);
+  else if (button === buttons.result) await sendResultMessage(messageFrom);
+  else if (button === buttons.attendance) await sendAttendanceMessage(messageFrom);
   else if (button === buttons.attendanceToday ) await getAttendance(messageFrom, student, 'today');
   else if (button === buttons.attendanceOverall) await getAttendance(messageFrom, student, 'overall');
   else if (button === buttons.resultLastSemester) await getResult(messageFrom, student, 'last semester');
   else if (button === buttons.resultPreviousSemester) await getResult(messageFrom, student, 'all semester');
-  else if (button === buttons.moreOptions) await metaAPI.sendTemplate(messageFrom, templates.moreOptions.name);
+  else if (button === buttons.moreOptions) await sendMoreOptionMessage(messageFrom);
+  else if (button === buttons.contactMentor) await sendMentorContactMessage(messageFrom, student);
+  else if (button === buttons.classSchedule) console.log("Under development!");
   else if (
     button === buttons.allOptions ||
     button === buttons.usageExample ||
-    button === buttons.howToUse ||
-    button === buttons.classSchedule
+    button === buttons.howToUse
   ) {
-    await metaAPI.sendMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
+    // await metaAPI.sendMessage(messageFrom, 'This part of the application is under development. Sorry for the inconvenience.');
+    console.log("Under development");
   }
 };
 
@@ -232,6 +233,56 @@ const sendIntentNotRecognizedMessage = async (recipientNo) => {
     body: "Intent not recognized"
   };
   await metaAPI.sendMessage(recipientNo, message);
+};
+
+const sendMoreOptionMessage = async (recipientNo) => {
+  const text = `Sure, here are some more options that you might find helpful`;
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "show-class-schedule",
+            title: "Show Class Schedule"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "contact-mentor",
+            title: "Contact Mentor"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "show-more-contact",
+            title: "Show More Contacts"
+          }
+        }
+      ]
+    }
+  };
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendMentorContactMessage = async (recipientNo, student) => {
+  const mentorDetails = await Mentor.findByPk(student.mentorId);
+  const message = [{
+    name: {
+      formatted_name: `${mentorDetails.firstName} ${mentorDetails.lastName}`,
+      first_name: mentorDetails.firstName,
+      last_name: mentorDetails.lastName
+    },
+    phones: [{
+      phone: mentorDetails.contact,
+      type: "Work"
+    }]
+  }];
+  await metaAPI.sendMessage(recipientNo, message, "contacts");
 };
 
 const getAttendance = async (recipientNo, student, attendanceType) => {

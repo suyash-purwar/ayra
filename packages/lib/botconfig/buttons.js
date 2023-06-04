@@ -20,7 +20,7 @@ export default {
 
   classSchedule: "Show Class Schedule",
 
-  wardenDetails: "Show Warden's info",
+  contactMentor: "Contact Mentor",
 
-  mentorDetails: "Show Mentor's info"
+  showMoreContacts: "Show more contacts"
 };
