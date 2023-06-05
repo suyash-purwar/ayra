@@ -6,19 +6,19 @@ export default {
       mediaId: "216995051134830"
     }]
   },
-  help:{
-    name: 'help'
-  },
-  hello: {
-    name: 'hello',
-  },
-  attendance: {
-    name: 'attendance'
-  },
-  result: {
-    name: 'result'
-  },
-  moreOptions: {
-    name: 'more_options'
-  }
+  // help:{
+  //   name: 'help'
+  // },
+  // hello: {
+  //   name: 'hello',
+  // },
+  // attendance: {
+  //   name: 'attendance'
+  // },
+  // result: {
+  //   name: 'result'
+  // },
+  // moreOptions: {
+  //   name: 'more_options'
+  // }
 };

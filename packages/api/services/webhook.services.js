@@ -1,7 +1,7 @@
 import * as metaAPI from '@ayra/lib/apis/meta.api.js';
 import classifier from '@ayra/lib/apis/openai.api.js';
 import buttons from '@ayra/lib/botconfig/buttons.js';
-import templates from '@ayra/lib/botconfig/templates.js';
+// import templates from '@ayra/lib/botconfig/templates.js';
 import intentList from '@ayra/lib/botconfig/intent.js';
 import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
@@ -21,6 +21,7 @@ export const processMessage = async (msgInfo, student) => {
     let button;
     switch (messageType) {
       case 'interactive':
+        console.log("evil");
         button = value.messages[0].interactive.button_reply.id;
         await processButtonMessage(button, recipientNo, student);
         break;
@@ -48,7 +49,7 @@ export const processMessage = async (msgInfo, student) => {
 };
 
 const processButtonMessage = async (button, recipientNo, student) => {
-  if (button === buttons.hey) await metaAPI.sendTemplate(recipientNo, templates.hello.name);
+  if (button === buttons.hey) await sendHeyMessage(recipientNo);
   else if (button === buttons.help) await sendHelpMessage(recipientNo);
   else if (button === buttons.result) await sendResultMessage(recipientNo);
   else if (button === buttons.attendance) await sendAttendanceMessage(recipientNo);
@@ -87,7 +88,7 @@ const classifyMsg = async (msgText) => {
 
 const processTextMessage = async (intent, recipientNo) => {
   if (intent === intentList[0]) {
-    await metaAPI.sendTemplate(recipientNo, templates.hello.name);
+    await sendHeyMessage(recipientNo);
   } else if (intent === intentList[1]) {
     await sendResultMessage(recipientNo);
   } else if (intent === intentList[2]) {
@@ -107,6 +108,45 @@ const processTextMessage = async (intent, recipientNo) => {
   }
 };
 
+const sendHeyMessage = async (recipientNo) => {
+  const text = `
+Hey, there! 😃
+
+Following are the most frequently asked questions. What would you like to know?`;
+
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "Attendance",
+            title: "Show Attendance"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "Result",
+            title: "Show Result"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "More options",
+            title: "More options"
+          }
+        }
+      ]
+    }
+  };
+
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
 const sendResultMessage = async (recipientNo) => {
   const message = {
     type: "button",
@@ -118,14 +158,14 @@ const sendResultMessage = async (recipientNo) => {
         {
           type: "reply",
           reply: {
-            id: "Last Semester Result",
+            id: "Last Semester",
             title: "Last Semester"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "All Semesters Result",
+            id: "All Semesters",
             title: "All Semesters"
           }
         }

@@ -2,7 +2,7 @@ import ejs from 'ejs';
 import puppeteer from 'puppeteer';
 import fs from 'node:fs/promises';
 import sequelize from '../db/index.js';
-import { sendMediaMessage } from '../apis/meta.api.js';
+import * as metaAPI from '../apis/meta.api.js';
 import { addToBucket, getObject, getObjectURL } from './aws.js';
 
 const generatePDFAndUploadToS3 = async (results) => {
@@ -77,7 +77,12 @@ const generatePDFAndUploadToS3 = async (results) => {
     const lastSemesterResultPDFUri = await getObjectURL('result', lastSemesterPDFFileName);
 
     // Push to father's contact number for now
-    sendMediaMessage(student[0].father_contact, 'document', lastSemesterPDFFileName, lastSemesterResultPDFUri);
+    const message = {
+      link: lastSemesterResultPDFUri,
+      filename: lastSemesterPDFFileName
+    };
+  
+    await metaAPI.sendMessage(student[0].father_contact, message, "document");
   };
 
   await pageForLastSemesterPDF.close();

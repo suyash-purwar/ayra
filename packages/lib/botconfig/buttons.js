@@ -1,5 +1,5 @@
 export default {
-  hey: "Hey",
+  hey: "Send Hey",
   
   help: "Help",
   usageExample: "Example",
@@ -14,7 +14,7 @@ export default {
   attendanceToday: "Today's Attendance",
   attendanceOverall: "Overall Attendance",
 
-  moreOptions: "More Options",
+  moreOptions: "More options",
 
   allOptions: "All options",
 

@@ -4,7 +4,7 @@ import templates from '@ayra/lib/botconfig/templates.js';
 import generatePDFAndUploadToS3 from '@ayra/lib/utils/generate-pdf.js';
 
 export const firstHello = async (recipientNo) => {
-  await metaAPI.sendMenu(recipientNo, templates.initialHello.name);
+  await metaAPI.sendTemplate(recipientNo, templates.initialHello.name);
 };
 
 export const publishResult = async () => {
@@ -99,7 +99,7 @@ export const postUMC = async (id, reason, conclusion) => {
       registrationNo: +id
     }
   });
-  const msg = `
+  const text = `
 Respected ${student.dataValues.fatherName},
 
 It is being brought to your attention that an indisciple case has been filed against your child, ${student.firstName} ${student.lastName} for not adhereing to university's guidelines.
@@ -111,5 +111,9 @@ Punishment/Fine: ${conclusion}
 For any queries, contact Security Office.
 Contact: +91 9747273623
   `
+  const message = {
+    body: text
+  };
+  await metaAPI.sendMessage(student.fatherContact, message, "text");
   await metaAPI.sendTextMessage(student.fatherContact, msg);
 };
