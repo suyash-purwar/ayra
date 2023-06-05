@@ -24,5 +24,7 @@ export default {
 
   contactMentor: "Contact Mentor",
 
-  showMoreContacts: "Show more contacts"
+  showMoreContacts: "Show More Contacts",
+  departmentContacts: "Department Contacts",
+  authoritiesContacts: "Authorities Contacts"
 };

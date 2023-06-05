@@ -58,6 +58,8 @@ const processButtonMessage = async (button, recipientNo, student) => {
   else if (button === buttons.resultPreviousSemester) await getResult(recipientNo, student, 'all semester');
   else if (button === buttons.moreOptions) await sendMoreOptionMessage(recipientNo);
   else if (button === buttons.contactMentor) await sendMentorContactMessage(recipientNo, student);
+  else if (button === buttons.showMoreContacts) await sendMoreContactsMessage(recipientNo);
+  else if (button === buttons.departmentContacts) await sendDepartmentContactMessage(recipientNo);
   else if (button === buttons.classSchedule) console.log("Under development!");
   else if (
     button === buttons.allOptions ||
@@ -356,6 +358,35 @@ Sure, here's another example.
           reply: {
             id: "all-option-examples",
             title: "Show more examples"
+          }
+        }
+      ]
+    }
+  };
+
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendMoreContactsMessage = async (recipientNo) => {
+  const text = `Sure! Would you like to receive the contact details of the authorities or a specific department?`;
+
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "department-contact",
+            title: "Department Contacts"
+          }
+        },
+        {
+          type: "reply",
+          reply: {
+            id: "authorities-contact",
+            title: "Authorities Contacts"
           }
         }
       ]
