@@ -1,30 +1,32 @@
 export default {
-  hey: "Send Hey",
+  hey: "Hey",
   
   help: "Help",
-  usageExample: "Give an example",
-  anotherExample: "Give another example",
-  moreExamples: "Show more examples",
+  usageExample: "Example",
+  anotherExample: "Another example",
+  moreExamples: "More examples",
 
-  result: "Show Result",
-  resultLastSemester: "Last Semester",
-  resultPreviousSemester: "All Semesters",
+  result: "Result",
+  resultLastSemester: "Last Semester Result",
+  resultPreviousSemester: "All Semesters Result",
 
-  attendance: "Show Attendance",
+  attendance: "Attendance",
   attendanceToday: "Today's Attendance",
   attendanceOverall: "Overall Attendance",
 
   moreOptions: "More Options",
 
-  allOptions: "Show all options",
+  allOptions: "All options",
 
   howToUse: "How to use Ayra",
 
-  classSchedule: "Show Class Schedule",
+  classSchedule: "Class Schedule",
 
-  contactMentor: "Contact Mentor",
+  contactMentor: "Mentor Contact Number",
 
-  showMoreContacts: "Show More Contacts",
-  departmentContacts: "Department Contacts",
-  authoritiesContacts: "Authorities Contacts"
+  moreContacts: "More Contact Numbers",
+  departmentContacts: "Departments Contacts",
+  allDepartmentContacts: "All Departments Contact",
+  authoritiesContacts: "Authorities Contacts",
+  allAuthoritiesContacts: "All Authorities Contact"
 };

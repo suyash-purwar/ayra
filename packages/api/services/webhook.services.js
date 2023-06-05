@@ -21,7 +21,7 @@ export const processMessage = async (msgInfo, student) => {
     let button;
     switch (messageType) {
       case 'interactive':
-        button = value.messages[0].interactive.button_reply.title;
+        button = value.messages[0].interactive.button_reply.id;
         await processButtonMessage(button, recipientNo, student);
         break;
       case 'button':
@@ -60,6 +60,7 @@ const processButtonMessage = async (button, recipientNo, student) => {
   else if (button === buttons.contactMentor) await sendMentorContactMessage(recipientNo, student);
   else if (button === buttons.showMoreContacts) await sendMoreContactsMessage(recipientNo);
   else if (button === buttons.departmentContacts) await sendDepartmentContactMessage(recipientNo);
+  else if (button === buttons.allDepartmentContacts) await sendAllDepartmentContacts(recipientNo);
   else if (button === buttons.classSchedule) console.log("Under development!");
   else if (
     button === buttons.allOptions ||
@@ -117,14 +118,14 @@ const sendResultMessage = async (recipientNo) => {
         {
           type: "reply",
           reply: {
-            id: "last-sem-result",
+            id: "Last Semester Result",
             title: "Last Semester"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "overall-result",
+            id: "All Semesters Result",
             title: "All Semesters"
           }
         }
@@ -145,14 +146,14 @@ const sendAttendanceMessage = async (recipientNo) => {
         {
           type: "reply",
           reply: {
-            id: "today-attendance",
+            id: "Today's Attendance",
             title: "Today's Attendance"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "overall-attendance",
+            id: "Overall Attendance",
             title: "Overall Attendance"
           }
         }
@@ -164,11 +165,11 @@ const sendAttendanceMessage = async (recipientNo) => {
 
 const sendHelpMessage = async (recipientNo) => {
   const text = `
-*What is Ayra?*
-I'm here to keep you updated on your child's progress. I can tell you about your child's attendance, result, warden number, and more. Click on 'Show All Options' to see all that you can ask me.
+*_What is Ayra?_*
+I'm your assistant and my job is to keep you updated on your child's attendance, result, and much more. Click on 'Show All Options' to see all that you can ask me.
 
-*How to use Ayra?*
-Whenever you have a query, text me 'Hey' or directly ask me the question. For example, write 'attendance' and I'll show your child's attendance.`;
+*_How to use Ayra?_*
+It's easy! Whenever you have a question, just type and hit send. For example, write 'attendance' and I'll show your child's attendance.`;
 
   const message = {
     type: "button",
@@ -178,21 +179,21 @@ Whenever you have a query, text me 'Hey' or directly ask me the question. For ex
         {
           type: "reply",
           reply: {
-            id: "hello",
+            id: "Hey",
             title: "Send Hey"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "all-options",
+            id: "All options",
             title: "Show all options"
           }
         },
         {
           type: "reply",
           reply: {
-            id: 'example',
+            id: 'Example',
             title: "Give an example"
           }
         }
@@ -208,12 +209,11 @@ const sendDepartmentContactMessage = async (recipientNo) => {
     attributes: ['name', 'block', 'contact'],
     limit: 3
   });
-  let text = `*Following are the contact details of some commonly requested departments.*\n`;
+  let text = `*_Following are the contact details of some commonly requested departments._*\n`;
   for (let department of departments) {
     text += `
-Department Name: ${department.name}
-Building Block: ${department.block}
-Contact Number: ${department.contact}\n`;
+${department.name}
+Tel. No.: ${department.contact}\n`;
   }
   text += `\nIf you're looking for some other department, press on the below button to see contact details of all department.`;
   const message = {
@@ -224,8 +224,8 @@ Contact Number: ${department.contact}\n`;
         {
           type: "reply",
           reply: {
-            id: "show-all-department-number",
-            title: "Show all numbers"
+            id: "All Departments Contact",
+            title: "Show all"
           }
         }
       ]
@@ -251,21 +251,21 @@ const sendMoreOptionMessage = async (recipientNo) => {
         {
           type: "reply",
           reply: {
-            id: "show-class-schedule",
+            id: "Class Schedule",
             title: "Show Class Schedule"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "contact-mentor",
+            id: "Mentor Contact Number",
             title: "Contact Mentor"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "show-more-contact",
+            id: "More Contact Numbers",
             title: "Show More Contacts"
           }
         }
@@ -293,7 +293,7 @@ const sendMentorContactMessage = async (recipientNo, student) => {
 
 const sendAllOptionsMessage = async (recipientNo) => {
   const text = `
-Ayra can help you with following things:
+*_Ayra can help you with following things:_*
 
 1. Your ward's marks
     Example: show marks
@@ -319,9 +319,9 @@ Ayra can help you with following things:
 
 const sendUsageExampleMessage = async (recipientNo) => {
   const text = `
-Sure, let's start off with an easy example.
+*_Sure, let's start off with an easy example._*
 
-*Type "Show time table" and hit enter.* I'll show you the schedule of classes.`;
+Type 'Show time table' and hit enter. I'll show you the schedule of classes.`;
 
   const message = {
     type: "button",
@@ -331,7 +331,7 @@ Sure, let's start off with an easy example.
         {
           type: "reply",
           reply: {
-            id: "another-example",
+            id: "Another example",
             title: "Give another example"
           }
         }
@@ -344,9 +344,9 @@ Sure, let's start off with an easy example.
 
 const sendAnotherExampleMessage = async (recipientNo) => {
   const text = `
-Sure, here's another example.
+*_Sure, here's another example._*
   
-*Type "Show attendance" and hit send*. In return, I'll ask you whether you want to see today's attendance or overall attendance.`
+Type 'Show attendance' and hit send. In return, I'll ask you whether you want to see today's attendance or overall attendance.`
 
   const message = {
     type: "button",
@@ -356,7 +356,7 @@ Sure, here's another example.
         {
           type: "reply",
           reply: {
-            id: "all-option-examples",
+            id: "More examples",
             title: "Show more examples"
           }
         }
@@ -378,14 +378,14 @@ const sendMoreContactsMessage = async (recipientNo) => {
         {
           type: "reply",
           reply: {
-            id: "department-contact",
-            title: "Department Contacts"
+            id: "Departments Contacts",
+            title: "Departments Contacts"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "authorities-contact",
+            id: "Authorities Contacts",
             title: "Authorities Contacts"
           }
         }
@@ -394,6 +394,23 @@ const sendMoreContactsMessage = async (recipientNo) => {
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendAllDepartmentContacts = async (recipientNo) => {
+  const departments = await Department.findAll({
+    attributes: ['name', 'contact'],
+    offset: 3
+  });
+  let text = `_*Following are the contact details of all the rest departments._*\n`;
+  for (let department of departments) {
+    text += `
+Department Name: ${department.name}
+Contact Number: ${department.contact}\n`;
+  }
+  const message = {
+    body: text
+  };
+  await metaAPI.sendMessage(recipientNo, message, "text");
 };
 
 const getAttendance = async (recipientNo, student, attendanceType) => {
