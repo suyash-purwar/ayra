@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="dFfGA1GaR14zk84N3xvo" name="Page-1">
-        <mxGraphModel dx="812" dy="909" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
+        <mxGraphModel dx="1971" dy="2209" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -114,7 +114,7 @@
                 <mxCell id="49" value="Independent Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="2224" y="770" width="160" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="78" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="51" target="77">
+                <mxCell id="78" value="" style="edgeStyle=none;html=1;" parent="1" source="51" target="77" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="51" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Give more examples&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
@@ -166,13 +166,25 @@
                 <mxCell id="66" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Send Hey&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="770.0000000000001" y="1020" width="208.33" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="73" value="" style="edgeStyle=none;html=1;strokeWidth=1;fontSize=16;" parent="1" source="68" target="70" edge="1">
+                <mxCell id="84" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="68" target="42">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1398.33" y="1065.9682481878403" as="targetPoint"/>
+                        <mxPoint x="1398.33" y="1050" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1590" y="830"/>
+                        </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="68" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;What is Ayra?&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
+                <mxCell id="68" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Help&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="1110" y="1020" width="208.33" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="70" target="51">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="2740" y="690" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1730" y="690"/>
+                            <mxPoint x="2620" y="690"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="70" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;How to use Ayra?&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="1491.67" y="1020" width="208.33" height="60" as="geometry"/>
@@ -180,18 +192,18 @@
                 <mxCell id="76" value="Independent Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="1040" y="770" width="160" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="80" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="77" target="79">
+                <mxCell id="80" value="" style="edgeStyle=none;html=1;" parent="1" source="77" target="79" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="77" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Give another example&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1">
+                <mxCell id="77" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Give another example&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="2634" y="1170" width="208.33" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="82" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="79" target="43">
+                <mxCell id="82" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="79" target="43" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="2554.0000000000005" y="1340" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="79" value="Show more examples" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1">
+                <mxCell id="79" value="Show more examples" style="rounded=0;whiteSpace=wrap;html=1;fontSize=14;" parent="1" vertex="1">
                     <mxGeometry x="2634" y="1310" width="208.33" height="60" as="geometry"/>
                 </mxCell>
             </root>

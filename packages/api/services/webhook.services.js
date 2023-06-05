@@ -67,7 +67,10 @@ const processButtonMessage = async (button, recipientNo, student) => {
     button === buttons.allOptions ||
     button === buttons.moreExamples
   ) await sendAllOptionsMessage(recipientNo);
-  else if (button === buttons.usageExample) await sendUsageExampleMessage(recipientNo);
+  else if (
+    button === buttons.usageExample ||
+    button === buttons.howToUse
+  ) await sendUsageExampleMessage(recipientNo);
   else if (button === buttons.anotherExample) await sendAnotherExampleMessage(recipientNo);
   // else if (
   //   button === buttons.howToUse
