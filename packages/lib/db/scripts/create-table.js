@@ -10,11 +10,14 @@ import HourSlot from '../models/hour-slot.model.js';
 import Query from '../models/query.model.js';
 import Department from '../models/department.model.js';
 import Subject from '../models/subject.model.js';
+import CourseSubject from '../models/course-subject.model.js';
+import Faculty from '../models/faculty.model.js';
+import Lecture from '../models/lecture.model.js';
 
 // await HOD.sync();
 // await Section.sync();
 // await Hostel.sync({ force: true });
-// await Mentor.sync({ alter: true });
+// await Mentor.sync({ force: true });
 // await UMC.sync({ force: true });
 // await Course.sync({ alter: true });
 // await Student.sync({ force: true });
@@ -23,6 +26,9 @@ import Subject from '../models/subject.model.js';
 // await Query.sync();
 // await Department.sync();
 // await Subject.sync({ alter: true });
+// await CourseSubject.sync({ force: true });
+// await Faculty.sync();
+await Lecture.sync();
 
 // import Attedance from '../models/attendance.model.js';
 // import Course from '../models/course.model.js';

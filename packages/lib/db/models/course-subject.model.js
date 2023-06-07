@@ -24,21 +24,18 @@ const CourseSubject = sequelize.define('course_subject', {
       key: 'id'
     }
   },
-  semester: {
-    type: DataTypes.INTEGER,
+  credit: {
+    type: DataTypes.ENUM,
     allowNull: false,
+    values: ['1', '2', '3', '4']
   },
   lectureCount: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  tutorialCount: {
+  semester: {
     type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  practicalCount: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
   }
 }, {
   modelName: 'course_subject',
