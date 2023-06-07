@@ -10,7 +10,8 @@ const Mentor = sequelize.define('mentor', {
   },
   registrationNo: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   firstName: {
     type: DataTypes.STRING,

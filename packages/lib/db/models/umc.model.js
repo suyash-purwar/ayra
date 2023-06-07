@@ -8,7 +8,7 @@ const UMC = sequelize.define('umc', {
     autoIncrement: true,
     primaryKey: true
   },
-  registrationNo: {
+  studentRegistrationNo: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
@@ -22,11 +22,6 @@ const UMC = sequelize.define('umc', {
     validate: {
       len: [10, 100]
     }
-  },
-  issuedByDepartment: {
-    type: DataTypes.ENUM,
-    values: ['faculty', 'security', 'hostel warden'],
-    allowNull: false
   },
   issuedBy: {
     type: DataTypes.INTEGER,

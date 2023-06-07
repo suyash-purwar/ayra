@@ -1,8 +1,17 @@
 import HOD from '../models/hod.model.js';
 import Section from '../models/section.model.js';
+import Hostel from '../models/hostel.model.js';
+import Mentor from '../models/mentor.model.js';
+import UMC from '../models/umc.model.js';
+import Course from '../models/course.model.js';
 
-await HOD.sync();
-await Section.sync();
+// await HOD.sync();
+// await Section.sync();
+// await Hostel.sync({ force: true });
+await Mentor.sync({ alter: true });
+// await UMC.sync({ force: true });
+await Course.sync({ alter: true });
+
 
 // import Attedance from '../models/attendance.model.js';
 // import Course from '../models/course.model.js';
