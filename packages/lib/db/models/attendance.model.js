@@ -8,30 +8,27 @@ const Attendance = sequelize.define('attendance', {
     autoIncrement: true,
     primaryKey: true,
   },
-  registrationNo: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  subjectId: {
+  studentId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'subject',
+      model: 'student',
       key: 'id'
     }
   },
-  hourSlot: {
+  lectureId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'hour_slot',
+      model: 'lecture',
       key: 'id'
     }
   },
-  attendanceStatus: {
+  status: {
     type: DataTypes.ENUM,
-    values: ['P', 'A', 'N'],
-    allowNull: false
+    values: ['P', 'A', 'N', 'U'],
+    allowNull: false,
+    defaultValue: 'U'
   },
   date: {
     type: DataTypes.DATE,
