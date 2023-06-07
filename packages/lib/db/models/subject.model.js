@@ -11,11 +11,6 @@ const Subject = sequelize.define('subject', {
   subjectCode: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  credit: {
-    type: DataTypes.ENUM,
-    values: ['0', '1', '2', '3', '4'],
-    allowNull: false
   }
 }, {
   modelName: 'subject',

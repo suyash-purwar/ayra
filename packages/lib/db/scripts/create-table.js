@@ -4,18 +4,28 @@ import Hostel from '../models/hostel.model.js';
 import Mentor from '../models/mentor.model.js';
 import UMC from '../models/umc.model.js';
 import Course from '../models/course.model.js';
+import Student from '../models/student.model.js';
+import TGPA from '../models/tgpa.model.js';
+import HourSlot from '../models/hour-slot.model.js';
+import Query from '../models/query.model.js';
+import Department from '../models/department.model.js';
+import Subject from '../models/subject.model.js';
 
 // await HOD.sync();
 // await Section.sync();
 // await Hostel.sync({ force: true });
-await Mentor.sync({ alter: true });
+// await Mentor.sync({ alter: true });
 // await UMC.sync({ force: true });
-await Course.sync({ alter: true });
-
+// await Course.sync({ alter: true });
+// await Student.sync({ force: true });
+// await TGPA.sync();
+// await HourSlot.sync();
+// await Query.sync();
+// await Department.sync();
+// await Subject.sync({ alter: true });
 
 // import Attedance from '../models/attendance.model.js';
 // import Course from '../models/course.model.js';
-// import Department from '../models/department.model.js';
 // import HostelLeave from '../models/hostel-leave.model.js';
 // import Hostel from '../models/hostel.model.js';
 // import Mentor from '../models/mentor.model.js';
@@ -26,13 +36,9 @@ await Course.sync({ alter: true });
 // import UMC from '../models/umc.model.js';
 // import Warden from '../models/warden.model.js';
 // import CourseSubject from '../models/course-subject.model.js';
-// import HourSlot from '../models/hour-slot.model.js';
-// import Query from '../models/query.model.js';
 
-// await Query.sync({ force: true });11
 // await Attedance.sync({ alter: true });
 // await Course.sync({ alter: true });
-// await Department.sync();
 // await HostelLeave.sync();
 // await Hostel.sync({ alter: true });
 // await Mentor.sync();
@@ -43,4 +49,3 @@ await Course.sync({ alter: true });
 // await UMC.sync();
 // await Warden.sync({ alter: true });
 // await CourseSubject.sync();
-// await HourSlot.sync();

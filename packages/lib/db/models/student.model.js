@@ -40,7 +40,7 @@ const Student = sequelize.define('student', {
     allowNull: false
   },
   sectionId: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
     references: {
       model: 'section',
