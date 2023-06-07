@@ -5,7 +5,10 @@
   "private": true,
   "author": "Suyash Purwar",
   "license": "ISC",
-  "scripts": {},
+  "scripts": {
+    "dev:db:sync": "node packages/lib/db/scripts/create-table.js",
+    "dev:db:populate": "node packages/lib/db/scripts/populate-db.js"
+  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.316.0",
     "@aws-sdk/s3-request-presigner": "^3.317.0",
