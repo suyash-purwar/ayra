@@ -6,28 +6,64 @@ const Result = sequelize.define('result', {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   },
-  registrationNo: {
+  courseSubjectId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'course_subject',
+      key: 'id'
+    }
   },
-  semester: {
+  studentId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'student',
+      key: 'id'
+    }
   },
-  tgpa: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  marks: {
-    type: DataTypes.ARRAY(DataTypes.JSON),
-    allowNull: false
+  grade: {
+    type: DataTypes.ENUM,
+    allowNull: false,
+    values: ['O', 'A+']
   }
 }, {
-  modelName: 'result',
-  underscored: true,
+  tableName: 'result',
+  underscore: true,
   freezeTableName: true
 });
 
 export default Result;
+
+// const Result = sequelize.define('result', {
+//   id: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false,
+//     autoIncrement: true,
+//     primaryKey: true,
+//   },
+//   registrationNo: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false
+//   },
+//   semester: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false
+//   },
+//   tgpa: {
+//     type: DataTypes.FLOAT,
+//     allowNull: false
+//   },
+//   marks: {
+//     type: DataTypes.ARRAY(DataTypes.JSON),
+//     allowNull: false
+//   }
+// }, {
+//   modelName: 'result',
+//   underscored: true,
+//   freezeTableName: true
+// });
+
+// export default Result;

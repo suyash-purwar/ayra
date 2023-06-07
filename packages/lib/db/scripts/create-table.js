@@ -16,6 +16,8 @@ import Faculty from '../models/faculty.model.js';
 import Lecture from '../models/lecture.model.js';
 import Attendance from '../models/attendance.model.js';
 import OverallAttendance from '../models/overall-attendance.model.js';
+import Result from '../models/result.model.js';
+import Timetable from '../models/timetable.model.js';
 
 // await HOD.sync();
 // await Section.sync();
@@ -33,31 +35,7 @@ import OverallAttendance from '../models/overall-attendance.model.js';
 // await CourseSubject.sync({ force: true });
 // await Faculty.sync();
 // await Lecture.sync();
-await Attendance.sync({ force: true });
-await OverallAttendance.sync({ force: true });
-
-// import Attedance from '../models/attendance.model.js';
-// import Course from '../models/course.model.js';
-// import HostelLeave from '../models/hostel-leave.model.js';
-// import Hostel from '../models/hostel.model.js';
-// import Mentor from '../models/mentor.model.js';
-// import OverallAttendance from '../models/overall-attendance.model.js';
-// import Result from '../models/result.model.js';
-// import Student from '../models/student.model.js';
-// import Subject from '../models/subject.model.js';
-// import UMC from '../models/umc.model.js';
-// import Warden from '../models/warden.model.js';
-// import CourseSubject from '../models/course-subject.model.js';
-
-// await Attedance.sync({ alter: true });
-// await Course.sync({ alter: true });
-// await HostelLeave.sync();
-// await Hostel.sync({ alter: true });
-// await Mentor.sync();
-// await OverallAttendance.sync({ alter: true });
+// await Attendance.sync({ force: true });
+// await OverallAttendance.sync({ force: true });
 // await Result.sync({ force: true });
-// await Student.sync({ alter: true });
-// await Subject.sync()
-// await UMC.sync();
-// await Warden.sync({ alter: true });
-// await CourseSubject.sync();
+// await Timetable.sync();
