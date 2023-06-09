@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev:db:sync": "node db/scripts/create-table.js",
-    "dev:db:populate": "node db/scripts/populate-db.js"  },
+    "dev:db:populate": "node db/scripts/populate-db-2.js"
+  },
   "author": "Suyash Purwar",
   "license": "ISC"
 }

@@ -26,7 +26,10 @@ const Hostel = sequelize.define('hostel', {
   },
   isMainWarden: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false,
+    allowNull: false
+  },
+  contact: {
+    type: DataTypes.STRING,
     allowNull: false
   }
 }, {
