@@ -8,7 +8,7 @@ const TGPA = sequelize.define('tgpa', {
     autoIncrement: true,
     primaryKey: true
   },
-  student_id: {
+  studentId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {

@@ -26,9 +26,9 @@ const Attendance = sequelize.define('attendance', {
   },
   status: {
     type: DataTypes.ENUM,
-    values: ['P', 'A', 'N', 'U'],
+    values: ['P', 'A', 'N'],
     allowNull: false,
-    defaultValue: 'U'
+    defaultValue: 'N'
   },
   date: {
     type: DataTypes.DATE,
