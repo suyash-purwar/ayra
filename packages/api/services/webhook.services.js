@@ -7,7 +7,7 @@ import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';
 import { getObjectURL } from '@ayra/lib/utils/aws.js';
-import { Department, Mentor } from '@ayra/lib/db/index.js';
+import { Department, Mentor, Course } from '@ayra/lib/db/index.js';
 loadConfig();
 
 export const processMessage = async (msgInfo, student) => {
@@ -21,7 +21,6 @@ export const processMessage = async (msgInfo, student) => {
     let button;
     switch (messageType) {
       case 'interactive':
-        console.log("evil");
         button = value.messages[0].interactive.button_reply.id;
         await processButtonMessage(button, recipientNo, student);
         break;
@@ -59,7 +58,7 @@ const processButtonMessage = async (button, recipientNo, student) => {
   else if (button === buttons.resultPreviousSemester) await getResult(recipientNo, student, 'all semester');
   else if (button === buttons.moreOptions) await sendMoreOptionMessage(recipientNo);
   else if (button === buttons.contactMentor) await sendMentorContactMessage(recipientNo, student);
-  else if (button === buttons.showMoreContacts) await sendMoreContactsMessage(recipientNo);
+  else if (button === buttons.moreContacts) await sendMoreContactsMessage(recipientNo);
   else if (button === buttons.departmentContacts) await sendDepartmentContactMessage(recipientNo);
   else if (button === buttons.allDepartmentContacts) await sendAllDepartmentContacts(recipientNo);
   else if (button === buttons.classSchedule) console.log("Under development!");
@@ -72,12 +71,6 @@ const processButtonMessage = async (button, recipientNo, student) => {
     button === buttons.howToUse
   ) await sendUsageExampleMessage(recipientNo);
   else if (button === buttons.anotherExample) await sendAnotherExampleMessage(recipientNo);
-  // else if (
-  //   button === buttons.howToUse
-  // ) {
-  //   // await metaAPI.sendMessage(recipientNo, 'This part of the application is under development. Sorry for the inconvenience.');
-  //   console.log("Under development");
-  // }
 };
 
 // Handle the cases where the probability for a class
@@ -98,8 +91,6 @@ const processTextMessage = async (intent, recipientNo) => {
     await sendAttendanceMessage(recipientNo);
   } else if (intent === intentList[3]) {
     await sendDepartmentContactMessage(recipientNo);
-    // Commonly requested department details
-    // Menu - Show more departments
   } else if (intent === intentList[4]) {
     // Send authorities details
   } else if (intent === intentList[5]) {
@@ -277,6 +268,23 @@ Tel. No.: ${department.contact}\n`;
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
+const sendAllDepartmentContacts = async (recipientNo) => {
+  const departments = await Department.findAll({
+    attributes: ['name', 'contact'],
+    offset: 3
+  });
+  let text = `_*Following are the contact details of all the rest departments.*_\n`;
+  for (let department of departments) {
+    text += `
+Department Name: ${department.name}
+Contact Number: ${department.contact}\n`;
+  }
+  const message = {
+    body: text
+  };
+  await metaAPI.sendMessage(recipientNo, message, "text");
+};
+
 const sendIntentNotRecognizedMessage = async (recipientNo) => {
   const message = {
     body: "Intent not recognized"
@@ -439,25 +447,8 @@ const sendMoreContactsMessage = async (recipientNo) => {
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
-const sendAllDepartmentContacts = async (recipientNo) => {
-  const departments = await Department.findAll({
-    attributes: ['name', 'contact'],
-    offset: 3
-  });
-  let text = `_*Following are the contact details of all the rest departments._*\n`;
-  for (let department of departments) {
-    text += `
-Department Name: ${department.name}
-Contact Number: ${department.contact}\n`;
-  }
-  const message = {
-    body: text
-  };
-  await metaAPI.sendMessage(recipientNo, message, "text");
-};
-
 const getAttendance = async (recipientNo, student, attendanceType) => {
-  let uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.registrationNo}&attendanceType=${attendanceType}`;
+  let uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.id}&attendanceType=${attendanceType}`;
   const message = {
     link:  uri
   };
@@ -484,51 +475,64 @@ const getResult = async (recipientNo, student, resultType) => {
 
 // Webhook
 // Serve attendance images when requested from Meta
-export const getAttendanceImage = async (id, attendanceType) => {
+export const getAttendanceImage = async (studentId, attendanceType) => {
   const [ student ] = await sequelize.query(`
     SELECT 
+      registration_no,
       first_name,
       middle_name,
       last_name,
       course_code,
       semester
-    FROM student
+    FROM student s
     LEFT JOIN course c
-      ON c.id = student.course_id
-    WHERE registration_no=${id};
+      ON c.id = s.course_id
+    WHERE s.id=${studentId};
   `);
   const data = {
-    registrationNo: id,
+    registrationNo: student[0].registration_no,
     name: `${student[0].first_name} ${student[0].middle_name || ''} ${student[0].last_name}`,
     courseCode: student[0].course_code
   };
+
+  // Show today's attendance differently on each day
+  // Day 0 and 6 represents Sunday and Saturday respectively
+  // So, for those days, attendance of day = 5(Friday) is shown
+  let currentDate = new Date(Date.now());
+  let day = currentDate.getDay();
+  if (day == 0 || day == 6) day = 5;
+
   switch (attendanceType) {
     case 'today':
+      // Fetches the today's attendance in the lectures commenced today
       const [ todaysAttendance ] = await sequelize.query(`
-        SELECT
-          subject_code,
+        SELECT 
+          sub.subject_code,
+          a.status,
           hs.slot,
-          attendance_status,
           date
-        FROM attendance
-        LEFT JOIN subject s
-          ON s.id = attendance.subject_id
-        LEFT JOIN hour_slot hs
-          ON hs.id = attendance.hour_slot
-        WHERE registration_no=${id}
-        ORDER BY date, hour_slot;
+        FROM student s
+        JOIN attendance a ON a.student_id = s.id
+        JOIN lecture l ON l.id = a.lecture_id
+        JOIN course_subject cs ON cs.id = l.course_subject_id
+        JOIN subject sub ON sub.id = cs.id
+        JOIN hour_slot hs ON hs.id = l.hour_slot_id
+        WHERE s.id=${studentId} AND day='${day.toString()}'
+        ORDER BY hs.id;
       `);
       data.attendance = todaysAttendance;
       break;
     case 'overall':
+      // Fetches the overall attendance in all subject of the current semester
       const [ overallAttendance ] = await sequelize.query(`
-        SELECT
+        SELECT 
           subject_code,
           attendance
-        FROM overall_attendance oa
-        LEFT JOIN subject
-          ON subject.id = oa.subject_id
-        WHERE registration_no=${id} AND semester=${student[0].semester};
+        FROM student s
+        JOIN overall_attendance oa ON oa.student_id = s.id
+        JOIN course_subject cs ON cs.id = oa.course_subject_id
+        JOIN subject sub ON sub.id = cs.subject_id
+        WHERE cs.semester = s.semester AND s.id=4;
       `);
       data.attendance = overallAttendance;
       break;

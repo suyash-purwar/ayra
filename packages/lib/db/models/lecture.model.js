@@ -34,7 +34,7 @@ const Lecture = sequelize.define('lecture', {
   },
   day: {
     type: DataTypes.ENUM,
-    values: ['1', '2', '3', '4', '5', '6', '0'],
+    values: ['1', '2', '3', '4', '5'],
     allowNull: false,
     comment: 'Monday is mapped with 1 and so on.'
   },

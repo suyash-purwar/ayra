@@ -30,7 +30,6 @@ export const getObject = async (folderPath, fileName) => {
     });
     const { Body } = await s3client.send(command);
     const objectBuffer = await streamToBuffer(Body);
-    console.log(objectBuffer);
     return objectBuffer;
   } catch (e) {
     console.log(e);

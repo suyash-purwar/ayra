@@ -1,12 +1,12 @@
 <% let cardColor; %>
 <% let attendanceStatus; %>
-<% if (subject.attendance_status === 'P') { %>
+<% if (subject.status === 'P') { %>
   <% cardColor = 'green'; %>
   <% attendanceStatus = 'present' %>
-<% } else if (subject.attendance_status === 'A') { %> 
+<% } else if (subject.status === 'A') { %> 
   <% cardColor = 'red'; %>
   <% attendanceStatus = 'absent' %>
-<% } else if (subject.attendance_status === 'N') { %>
+<% } else if (subject.status === 'N') { %>
   <% cardColor = 'orange'; %>
   <% attendanceStatus = 'waiting' %>
 <% } %>

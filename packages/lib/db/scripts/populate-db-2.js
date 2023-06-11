@@ -12,7 +12,7 @@ import Attendance from '../models/attendance.model.js';
 import OverallAttendance from '../models/overall-attendance.model.js';
 import TGPA from '../models/tgpa.model.js';
 
-// await TGPA.bulkCreate([
+// await TGPA.bulkCreate([  
 //   {
 //     "id": 1,
 //     "studentId": 1,
@@ -858,118 +858,6 @@ import TGPA from '../models/tgpa.model.js';
   //   "studentId": 5,
   //   "grade": "C"
   // }
-// ]);
-
-// await Timetable.bulkCreate([
-// {
-//   "id": 1,
-//   "studentId": 1,
-//   "lectureId": 28
-// }, {
-//   "id": 2,
-//   "studentId": 1,
-//   "lectureId": 29
-// }, {
-//   "id": 3,
-//   "studentId": 1,
-//   "lectureId": 30
-// }, {
-//   "id": 4,
-//   "studentId": 1,
-//   "lectureId": 31
-// }, {
-//   "id": 5,
-//   "studentId": 1,
-//   "lectureId": 32
-// }, {
-//   "id": 6,
-//   "studentId": 1,
-//   "lectureId": 33
-// }, {
-//   "id": 7,
-//   "studentId": 1,
-//   "lectureId": 34
-// }, {
-//   "id": 8,
-//   "studentId": 1,
-//   "lectureId": 35
-// }, {
-//   "id": 9,
-//   "studentId": 1,
-//   "lectureId": 36
-// }, {
-//   "id": 10,
-//   "studentId": 1,
-//   "lectureId": 37
-// }, {
-//   "id": 11,
-//   "studentId": 1,
-//   "lectureId": 38
-// }, {
-//   "id": 12,
-//   "studentId": 1,
-//   "lectureId": 39
-// }, {
-//   "id": 13,
-//   "studentId": 1,
-//   "lectureId": 40
-// }, {
-//   "id": 14,
-//   "studentId": 1,
-//   "lectureId": 41
-// }, {
-//   "id": 15,
-//   "studentId": 1,
-//   "lectureId": 42
-// }, {
-//   "id": 16,
-//   "studentId": 1,
-//   "lectureId": 43
-// }, {
-//   "id": 17,
-//   "studentId": 1,
-//   "lectureId": 44
-// }, {
-//   "id": 18,
-//   "studentId": 1,
-//   "lectureId": 45
-// }, {
-//   "id": 19,
-//   "studentId": 1,
-//   "lectureId": 46
-// }, {
-//   "id": 20,
-//   "studentId": 1,
-//   "lectureId": 47
-// }, {
-//   "id": 21,
-//   "studentId": 1,
-//   "lectureId": 48
-// }, {
-//   "id": 22,
-//   "studentId": 1,
-//   "lectureId": 49
-// }, {
-//   "id": 23,
-//   "studentId": 1,
-//   "lectureId": 50
-// }, {
-//   "id": 24,
-//   "studentId": 1,
-//   "lectureId": 51
-// }, {
-//   "id": 25,
-//   "studentId": 1,
-//   "lectureId": 52
-// }, {
-//   "id": 26,
-//   "studentId": 1,
-//   "lectureId": 53
-// }, {
-//   "id": 27,
-//   "studentId": 1,
-//   "lectureId": 54
-// },
 // ]);
 
 // await Student.bulkCreate([{
