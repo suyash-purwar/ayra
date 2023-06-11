@@ -16,6 +16,8 @@ export default {
 
   moreOptions: "More options",
 
+  classSchedule: "Class Schedule",
+
   allOptions: "All options",
 
   howToUse: "How to use Ayra?",

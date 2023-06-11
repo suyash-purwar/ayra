@@ -10,6 +10,8 @@ import { getObjectURL } from '@ayra/lib/utils/aws.js';
 import { Department, Mentor, Course } from '@ayra/lib/db/index.js';
 loadConfig();
 
+const WORKING_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
 export const processMessage = async (msgInfo, student) => {
   const { value, field } = msgInfo;
 
@@ -61,7 +63,7 @@ const processButtonMessage = async (button, recipientNo, student) => {
   else if (button === buttons.moreContacts) await sendMoreContactsMessage(recipientNo);
   else if (button === buttons.departmentContacts) await sendDepartmentContactMessage(recipientNo);
   else if (button === buttons.allDepartmentContacts) await sendAllDepartmentContacts(recipientNo);
-  else if (button === buttons.classSchedule) console.log("Under development!");
+  else if (button === buttons.classSchedule) await sendClassScheduleMessage(recipientNo, student);
   else if (
     button === buttons.allOptions ||
     button === buttons.moreExamples
@@ -82,7 +84,7 @@ const classifyMsg = async (msgText) => {
   return intentList[intentId];
 };
 
-const processTextMessage = async (intent, recipientNo) => {
+const processTextMessage = async (intent, recipientNo, student) => {
   if (intent === intentList[0]) {
     await sendHeyMessage(recipientNo);
   } else if (intent === intentList[1]) {
@@ -94,7 +96,7 @@ const processTextMessage = async (intent, recipientNo) => {
   } else if (intent === intentList[4]) {
     // Send authorities details
   } else if (intent === intentList[5]) {
-    // Send Schedule
+    await sendClassScheduleMessage(recipientNo, student);
   } else if (intent === intentList[6]) {
     await sendHelpMessage(recipientNo);
   } else {
@@ -152,14 +154,14 @@ const sendResultMessage = async (recipientNo) => {
         {
           type: "reply",
           reply: {
-            id: "Last Semester",
+            id: "Last Semester Result",
             title: "Last Semester"
           }
         },
         {
           type: "reply",
           reply: {
-            id: "All Semesters",
+            id: "All Semesters Result",
             title: "All Semesters"
           }
         }
@@ -291,6 +293,35 @@ const sendIntentNotRecognizedMessage = async (recipientNo) => {
   };
   await metaAPI.sendMessage(recipientNo, message);
 };
+
+const sendClassScheduleMessage = async (recipientNo, student) => {
+  const everydaySchedule = await sequelize.query(`
+    SELECT 
+      sub.subject_code,
+      day,
+      slot
+    FROM student s
+    JOIN lecture l ON s.section_id = l.section_id
+    JOIN course_subject cs ON l.course_subject_id = cs.id
+    JOIN subject sub ON sub.id = cs.subject_id
+    JOIN hour_slot hs ON hs.id = l.hour_slot_id
+    WHERE s.id=${student.id}
+    ORDER BY day, hs.id;
+  `);
+  let text = `*_Sure, here's the schedule of classes for the ongoing semester._*`;
+  let currentDay = 0;
+  for (let schedule of everydaySchedule[0]) {
+    if (currentDay != schedule.day) {
+      text += `\n\n*Day: ${WORKING_DAYS[+schedule.day-1]}*`
+      currentDay = schedule.day
+    }
+    text += `\nSubject: ${schedule.subject_code.slice(0, 6)} - Timing: ${schedule.slot}`;
+  }
+  const message = {
+    body: text
+  };
+  await metaAPI.sendMessage(recipientNo, message, "text");
+}
 
 const sendMoreOptionMessage = async (recipientNo) => {
   const text = `Sure, here are some more options that you might find helpful`;
