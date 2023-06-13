@@ -22,7 +22,10 @@ const HOD = sequelize.define('hod', {
   },
   lastName: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+  },
+  contact: {
+    type: DataTypes.STRING
   }
 }, {
   modelName: 'hod',

@@ -18,7 +18,7 @@ import Attendance from '../models/attendance.model.js';
 import OverallAttendance from '../models/overall-attendance.model.js';
 import Result from '../models/result.model.js';
 
-// await HOD.sync();
+// await HOD.sync({ alter: true });
 // await Section.sync();
 // await Hostel.sync({ force: true });
 // await Mentor.sync({ force: true });
@@ -34,6 +34,6 @@ import Result from '../models/result.model.js';
 // await CourseSubject.sync({ force: true });
 // await Faculty.sync();
 // await Lecture.sync();
-await Attendance.sync({ alter: true });
+// await Attendance.sync({ alter: true });
 // await OverallAttendance.sync({ force: true });
 // await Result.sync({ force: true });

@@ -30,5 +30,5 @@ export default {
   departmentContacts: "Departments Contacts",
   allDepartmentContacts: "All Departments Contact",
   authoritiesContacts: "Authorities Contacts",
-  allAuthoritiesContacts: "All Authorities Contact"
+  facultyContacts: "Faculty Contacts"
 };

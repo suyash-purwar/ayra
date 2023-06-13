@@ -8,6 +8,8 @@ import OverallAttendance from "./models/overall-attendance.model.js";
 import Attendance from "./models/attendance.model.js";
 import HourSlot from "./models/hour-slot.model.js";
 import Result from './models/result.model.js';
+import HOD from './models/hod.model.js';
+import Section  from './models/section.model.js';
 
 import sequelize from './connect.js';
 
@@ -21,7 +23,9 @@ export {
   OverallAttendance,
   Attendance,
   HourSlot,
-  Result
+  Result,
+  HOD,
+  Section
 };
 
 export default sequelize;

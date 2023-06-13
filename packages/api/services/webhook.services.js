@@ -1,13 +1,18 @@
 import * as metaAPI from '@ayra/lib/apis/meta.api.js';
 import classifier from '@ayra/lib/apis/openai.api.js';
 import buttons from '@ayra/lib/botconfig/buttons.js';
-// import templates from '@ayra/lib/botconfig/templates.js';
 import intentList from '@ayra/lib/botconfig/intent.js';
 import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
 import sequelize from '@ayra/lib/db/index.js';
 import loadConfig from '@ayra/lib/utils/config.js';
 import { getObjectURL } from '@ayra/lib/utils/aws.js';
-import { Department, Mentor, Course } from '@ayra/lib/db/index.js';
+import { 
+  Department,
+  Mentor,
+  HOD,
+  Section,
+  Hostel
+} from '@ayra/lib/db/index.js';
 loadConfig();
 
 const WORKING_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -62,7 +67,7 @@ const processButtonMessage = async (button, recipientNo, student) => {
   else if (button === buttons.contactMentor) await sendMentorContactMessage(recipientNo, student);
   else if (button === buttons.moreContacts) await sendMoreContactsMessage(recipientNo);
   else if (button === buttons.departmentContacts) await sendDepartmentContactMessage(recipientNo);
-  else if (button === buttons.allDepartmentContacts) await sendAllDepartmentContacts(recipientNo);
+  else if (button === buttons.allDepartmentContacts) await sendAllDepartmentContactsMessage(recipientNo);
   else if (button === buttons.classSchedule) await sendClassScheduleMessage(recipientNo, student);
   else if (
     button === buttons.allOptions ||
@@ -73,6 +78,8 @@ const processButtonMessage = async (button, recipientNo, student) => {
     button === buttons.howToUse
   ) await sendUsageExampleMessage(recipientNo);
   else if (button === buttons.anotherExample) await sendAnotherExampleMessage(recipientNo);
+  else if (button === buttons.authoritiesContacts) await sendAuthoritiesContactMessage(recipientNo, student);
+  else if (button === buttons.facultyContacts) await sendFacultyContactsMessage(recipientNo, student);
 };
 
 // Handle the cases where the probability for a class
@@ -94,7 +101,7 @@ const processTextMessage = async (intent, recipientNo, student) => {
   } else if (intent === intentList[3]) {
     await sendDepartmentContactMessage(recipientNo);
   } else if (intent === intentList[4]) {
-    // Send authorities details
+    await sendAuthoritiesContactMessage(recipientNo, student);  
   } else if (intent === intentList[5]) {
     await sendClassScheduleMessage(recipientNo, student);
   } else if (intent === intentList[6]) {
@@ -270,7 +277,7 @@ Tel. No.: ${department.contact}\n`;
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
-const sendAllDepartmentContacts = async (recipientNo) => {
+const sendAllDepartmentContactsMessage = async (recipientNo) => {
   const departments = await Department.findAll({
     attributes: ['name', 'contact'],
     offset: 3
@@ -477,6 +484,84 @@ const sendMoreContactsMessage = async (recipientNo) => {
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
+
+const sendAuthoritiesContactMessage = async (recipientNo, student) => {
+  const mentor = await Mentor.findByPk(student.mentorId, {
+    attributes: ['firstName', 'middleName', 'lastName', 'contact']
+  });
+  const section = await Section.findByPk(student.sectionId, {
+    attributes: ['hodId']
+  });
+  const hod = await HOD.findByPk(section.hodId, {
+    attributes: ['firstName', 'middleName', 'lastName', 'contact']
+  });
+  const hostel = await Hostel.findByPk(student.hostelId, {
+    attributes: ['warden', 'contact']
+  });
+  console.log(mentor.firstName, mentor.middleName, mentor.lastName, mentor.contact);
+  console.log(hod.firstName, hod.middleName, hod.lastName, hod.contact);
+  console.log(hostel.warden, hostel.contact);
+
+  const text = `
+_*Sure, here are the contact number of authorities you can reach out to.*_
+
+Mentor's Name:  ${mentor.firstName} ${mentor.lastName}
+Contact: ${mentor.contact}
+
+Hostel Warden Name: ${hostel.warden}
+Contact: ${hostel.contact}
+
+HOD Name: ${hod.firstName} ${hod.lastName}
+Contact: ${hod.contact}
+
+If you want to see contact details of your ward's faculty, click on the button below.`;
+
+  const message = {
+    type: "button",
+    body: { text },
+    action: {
+      buttons: [
+        {
+          type: "reply",
+          reply: {
+            id: "Faculty Contacts",
+            title: "See Faculty Contacts"
+          }
+        }
+      ]
+    }
+  };
+
+  await metaAPI.sendMessage(recipientNo, message, "interactive");
+};
+
+const sendFacultyContactsMessage = async (recipientNo, student) => {
+  const faculties = await sequelize.query(`
+    SELECT 
+      DISTINCT subject_code,
+      f.first_name,
+      f.middle_name,
+      f.last_name,
+      f.contact
+    FROM student s
+    JOIN lecture l ON l.section_id = s.section_id
+    JOIN course_subject cs ON l.course_subject_id = cs.id
+    JOIN subject sub ON sub.id = cs.subject_id
+    JOIN faculty f ON l.faculty_id = f.id
+    WHERE s.id=${student.id};
+  `);
+  let text = `_*Sure, here's the subject-wise faculty for this semester.*_`;
+  for (let faculty of faculties[0]) {
+    text += `\n
+Faculty Name: ${faculty.first_name} ${faculty.last_name}
+Subject Code: ${faculty.subject_code.slice(0, 6)}
+Contact: ${faculty.contact}`;
+  };
+  const message = {
+    body: text
+  }
+  await metaAPI.sendMessage(recipientNo, message, "text");
+}
 
 const getAttendance = async (recipientNo, student, attendanceType) => {
   let uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.id}&attendanceType=${attendanceType}`;
