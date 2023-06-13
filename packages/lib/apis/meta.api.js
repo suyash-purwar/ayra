@@ -46,13 +46,14 @@ export const sendMessage = async (recipientNo, message, messageType='text') => {
   return response;
 };
 
-export const sendTemplate = async (recipientNo, menuType) => {
+export const sendTemplate = async (recipientNo, menuType, message = null) => {
   const template = {
     name: menuType,
     language: {
       code: "en_US"
     }
   }
+  if (message) template['components'] = message;
   if (menuType === templates.initialHello.name) {
     template.components = [{
       type: "header",

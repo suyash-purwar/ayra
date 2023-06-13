@@ -13,6 +13,8 @@ import {
   Section,
   Hostel
 } from '@ayra/lib/db/index.js';
+import templates from '@ayra/lib/botconfig/templates.js';
+
 loadConfig();
 
 const WORKING_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -582,11 +584,34 @@ const getResult = async (recipientNo, student, resultType) => {
       break;
   }
   const url = await getObjectURL('result', fileName);
-  const message = {
-    link: url,
-    filename: fileName
-  }
-  await metaAPI.sendMessage(recipientNo, message, "document");
+  const message = [
+    {
+      type: "header",
+      parameters: [
+        {
+          type: "document",
+          document: {
+            link: url,
+            filename: fileName
+          }
+        }
+      ]
+    },
+    {
+      type: "body",
+      parameters: [
+        {
+          type: "text",
+          text: student.fatherName
+        },
+        {
+          type: "text",
+          text: student.semester
+        }
+      ]
+    }
+  ];
+  await metaAPI.sendTemplate(recipientNo, templates.resultDeclare.name, message);
 };
 
 // Webhook
