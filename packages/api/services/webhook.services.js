@@ -1,9 +1,11 @@
+import puppeteer from 'puppeteer';
+import fs from 'node:fs/promises';
+import ejs from 'ejs';
 import * as metaAPI from '@ayra/lib/apis/meta.api.js';
 import classifier from '@ayra/lib/apis/openai.api.js';
 import buttons from '@ayra/lib/botconfig/buttons.js';
 import intentList from '@ayra/lib/botconfig/intent.js';
-import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
-import { getObjectURL } from '@ayra/lib/utils/aws.js';
+import { getObjectURL, getObject } from '@ayra/lib/utils/aws.js';
 import sequelize, { 
   Department,
   Mentor,
@@ -176,6 +178,7 @@ const sendResultMessage = async (recipientNo) => {
       ]
     }
   };
+
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
@@ -204,6 +207,7 @@ const sendAttendanceMessage = async (recipientNo) => {
       ]
     }
   };
+
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
@@ -275,6 +279,7 @@ Tel. No.: ${department.contact}\n`;
       ]
     }
   };
+
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
@@ -292,6 +297,7 @@ Contact Number: ${department.contact}\n`;
   const message = {
     body: text
   };
+
   await metaAPI.sendMessage(recipientNo, message, "text");
 };
 
@@ -299,6 +305,7 @@ const sendIntentNotRecognizedMessage = async (recipientNo) => {
   const message = {
     body: "Intent not recognized"
   };
+
   await metaAPI.sendMessage(recipientNo, message);
 };
 
@@ -328,6 +335,7 @@ const sendClassScheduleMessage = async (recipientNo, student) => {
   const message = {
     body: text
   };
+
   await metaAPI.sendMessage(recipientNo, message, "text");
 }
 
@@ -362,6 +370,7 @@ const sendMoreOptionMessage = async (recipientNo) => {
       ]
     }
   };
+
   await metaAPI.sendMessage(recipientNo, message, "interactive");
 };
 
@@ -378,6 +387,7 @@ const sendMentorContactMessage = async (recipientNo, student) => {
       type: "Work"
     }]
   }];
+
   await metaAPI.sendMessage(recipientNo, message, "contacts");
 };
 
@@ -610,7 +620,39 @@ const getResult = async (recipientNo, student, resultType) => {
       ]
     }
   ];
+
   await metaAPI.sendTemplate(recipientNo, templates.resultDeclare.name, message);
+};
+
+const generateAttendanceImage = async (studentData, attendanceType) => {
+  const lpuLogoImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/bot-assets/Bot Profile Picture.png')).toString('base64');
+  const presentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/present.png')).toString('base64');
+  const waitingImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/waiting.png')).toString('base64');
+  const absentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/absent.png')).toString('base64');
+  const studentProfileImg = await getObject('profile-image', `${studentData.registrationNo}.png`);
+  
+  const html = await ejs.renderFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/attendance.ejs', {
+    pageAssets: {
+      lpuLogoImg,
+      studentProfileImg,
+      presentImg,
+      waitingImg,
+      absentImg
+    },
+    attendanceType,
+    ...studentData
+  });
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.setContent(html, { waitUntil: 'domcontentloaded' });
+  await page.emulateMediaType('screen');
+  await page.setViewport({width: 1920, height: 2080});
+  const imageBuffer = await page.screenshot({
+    omitBackground: false
+  });
+  await browser.close();
+  return imageBuffer;
 };
 
 // Webhook
@@ -629,7 +671,7 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
       ON c.id = s.course_id
     WHERE s.id=${studentId};
   `);
-  const data = {
+  const studentData = {
     registrationNo: student[0].registration_no,
     name: `${student[0].first_name} ${student[0].middle_name || ''} ${student[0].last_name}`,
     courseCode: student[0].course_code
@@ -660,7 +702,7 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
         WHERE s.id=${studentId} AND day='${day.toString()}'
         ORDER BY hs.id;
       `);
-      data.attendance = todaysAttendance;
+      studentData.attendance = todaysAttendance;
       break;
     case 'overall':
       // Fetches the overall attendance in all subject of the current semester
@@ -672,11 +714,11 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
         JOIN overall_attendance oa ON oa.student_id = s.id
         JOIN course_subject cs ON cs.id = oa.course_subject_id
         JOIN subject sub ON sub.id = cs.subject_id
-        WHERE cs.semester = s.semester AND s.id=4;
+        WHERE cs.semester = s.semester AND s.id=${studentId};
       `);
-      data.attendance = overallAttendance;
+      studentData.attendance = overallAttendance;
       break;
   }
-  const imageBuffer = await generateAttendanceImage(data, attendanceType);
+  const imageBuffer = await generateAttendanceImage(studentData, attendanceType);
   return imageBuffer;
 };
