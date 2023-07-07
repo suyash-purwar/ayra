@@ -10,6 +10,7 @@ import HourSlot from "./models/hour-slot.model.js";
 import Result from './models/result.model.js';
 import HOD from './models/hod.model.js';
 import Section  from './models/section.model.js';
+import TGPA from './models/tgpa.model.js';
 
 import sequelize from './connect.js';
 
@@ -25,7 +26,8 @@ export {
   HourSlot,
   Result,
   HOD,
-  Section
+  Section,
+  TGPA
 };
 
 export default sequelize;

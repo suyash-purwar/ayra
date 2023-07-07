@@ -293,571 +293,571 @@ import TGPA from '../models/tgpa.model.js';
 // ]);
 
 // await Result.bulkCreate([
-  // {
-  //   "id": 1,
-  //   "courseSubjectId": 1,
-  //   "studentId": 1,
-  //   "grade": "C"
-  // }, {
-  //   "id": 2,
-  //   "courseSubjectId": 2,
-  //   "studentId": 1,
-  //   "grade": "A"
-  // }, {
-  //   "id": 3,
-  //   "courseSubjectId": 3,
-  //   "studentId": 1,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 4,
-  //   "courseSubjectId": 4,
-  //   "studentId": 1,
-  //   "grade": "E"
-  // }, {
-  //   "id": 5,
-  //   "courseSubjectId": 5,
-  //   "studentId": 1,
-  //   "grade": "E"
-  // }, {
-  //   "id": 6,
-  //   "courseSubjectId": 6,
-  //   "studentId": 1,
-  //   "grade": "B"
-  // }, {
-  //   "id": 7,
-  //   "courseSubjectId": 7,
-  //   "studentId": 1,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 8,
-  //   "courseSubjectId": 8,
-  //   "studentId": 1,
-  //   "grade": "D"
-  // },
-  // {
-  //   "id": 9,
-  //   "courseSubjectId": 65,
-  //   "studentId": 2,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 10,
-  //   "courseSubjectId": 66,
-  //   "studentId": 2,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 11,
-  //   "courseSubjectId": 67,
-  //   "studentId": 2,
-  //   "grade": "O"
-  // }, {
-  //   "id": 12,
-  //   "courseSubjectId": 68,
-  //   "studentId": 2,
-  //   "grade": "B"
-  // }, {
-  //   "id": 13,
-  //   "courseSubjectId": 69,
-  //   "studentId": 2,
-  //   "grade": "D"
-  // }, {
-  //   "id": 14,
-  //   "courseSubjectId": 70,
-  //   "studentId": 2,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 15,
-  //   "courseSubjectId": 71,
-  //   "studentId": 2,
-  //   "grade": "A"
-  // }, {
-  //   "id": 16,
-  //   "courseSubjectId": 72,
-  //   "studentId": 2,
-  //   "grade": "D"
-  // }, {
-  //   "id": 17,
-  //   "courseSubjectId": 73,
-  //   "studentId": 2,
-  //   "grade": "F"
-  // }, {
-  //   "id": 18,
-  //   "courseSubjectId": 74,
-  //   "studentId": 2,
-  //   "grade": "E"
-  // }, {
-  //   "id": 19,
-  //   "courseSubjectId": 75,
-  //   "studentId": 2,
-  //   "grade": "O"
-  // }, {
-  //   "id": 20,
-  //   "courseSubjectId": 76,
-  //   "studentId": 2,
-  //   "grade": "F"
-  // }, {
-  //   "id": 21,
-  //   "courseSubjectId": 77,
-  //   "studentId": 2,
-  //   "grade": "F"
-  // }, {
-  //   "id": 22,
-  //   "courseSubjectId": 78,
-  //   "studentId": 2,
-  //   "grade": "O"
-  // }, {
-  //   "id": 23,
-  //   "courseSubjectId": 79,
-  //   "studentId": 2,
-  //   "grade": "A"
-  // }, {
-  //   "id": 24,
-  //   "courseSubjectId": 80,
-  //   "studentId": 2,
-  //   "grade": "A"
-  // }, {
-  //   "id": 25,
-  //   "courseSubjectId": 81,
-  //   "studentId": 2,
-  //   "grade": "B"
-  // }, {
-  //   "id": 26,
-  //   "courseSubjectId": 82,
-  //   "studentId": 2,
-  //   "grade": "B"
-  // }, {
-  //   "id": 27,
-  //   "courseSubjectId": 83,
-  //   "studentId": 2,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 28,
-  //   "courseSubjectId": 84,
-  //   "studentId": 2,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 29,
-  //   "courseSubjectId": 85,
-  //   "studentId": 2,
-  //   "grade": "A+"
-  // }
-  // {
-  //   "id": 30,
-  //   "courseSubjectId": 1,
-  //   "studentId": 3,
-  //   "grade": "F"
-  // }, {
-  //   "id": 31,
-  //   "courseSubjectId": 2,
-  //   "studentId": 3,
-  //   "grade": "A"
-  // }, {
-  //   "id": 32,
-  //   "courseSubjectId": 3,
-  //   "studentId": 3,
-  //   "grade": "D"
-  // }, {
-  //   "id": 33,
-  //   "courseSubjectId": 4,
-  //   "studentId": 3,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 34,
-  //   "courseSubjectId": 5,
-  //   "studentId": 3,
-  //   "grade": "E"
-  // }, {
-  //   "id": 35,
-  //   "courseSubjectId": 6,
-  //   "studentId": 3,
-  //   "grade": "D"
-  // }, {
-  //   "id": 36,
-  //   "courseSubjectId": 7,
-  //   "studentId": 3,
-  //   "grade": "F"
-  // }, {
-  //   "id": 37,
-  //   "courseSubjectId": 8,
-  //   "studentId": 3,
-  //   "grade": "D"
-  // }
-  // {
-  //   "id": 38,
-  //   "courseSubjectId": 121,
-  //   "studentId": 4,
-  //   "grade": "E"
-  // }, {
-  //   "id": 39,
-  //   "courseSubjectId": 122,
-  //   "studentId": 4,
-  //   "grade": "A"
-  // }, {
-  //   "id": 40,
-  //   "courseSubjectId": 123,
-  //   "studentId": 4,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 41,
-  //   "courseSubjectId": 124,
-  //   "studentId": 4,
-  //   "grade": "C"
-  // }, {
-  //   "id": 42,
-  //   "courseSubjectId": 125,
-  //   "studentId": 4,
-  //   "grade": "B"
-  // }, {
-  //   "id": 43,
-  //   "courseSubjectId": 126,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 44,
-  //   "courseSubjectId": 127,
-  //   "studentId": 4,
-  //   "grade": "D"
-  // }, {
-  //   "id": 45,
-  //   "courseSubjectId": 128,
-  //   "studentId": 4,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 46,
-  //   "courseSubjectId": 129,
-  //   "studentId": 4,
-  //   "grade": "E"
-  // }, {
-  //   "id": 47,
-  //   "courseSubjectId": 130,
-  //   "studentId": 4,
-  //   "grade": "E"
-  // }, {
-  //   "id": 48,
-  //   "courseSubjectId": 131,
-  //   "studentId": 4,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 49,
-  //   "courseSubjectId": 132,
-  //   "studentId": 4,
-  //   "grade": "D"
-  // }, {
-  //   "id": 50,
-  //   "courseSubjectId": 133,
-  //   "studentId": 4,
-  //   "grade": "B"
-  // }, {
-  //   "id": 51,
-  //   "courseSubjectId": 134,
-  //   "studentId": 4,
-  //   "grade": "O"
-  // }, {
-  //   "id": 52,
-  //   "courseSubjectId": 135,
-  //   "studentId": 4,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 53,
-  //   "courseSubjectId": 136,
-  //   "studentId": 4,
-  //   "grade": "O"
-  // }, {
-  //   "id": 54,
-  //   "courseSubjectId": 137,
-  //   "studentId": 4,
-  //   "grade": "D"
-  // }, {
-  //   "id": 55,
-  //   "courseSubjectId": 138,
-  //   "studentId": 4,
-  //   "grade": "A"
-  // }, {
-  //   "id": 56,
-  //   "courseSubjectId": 139,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 57,
-  //   "courseSubjectId": 140,
-  //   "studentId": 4,
-  //   "grade": "C"
-  // }, {
-  //   "id": 58,
-  //   "courseSubjectId": 141,
-  //   "studentId": 4,
-  //   "grade": "C"
-  // }, {
-  //   "id": 59,
-  //   "courseSubjectId": 142,
-  //   "studentId": 4,
-  //   "grade": "C"
-  // }, {
-  //   "id": 60,
-  //   "courseSubjectId": 143,
-  //   "studentId": 4,
-  //   "grade": "C"
-  // }, {
-  //   "id": 61,
-  //   "courseSubjectId": 144,
-  //   "studentId": 4,
-  //   "grade": "B"
-  // }, {
-  //   "id": 62,
-  //   "courseSubjectId": 145,
-  //   "studentId": 4,
-  //   "grade": "F"
-  // }, {
-  //   "id": 63,
-  //   "courseSubjectId": 146,
-  //   "studentId": 4,
-  //   "grade": "O"
-  // }, {
-  //   "id": 64,
-  //   "courseSubjectId": 147,
-  //   "studentId": 4,
-  //   "grade": "O"
-  // }, {
-  //   "id": 65,
-  //   "courseSubjectId": 148,
-  //   "studentId": 4,
-  //   "grade": "B"
-  // }, {
-  //   "id": 66,
-  //   "courseSubjectId": 149,
-  //   "studentId": 4,
-  //   "grade": "O"
-  // }, {
-  //   "id": 67,
-  //   "courseSubjectId": 150,
-  //   "studentId": 4,
-  //   "grade": "F"
-  // }, {
-  //   "id": 68,
-  //   "courseSubjectId": 151,
-  //   "studentId": 4,
-  //   "grade": "C"
-  // }, {
-  //   "id": 69,
-  //   "courseSubjectId": 152,
-  //   "studentId": 4,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 70,
-  //   "courseSubjectId": 153,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 71,
-  //   "courseSubjectId": 154,
-  //   "studentId": 4,
-  //   "grade": "O"
-  // }, {
-  //   "id": 72,
-  //   "courseSubjectId": 155,
-  //   "studentId": 4,
-  //   "grade": "F"
-  // }, {
-  //   "id": 73,
-  //   "courseSubjectId": 156,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 74,
-  //   "courseSubjectId": 157,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 75,
-  //   "courseSubjectId": 158,
-  //   "studentId": 4,
-  //   "grade": "D"
-  // }, {
-  //   "id": 76,
-  //   "courseSubjectId": 159,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 77,
-  //   "courseSubjectId": 160,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 78,
-  //   "courseSubjectId": 161,
-  //   "studentId": 4,
-  //   "grade": "A"
-  // }, {
-  //   "id": 79,
-  //   "courseSubjectId": 162,
-  //   "studentId": 4,
-  //   "grade": "A"
-  // }, {
-  //   "id": 80,
-  //   "courseSubjectId": 163,
-  //   "studentId": 4,
-  //   "grade": "D"
-  // }, {
-  //   "id": 81,
-  //   "courseSubjectId": 164,
-  //   "studentId": 4,
-  //   "grade": "C"
-  // }, {
-  //   "id": 82,
-  //   "courseSubjectId": 165,
-  //   "studentId": 4,
-  //   "grade": "A"
-  // }, {
-  //   "id": 83,
-  //   "courseSubjectId": 166,
-  //   "studentId": 4,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 84,
-  //   "courseSubjectId": 167,
-  //   "studentId": 4,
-  //   "grade": "E"
-  // }, {
-  //   "id": 85,
-  //   "courseSubjectId": 168,
-  //   "studentId": 4,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 86,
-  //   "courseSubjectId": 169,
-  //   "studentId": 4,
-  //   "grade": "F"
-  // }, {
-  //   "id": 87,
-  //   "courseSubjectId": 170,
-  //   "studentId": 4,
-  //   "grade": "F"
-  // }, {
-  //   "id": 88,
-  //   "courseSubjectId": 171,
-  //   "studentId": 4,
-  //   "grade": "O"
-  // }, {
-  //   "id": 89,
-  //   "courseSubjectId": 172,
-  //   "studentId": 4,
-  //   "grade": "F"
-  // }, {
-  //   "id": 90,
-  //   "courseSubjectId": 173,
-  //   "studentId": 4,
-  //   "grade": "F"
-  // }, {
-  //   "id": 91,
-  //   "courseSubjectId": 174,
-  //   "studentId": 4,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 92,
-  //   "courseSubjectId": 175,
-  //   "studentId": 4,
-  //   "grade": "A"
-  // },
-  // {
-  //   "id": 93,
-  //   "courseSubjectId": 65,
-  //   "studentId": 5,
-  //   "grade": "E"
-  // }, {
-  //   "id": 94,
-  //   "courseSubjectId": 66,
-  //   "studentId": 5,
-  //   "grade": "B"
-  // }, {
-  //   "id": 95,
-  //   "courseSubjectId": 67,
-  //   "studentId": 5,
-  //   "grade": "B"
-  // }, {
-  //   "id": 96,
-  //   "courseSubjectId": 68,
-  //   "studentId": 5,
-  //   "grade": "C"
-  // }, {
-  //   "id": 97,
-  //   "courseSubjectId": 69,
-  //   "studentId": 5,
-  //   "grade": "D"
-  // }, {
-  //   "id": 98,
-  //   "courseSubjectId": 70,
-  //   "studentId": 5,
-  //   "grade": "F"
-  // }, {
-  //   "id": 99,
-  //   "courseSubjectId": 71,
-  //   "studentId": 5,
-  //   "grade": "B"
-  // }, {
-  //   "id": 100,
-  //   "courseSubjectId": 72,
-  //   "studentId": 5,
-  //   "grade": "B"
-  // }, {
-  //   "id": 101,
-  //   "courseSubjectId": 73,
-  //   "studentId": 5,
-  //   "grade": "C"
-  // }, {
-  //   "id": 102,
-  //   "courseSubjectId": 74,
-  //   "studentId": 5,
-  //   "grade": "B"
-  // }, {
-  //   "id": 103,
-  //   "courseSubjectId": 75,
-  //   "studentId": 5,
-  //   "grade": "F"
-  // }, {
-  //   "id": 104,
-  //   "courseSubjectId": 76,
-  //   "studentId": 5,
-  //   "grade": "A"
-  // }, {
-  //   "id": 105,
-  //   "courseSubjectId": 77,
-  //   "studentId": 5,
-  //   "grade": "D"
-  // }, {
-  //   "id": 106,
-  //   "courseSubjectId": 78,
-  //   "studentId": 5,
-  //   "grade": "F"
-  // }, {
-  //   "id": 107,
-  //   "courseSubjectId": 79,
-  //   "studentId": 5,
-  //   "grade": "A"
-  // }, {
-  //   "id": 108,
-  //   "courseSubjectId": 80,
-  //   "studentId": 5,
-  //   "grade": "O"
-  // }, {
-  //   "id": 109,
-  //   "courseSubjectId": 81,
-  //   "studentId": 5,
-  //   "grade": "B"
-  // }, {
-  //   "id": 110,
-  //   "courseSubjectId": 82,
-  //   "studentId": 5,
-  //   "grade": "A+"
-  // }, {
-  //   "id": 111,
-  //   "courseSubjectId": 83,
-  //   "studentId": 5,
-  //   "grade": "B+"
-  // }, {
-  //   "id": 112,
-  //   "courseSubjectId": 84,
-  //   "studentId": 5,
-  //   "grade": "C"
-  // }
+//   {
+//     "id": 1,
+//     "courseSubjectId": 1,
+//     "studentId": 1,
+//     "grade": "C"
+//   }, {
+//     "id": 2,
+//     "courseSubjectId": 2,
+//     "studentId": 1,
+//     "grade": "A"
+//   }, {
+//     "id": 3,
+//     "courseSubjectId": 3,
+//     "studentId": 1,
+//     "grade": "A+"
+//   }, {
+//     "id": 4,
+//     "courseSubjectId": 4,
+//     "studentId": 1,
+//     "grade": "E"
+//   }, {
+//     "id": 5,
+//     "courseSubjectId": 5,
+//     "studentId": 1,
+//     "grade": "E"
+//   }, {
+//     "id": 6,
+//     "courseSubjectId": 6,
+//     "studentId": 1,
+//     "grade": "B"
+//   }, {
+//     "id": 7,
+//     "courseSubjectId": 7,
+//     "studentId": 1,
+//     "grade": "B+"
+//   }, {
+//     "id": 8,
+//     "courseSubjectId": 8,
+//     "studentId": 1,
+//     "grade": "D"
+//   },
+//   {
+//     "id": 9,
+//     "courseSubjectId": 65,
+//     "studentId": 2,
+//     "grade": "A+"
+//   }, {
+//     "id": 10,
+//     "courseSubjectId": 66,
+//     "studentId": 2,
+//     "grade": "B+"
+//   }, {
+//     "id": 11,
+//     "courseSubjectId": 67,
+//     "studentId": 2,
+//     "grade": "O"
+//   }, {
+//     "id": 12,
+//     "courseSubjectId": 68,
+//     "studentId": 2,
+//     "grade": "B"
+//   }, {
+//     "id": 13,
+//     "courseSubjectId": 69,
+//     "studentId": 2,
+//     "grade": "D"
+//   }, {
+//     "id": 14,
+//     "courseSubjectId": 70,
+//     "studentId": 2,
+//     "grade": "A+"
+//   }, {
+//     "id": 15,
+//     "courseSubjectId": 71,
+//     "studentId": 2,
+//     "grade": "A"
+//   }, {
+//     "id": 16,
+//     "courseSubjectId": 72,
+//     "studentId": 2,
+//     "grade": "D"
+//   }, {
+//     "id": 17,
+//     "courseSubjectId": 73,
+//     "studentId": 2,
+//     "grade": "F"
+//   }, {
+//     "id": 18,
+//     "courseSubjectId": 74,
+//     "studentId": 2,
+//     "grade": "E"
+//   }, {
+//     "id": 19,
+//     "courseSubjectId": 75,
+//     "studentId": 2,
+//     "grade": "O"
+//   }, {
+//     "id": 20,
+//     "courseSubjectId": 76,
+//     "studentId": 2,
+//     "grade": "F"
+//   }, {
+//     "id": 21,
+//     "courseSubjectId": 77,
+//     "studentId": 2,
+//     "grade": "F"
+//   }, {
+//     "id": 22,
+//     "courseSubjectId": 78,
+//     "studentId": 2,
+//     "grade": "O"
+//   }, {
+//     "id": 23,
+//     "courseSubjectId": 79,
+//     "studentId": 2,
+//     "grade": "A"
+//   }, {
+//     "id": 24,
+//     "courseSubjectId": 80,
+//     "studentId": 2,
+//     "grade": "A"
+//   }, {
+//     "id": 25,
+//     "courseSubjectId": 81,
+//     "studentId": 2,
+//     "grade": "B"
+//   }, {
+//     "id": 26,
+//     "courseSubjectId": 82,
+//     "studentId": 2,
+//     "grade": "B"
+//   }, {
+//     "id": 27,
+//     "courseSubjectId": 83,
+//     "studentId": 2,
+//     "grade": "B+"
+//   }, {
+//     "id": 28,
+//     "courseSubjectId": 84,
+//     "studentId": 2,
+//     "grade": "A+"
+//   }, {
+//     "id": 29,
+//     "courseSubjectId": 85,
+//     "studentId": 2,
+//     "grade": "A+"
+//   },
+//   {
+//     "id": 30,
+//     "courseSubjectId": 1,
+//     "studentId": 3,
+//     "grade": "F"
+//   }, {
+//     "id": 31,
+//     "courseSubjectId": 2,
+//     "studentId": 3,
+//     "grade": "A"
+//   }, {
+//     "id": 32,
+//     "courseSubjectId": 3,
+//     "studentId": 3,
+//     "grade": "D"
+//   }, {
+//     "id": 33,
+//     "courseSubjectId": 4,
+//     "studentId": 3,
+//     "grade": "A+"
+//   }, {
+//     "id": 34,
+//     "courseSubjectId": 5,
+//     "studentId": 3,
+//     "grade": "E"
+//   }, {
+//     "id": 35,
+//     "courseSubjectId": 6,
+//     "studentId": 3,
+//     "grade": "D"
+//   }, {
+//     "id": 36,
+//     "courseSubjectId": 7,
+//     "studentId": 3,
+//     "grade": "F"
+//   }, {
+//     "id": 37,
+//     "courseSubjectId": 8,
+//     "studentId": 3,
+//     "grade": "D"
+//   },
+//   {
+//     "id": 38,
+//     "courseSubjectId": 121,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 39,
+//     "courseSubjectId": 122,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 40,
+//     "courseSubjectId": 123,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 41,
+//     "courseSubjectId": 124,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 42,
+//     "courseSubjectId": 125,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 43,
+//     "courseSubjectId": 126,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 44,
+//     "courseSubjectId": 127,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 45,
+//     "courseSubjectId": 128,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 46,
+//     "courseSubjectId": 129,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 47,
+//     "courseSubjectId": 130,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 48,
+//     "courseSubjectId": 131,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 49,
+//     "courseSubjectId": 132,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 50,
+//     "courseSubjectId": 133,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 51,
+//     "courseSubjectId": 134,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 52,
+//     "courseSubjectId": 135,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 53,
+//     "courseSubjectId": 136,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 54,
+//     "courseSubjectId": 137,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 55,
+//     "courseSubjectId": 138,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 56,
+//     "courseSubjectId": 139,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 57,
+//     "courseSubjectId": 140,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 58,
+//     "courseSubjectId": 141,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 59,
+//     "courseSubjectId": 142,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 60,
+//     "courseSubjectId": 143,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 61,
+//     "courseSubjectId": 144,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 62,
+//     "courseSubjectId": 145,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 63,
+//     "courseSubjectId": 146,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 64,
+//     "courseSubjectId": 147,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 65,
+//     "courseSubjectId": 148,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 66,
+//     "courseSubjectId": 149,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 67,
+//     "courseSubjectId": 150,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 68,
+//     "courseSubjectId": 151,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 69,
+//     "courseSubjectId": 152,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 70,
+//     "courseSubjectId": 153,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 71,
+//     "courseSubjectId": 154,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 72,
+//     "courseSubjectId": 155,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 73,
+//     "courseSubjectId": 156,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 74,
+//     "courseSubjectId": 157,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 75,
+//     "courseSubjectId": 158,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 76,
+//     "courseSubjectId": 159,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 77,
+//     "courseSubjectId": 160,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 78,
+//     "courseSubjectId": 161,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 79,
+//     "courseSubjectId": 162,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 80,
+//     "courseSubjectId": 163,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 81,
+//     "courseSubjectId": 164,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 82,
+//     "courseSubjectId": 165,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 83,
+//     "courseSubjectId": 166,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 84,
+//     "courseSubjectId": 167,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 85,
+//     "courseSubjectId": 168,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 86,
+//     "courseSubjectId": 169,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 87,
+//     "courseSubjectId": 170,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 88,
+//     "courseSubjectId": 171,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 89,
+//     "courseSubjectId": 172,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 90,
+//     "courseSubjectId": 173,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 91,
+//     "courseSubjectId": 174,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 92,
+//     "courseSubjectId": 175,
+//     "studentId": 4,
+//     "grade": "A"
+//   },
+//   {
+//     "id": 93,
+//     "courseSubjectId": 65,
+//     "studentId": 5,
+//     "grade": "E"
+//   }, {
+//     "id": 94,
+//     "courseSubjectId": 66,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 95,
+//     "courseSubjectId": 67,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 96,
+//     "courseSubjectId": 68,
+//     "studentId": 5,
+//     "grade": "C"
+//   }, {
+//     "id": 97,
+//     "courseSubjectId": 69,
+//     "studentId": 5,
+//     "grade": "D"
+//   }, {
+//     "id": 98,
+//     "courseSubjectId": 70,
+//     "studentId": 5,
+//     "grade": "F"
+//   }, {
+//     "id": 99,
+//     "courseSubjectId": 71,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 100,
+//     "courseSubjectId": 72,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 101,
+//     "courseSubjectId": 73,
+//     "studentId": 5,
+//     "grade": "C"
+//   }, {
+//     "id": 102,
+//     "courseSubjectId": 74,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 103,
+//     "courseSubjectId": 75,
+//     "studentId": 5,
+//     "grade": "F"
+//   }, {
+//     "id": 104,
+//     "courseSubjectId": 76,
+//     "studentId": 5,
+//     "grade": "A"
+//   }, {
+//     "id": 105,
+//     "courseSubjectId": 77,
+//     "studentId": 5,
+//     "grade": "D"
+//   }, {
+//     "id": 106,
+//     "courseSubjectId": 78,
+//     "studentId": 5,
+//     "grade": "F"
+//   }, {
+//     "id": 107,
+//     "courseSubjectId": 79,
+//     "studentId": 5,
+//     "grade": "A"
+//   }, {
+//     "id": 108,
+//     "courseSubjectId": 80,
+//     "studentId": 5,
+//     "grade": "O"
+//   }, {
+//     "id": 109,
+//     "courseSubjectId": 81,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 110,
+//     "courseSubjectId": 82,
+//     "studentId": 5,
+//     "grade": "A+"
+//   }, {
+//     "id": 111,
+//     "courseSubjectId": 83,
+//     "studentId": 5,
+//     "grade": "B+"
+//   }, {
+//     "id": 112,
+//     "courseSubjectId": 84,
+//     "studentId": 5,
+//     "grade": "C"
+//   }
 // ]);
 
 // await Student.bulkCreate([{

@@ -3,10 +3,8 @@ import classifier from '@ayra/lib/apis/openai.api.js';
 import buttons from '@ayra/lib/botconfig/buttons.js';
 import intentList from '@ayra/lib/botconfig/intent.js';
 import generateAttendanceImage from '@ayra/lib/utils/generate-image.js';
-import sequelize from '@ayra/lib/db/index.js';
-import loadConfig from '@ayra/lib/utils/config.js';
 import { getObjectURL } from '@ayra/lib/utils/aws.js';
-import { 
+import sequelize, { 
   Department,
   Mentor,
   HOD,
@@ -14,6 +12,7 @@ import {
   Hostel
 } from '@ayra/lib/db/index.js';
 import templates from '@ayra/lib/botconfig/templates.js';
+import loadConfig from '@ayra/lib/utils/config.js';
 
 loadConfig();
 
