@@ -64,13 +64,13 @@ const processButtonMessage = async (button, messageFrom, student) => {
   }
 };
 
-// Handle the cases where the probability for a class
-// is below a certain threshold
 const classifyMsg = async (msgText) => {
-  const intentId = await classifier(msgText);
-  console.log(intentId);
+  const { intent, logprobs } = await classifier(msgText);
+  console.log(intent, logprobs);
 
-  return intentList[intentId];
+  if (logprobs < -0.005) return null;
+
+  return intentList[intent];
 };
 
 const processTextMessage = async (intent, recipientNo, student) => {
