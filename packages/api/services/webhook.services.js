@@ -11,7 +11,8 @@ import sequelize, {
   Mentor,
   HOD,
   Section,
-  Hostel
+  Hostel,
+  Query
 } from '@ayra/lib/db/index.js';
 import templates from '@ayra/lib/botconfig/templates.js';
 import loadConfig from '@ayra/lib/utils/config.js';
@@ -89,7 +90,12 @@ const processButtonMessage = async (button, recipientNo, student) => {
 
 const classifyMsg = async (msgText) => {
   const { intent, logprobs } = await classifier(msgText);
-  console.log(intent, logprobs);
+  console.log(typeof intent, logprobs);
+
+  await Query.create({
+    query: msgText,
+    completion: intent.toString()
+  });
 
   if (logprobs < -0.005) return null;
 

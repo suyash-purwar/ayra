@@ -11,6 +11,7 @@ import Result from './models/result.model.js';
 import HOD from './models/hod.model.js';
 import Section  from './models/section.model.js';
 import TGPA from './models/tgpa.model.js';
+import Query from './models/query.model.js';
 
 import sequelize from './connect.js';
 
@@ -27,7 +28,8 @@ export {
   Result,
   HOD,
   Section,
-  TGPA
+  TGPA,
+  Query
 };
 
 export default sequelize;

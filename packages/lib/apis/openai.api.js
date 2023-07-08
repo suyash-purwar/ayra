@@ -13,7 +13,6 @@ const classifier = async (query) => {
       temperature: 2,
       logprobs: 2
     });
-    console.log(response.data.choices[0].logprobs);
     return {
       intent: +response.data.choices[0].text.trim(),
       logprobs: response.data.choices[0].logprobs.token_logprobs[0]
