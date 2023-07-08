@@ -35,28 +35,25 @@ const sendAPICall = async (
   return response;
 };
 
-export const sendTextMessage = async (recipientNo, message) => {
-  const text = {
-    preview_url: false,
-    body: message
-  };
+export const sendMessage = async (recipientNo, message, messageType='text') => {
   const response = await sendAPICall(
     'messages',
     'post',
     recipientNo,
-    'text',
-    text
+    messageType,
+    message
   );
   return response;
 };
 
-export const sendMenu = async (recipientNo, menuType) => {
+export const sendTemplate = async (recipientNo, menuType, message = null) => {
   const template = {
     name: menuType,
     language: {
       code: "en_US"
     }
   }
+  if (message) template['components'] = message;
   if (menuType === templates.initialHello.name) {
     template.components = [{
       type: "header",
@@ -75,19 +72,4 @@ export const sendMenu = async (recipientNo, menuType) => {
     'template',
     template
   );
-};
-
-export const sendMediaMessage = async (recipientNo, mediaType, mediaName, uri) => {
-  const mediaData = {
-    link: uri,
-  };
-  if (mediaName) mediaData['filename'] = mediaName;
-  const response = await sendAPICall(
-    'messages',
-    'post',
-    recipientNo,
-    mediaType,
-    mediaData,
-  );
-  return response;
 };

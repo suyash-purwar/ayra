@@ -8,19 +8,19 @@ const OverallAttendance = sequelize.define('overall_attendance', {
     autoIncrement: true,
     primaryKey: true,
   },
-  registrationNo: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  semester: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  subjectId: {
+  studentId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'subject',
+      model: 'student',
+      key: 'id'
+    }
+  },
+  courseSubjectId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'course_subject',
       key: 'id'
     }
   },

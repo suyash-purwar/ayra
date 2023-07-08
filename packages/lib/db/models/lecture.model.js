@@ -1,46 +1,55 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../connect.js';
 
-const CourseSubject = sequelize.define('course_subject', {
+const Lecture = sequelize.define('lecture', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true
   },
-  courseId: {
+  courseSubjectId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'course',
+      model: 'course_subject',
       key: 'id'
     }
   },
-  subjectId: {
+  sectionId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'subject',
+      model: 'section',
       key: 'id'
     }
   },
-  credit: {
+  facultyId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'faculty',
+      key: 'id'
+    }
+  },
+  day: {
     type: DataTypes.ENUM,
+    values: ['1', '2', '3', '4', '5'],
     allowNull: false,
-    values: ['1', '2', '3', '4']
+    comment: 'Monday is mapped with 1 and so on.'
   },
-  lectureCount: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  semester: {
+  hourSlotId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'hour_slot',
+      key: 'id'
+    }
   }
 }, {
-  modelName: 'course_subject',
+  tableName: 'lecture',
   underscored: true,
   freezeTableName: true
 });
 
-export default CourseSubject;
+export default Lecture;

@@ -1,0 +1,4791 @@
+import Hostel from '../models/hostel.model.js';
+import Mentor from '../models/mentor.model.js';
+import HOD from '../models/hod.model.js';
+import Faculty from '../models/faculty.model.js';
+import Section from '../models/section.model.js';
+import CourseSubject from '../models/course-subject.model.js';
+import Course from '../models/course.model.js';
+import Lecture from '../models/lecture.model.js';
+import Student from '../models/student.model.js';
+import Result from '../models/result.model.js';
+import Attendance from '../models/attendance.model.js';
+import OverallAttendance from '../models/overall-attendance.model.js';
+import TGPA from '../models/tgpa.model.js';
+
+// await TGPA.bulkCreate([  
+//   {
+//     "id": 1,
+//     "studentId": 1,
+//     "semester": 1,
+//     "tgpa": 8.75
+//   },
+//   {
+//     "id": 2,
+//     "studentId": 2,
+//     "semester": 1,
+//     "tgpa": 9.86
+//   },
+//   {
+//     "id": 3,
+//     "studentId": 2,
+//     "semester": 2,
+//     "tgpa": 5.41
+//   }, {
+//     "id": 4,
+//     "studentId": 2,
+//     "semester": 3,
+//     "tgpa": 9.63
+//   }, {
+//     "id": 5,
+//     "studentId": 3,
+//     "semester": 1,
+//     "tgpa": 7.11
+//   },
+//   {
+//     "id": 6,
+//     "studentId": 4,
+//     "semester": 1,
+//     "tgpa": 9.24
+//   }, {
+//     "id": 7,
+//     "studentId": 4,
+//     "semester": 2,
+//     "tgpa": 5.84
+//   }, {
+//     "id": 8,
+//     "studentId": 4,
+//     "semester": 3,
+//     "tgpa": 5.33
+//   }, {
+//     "id": 9,
+//     "studentId": 4,
+//     "semester": 4,
+//     "tgpa": 8.9
+//   }, {
+//     "id": 10,
+//     "studentId": 4,
+//     "semester": 5,
+//     "tgpa": 8.91
+//   }, {
+//     "id": 11,
+//     "studentId": 4,
+//     "semester": 6,
+//     "tgpa": 9.78
+//   }, {
+//     "id": 12,
+//     "studentId": 4,
+//     "semester": 7,
+//     "tgpa": 5.91
+//   },
+//   {
+//     "id": 13,
+//     "studentId": 5,
+//     "semester": 1,
+//     "tgpa": 7.78
+//   }, {
+//     "id": 14,
+//     "studentId": 5,
+//     "semester": 2,
+//     "tgpa": 7.81
+//   }, {
+//     "id": 15,
+//     "studentId": 5,
+//     "semester": 3,
+//     "tgpa": 6.87
+//   }
+// ]);
+
+// await OverallAttendance.bulkCreate([
+  // {
+  //   "id": 1,
+  //   "courseSubjectId": 9,
+  //   "studentId": 1,
+  //   "attendance": 70
+  // }, {
+  //   "id": 2,
+  //   "courseSubjectId": 10,
+  //   "studentId": 1,
+  //   "attendance": 54
+  // }, {
+  //   "id": 3,
+  //   "courseSubjectId": 11,
+  //   "studentId": 1,
+  //   "attendance": 92
+  // }, {
+  //   "id": 4,
+  //   "courseSubjectId": 12,
+  //   "studentId": 1,
+  //   "attendance": 90
+  // }, {
+  //   "id": 5,
+  //   "courseSubjectId": 13,
+  //   "studentId": 1,
+  //   "attendance": 70
+  // }, {
+  //   "id": 6,
+  //   "courseSubjectId": 14,
+  //   "studentId": 1,
+  //   "attendance": 63
+  // }, {
+  //   "id": 7,
+  //   "courseSubjectId": 15,
+  //   "studentId": 1,
+  //   "attendance": 36
+  // }, {
+  //   "id": 8,
+  //   "courseSubjectId": 16,
+  //   "studentId": 1,
+  //   "attendance": 38
+  // },
+  // {
+  //   "id": 9,
+  //   "courseSubjectId": 86,
+  //   "studentId": 2,
+  //   "attendance": 68
+  // }, {
+  //   "id": 10,
+  //   "courseSubjectId": 87,
+  //   "studentId": 2,
+  //   "attendance": 95
+  // }, {
+  //   "id": 11,
+  //   "courseSubjectId": 88,
+  //   "studentId": 2,
+  //   "attendance": 71
+  // }, {
+  //   "id": 12,
+  //   "courseSubjectId": 89,
+  //   "studentId": 2,
+  //   "attendance": 61
+  // }, {
+  //   "id": 13,
+  //   "courseSubjectId": 90,
+  //   "studentId": 2,
+  //   "attendance": 54
+  // }, {
+  //   "id": 14,
+  //   "courseSubjectId": 91,
+  //   "studentId": 2,
+  //   "attendance": 72
+  // }, {
+  //   "id": 15,
+  //   "courseSubjectId": 92,
+  //   "studentId": 2,
+  //   "attendance": 91
+  // }
+  // {
+  //   "id": 16,
+  //   "courseSubjectId": 9,
+  //   "studentId": 3,
+  //   "attendance": 74
+  // }, {
+  //   "id": 17,
+  //   "courseSubjectId": 10,
+  //   "studentId": 3,
+  //   "attendance": 67
+  // }, {
+  //   "id": 18,
+  //   "courseSubjectId": 11,
+  //   "studentId": 3,
+  //   "attendance": 51
+  // }, {
+  //   "id": 19,
+  //   "courseSubjectId": 12,
+  //   "studentId": 3,
+  //   "attendance": 97
+  // }, {
+  //   "id": 20,
+  //   "courseSubjectId": 13,
+  //   "studentId": 3,
+  //   "attendance": 90
+  // }, {
+  //   "id": 21,
+  //   "courseSubjectId": 14,
+  //   "studentId": 3,
+  //   "attendance": 46
+  // }, {
+  //   "id": 22,
+  //   "courseSubjectId": 15,
+  //   "studentId": 3,
+  //   "attendance": 91
+  // }, {
+  //   "id": 23,
+  //   "courseSubjectId": 16,
+  //   "studentId": 3,
+  //   "attendance": 62
+  // },{
+  //   "id": 24,
+  //   "courseSubjectId": 177,
+  //   "studentId": 4,
+  //   "attendance": 85
+  // }, {
+  //   "id": 25,
+  //   "courseSubjectId": 178,
+  //   "studentId": 4,
+  //   "attendance": 89
+  // }, {
+  //   "id": 26,
+  //   "courseSubjectId": 179,
+  //   "studentId": 4,
+  //   "attendance": 99
+  // }, {
+  //   "id": 27,
+  //   "courseSubjectId": 180,
+  //   "studentId": 4,
+  //   "attendance": 44
+  // }, {
+  //   "id": 28,
+  //   "courseSubjectId": 181,
+  //   "studentId": 4,
+  //   "attendance": 89
+  // }, {
+  //   "id": 29,
+  //   "courseSubjectId": 182,
+  //   "studentId": 4,
+  //   "attendance": 96
+  // }, {
+  //   "id": 30,
+  //   "courseSubjectId": 183,
+  //   "studentId": 4,
+  //   "attendance": 39
+  // }, {
+  //   "id": 31,
+  //   "courseSubjectId": 184,
+  //   "studentId": 4,
+  //   "attendance": 44
+  // }
+//   {
+//     "id": 32,
+//     "courseSubjectId": 86,
+//     "studentId": 5,
+//     "attendance": 59
+//   }, {
+//     "id": 33,
+//     "courseSubjectId": 87,
+//     "studentId": 5,
+//     "attendance": 83
+//   }, {
+//     "id": 34,
+//     "courseSubjectId": 88,
+//     "studentId": 5,
+//     "attendance": 93
+//   }, {
+//     "id": 35,
+//     "courseSubjectId": 89,
+//     "studentId": 5,
+//     "attendance": 48
+//   }, {
+//     "id": 36,
+//     "courseSubjectId": 90,
+//     "studentId": 5,
+//     "attendance": 53
+//   }, {
+//     "id": 37,
+//     "courseSubjectId": 91,
+//     "studentId": 5,
+//     "attendance": 86
+//   }, {
+//     "id": 38,
+//     "courseSubjectId": 92,
+//     "studentId": 5,
+//     "attendance": 100
+//   }
+// ]);
+
+// await Result.bulkCreate([
+//   {
+//     "id": 1,
+//     "courseSubjectId": 1,
+//     "studentId": 1,
+//     "grade": "C"
+//   }, {
+//     "id": 2,
+//     "courseSubjectId": 2,
+//     "studentId": 1,
+//     "grade": "A"
+//   }, {
+//     "id": 3,
+//     "courseSubjectId": 3,
+//     "studentId": 1,
+//     "grade": "A+"
+//   }, {
+//     "id": 4,
+//     "courseSubjectId": 4,
+//     "studentId": 1,
+//     "grade": "E"
+//   }, {
+//     "id": 5,
+//     "courseSubjectId": 5,
+//     "studentId": 1,
+//     "grade": "E"
+//   }, {
+//     "id": 6,
+//     "courseSubjectId": 6,
+//     "studentId": 1,
+//     "grade": "B"
+//   }, {
+//     "id": 7,
+//     "courseSubjectId": 7,
+//     "studentId": 1,
+//     "grade": "B+"
+//   }, {
+//     "id": 8,
+//     "courseSubjectId": 8,
+//     "studentId": 1,
+//     "grade": "D"
+//   },
+//   {
+//     "id": 9,
+//     "courseSubjectId": 65,
+//     "studentId": 2,
+//     "grade": "A+"
+//   }, {
+//     "id": 10,
+//     "courseSubjectId": 66,
+//     "studentId": 2,
+//     "grade": "B+"
+//   }, {
+//     "id": 11,
+//     "courseSubjectId": 67,
+//     "studentId": 2,
+//     "grade": "O"
+//   }, {
+//     "id": 12,
+//     "courseSubjectId": 68,
+//     "studentId": 2,
+//     "grade": "B"
+//   }, {
+//     "id": 13,
+//     "courseSubjectId": 69,
+//     "studentId": 2,
+//     "grade": "D"
+//   }, {
+//     "id": 14,
+//     "courseSubjectId": 70,
+//     "studentId": 2,
+//     "grade": "A+"
+//   }, {
+//     "id": 15,
+//     "courseSubjectId": 71,
+//     "studentId": 2,
+//     "grade": "A"
+//   }, {
+//     "id": 16,
+//     "courseSubjectId": 72,
+//     "studentId": 2,
+//     "grade": "D"
+//   }, {
+//     "id": 17,
+//     "courseSubjectId": 73,
+//     "studentId": 2,
+//     "grade": "F"
+//   }, {
+//     "id": 18,
+//     "courseSubjectId": 74,
+//     "studentId": 2,
+//     "grade": "E"
+//   }, {
+//     "id": 19,
+//     "courseSubjectId": 75,
+//     "studentId": 2,
+//     "grade": "O"
+//   }, {
+//     "id": 20,
+//     "courseSubjectId": 76,
+//     "studentId": 2,
+//     "grade": "F"
+//   }, {
+//     "id": 21,
+//     "courseSubjectId": 77,
+//     "studentId": 2,
+//     "grade": "F"
+//   }, {
+//     "id": 22,
+//     "courseSubjectId": 78,
+//     "studentId": 2,
+//     "grade": "O"
+//   }, {
+//     "id": 23,
+//     "courseSubjectId": 79,
+//     "studentId": 2,
+//     "grade": "A"
+//   }, {
+//     "id": 24,
+//     "courseSubjectId": 80,
+//     "studentId": 2,
+//     "grade": "A"
+//   }, {
+//     "id": 25,
+//     "courseSubjectId": 81,
+//     "studentId": 2,
+//     "grade": "B"
+//   }, {
+//     "id": 26,
+//     "courseSubjectId": 82,
+//     "studentId": 2,
+//     "grade": "B"
+//   }, {
+//     "id": 27,
+//     "courseSubjectId": 83,
+//     "studentId": 2,
+//     "grade": "B+"
+//   }, {
+//     "id": 28,
+//     "courseSubjectId": 84,
+//     "studentId": 2,
+//     "grade": "A+"
+//   }, {
+//     "id": 29,
+//     "courseSubjectId": 85,
+//     "studentId": 2,
+//     "grade": "A+"
+//   },
+//   {
+//     "id": 30,
+//     "courseSubjectId": 1,
+//     "studentId": 3,
+//     "grade": "F"
+//   }, {
+//     "id": 31,
+//     "courseSubjectId": 2,
+//     "studentId": 3,
+//     "grade": "A"
+//   }, {
+//     "id": 32,
+//     "courseSubjectId": 3,
+//     "studentId": 3,
+//     "grade": "D"
+//   }, {
+//     "id": 33,
+//     "courseSubjectId": 4,
+//     "studentId": 3,
+//     "grade": "A+"
+//   }, {
+//     "id": 34,
+//     "courseSubjectId": 5,
+//     "studentId": 3,
+//     "grade": "E"
+//   }, {
+//     "id": 35,
+//     "courseSubjectId": 6,
+//     "studentId": 3,
+//     "grade": "D"
+//   }, {
+//     "id": 36,
+//     "courseSubjectId": 7,
+//     "studentId": 3,
+//     "grade": "F"
+//   }, {
+//     "id": 37,
+//     "courseSubjectId": 8,
+//     "studentId": 3,
+//     "grade": "D"
+//   },
+//   {
+//     "id": 38,
+//     "courseSubjectId": 121,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 39,
+//     "courseSubjectId": 122,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 40,
+//     "courseSubjectId": 123,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 41,
+//     "courseSubjectId": 124,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 42,
+//     "courseSubjectId": 125,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 43,
+//     "courseSubjectId": 126,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 44,
+//     "courseSubjectId": 127,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 45,
+//     "courseSubjectId": 128,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 46,
+//     "courseSubjectId": 129,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 47,
+//     "courseSubjectId": 130,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 48,
+//     "courseSubjectId": 131,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 49,
+//     "courseSubjectId": 132,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 50,
+//     "courseSubjectId": 133,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 51,
+//     "courseSubjectId": 134,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 52,
+//     "courseSubjectId": 135,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 53,
+//     "courseSubjectId": 136,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 54,
+//     "courseSubjectId": 137,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 55,
+//     "courseSubjectId": 138,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 56,
+//     "courseSubjectId": 139,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 57,
+//     "courseSubjectId": 140,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 58,
+//     "courseSubjectId": 141,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 59,
+//     "courseSubjectId": 142,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 60,
+//     "courseSubjectId": 143,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 61,
+//     "courseSubjectId": 144,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 62,
+//     "courseSubjectId": 145,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 63,
+//     "courseSubjectId": 146,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 64,
+//     "courseSubjectId": 147,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 65,
+//     "courseSubjectId": 148,
+//     "studentId": 4,
+//     "grade": "B"
+//   }, {
+//     "id": 66,
+//     "courseSubjectId": 149,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 67,
+//     "courseSubjectId": 150,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 68,
+//     "courseSubjectId": 151,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 69,
+//     "courseSubjectId": 152,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 70,
+//     "courseSubjectId": 153,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 71,
+//     "courseSubjectId": 154,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 72,
+//     "courseSubjectId": 155,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 73,
+//     "courseSubjectId": 156,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 74,
+//     "courseSubjectId": 157,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 75,
+//     "courseSubjectId": 158,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 76,
+//     "courseSubjectId": 159,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 77,
+//     "courseSubjectId": 160,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 78,
+//     "courseSubjectId": 161,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 79,
+//     "courseSubjectId": 162,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 80,
+//     "courseSubjectId": 163,
+//     "studentId": 4,
+//     "grade": "D"
+//   }, {
+//     "id": 81,
+//     "courseSubjectId": 164,
+//     "studentId": 4,
+//     "grade": "C"
+//   }, {
+//     "id": 82,
+//     "courseSubjectId": 165,
+//     "studentId": 4,
+//     "grade": "A"
+//   }, {
+//     "id": 83,
+//     "courseSubjectId": 166,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 84,
+//     "courseSubjectId": 167,
+//     "studentId": 4,
+//     "grade": "E"
+//   }, {
+//     "id": 85,
+//     "courseSubjectId": 168,
+//     "studentId": 4,
+//     "grade": "B+"
+//   }, {
+//     "id": 86,
+//     "courseSubjectId": 169,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 87,
+//     "courseSubjectId": 170,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 88,
+//     "courseSubjectId": 171,
+//     "studentId": 4,
+//     "grade": "O"
+//   }, {
+//     "id": 89,
+//     "courseSubjectId": 172,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 90,
+//     "courseSubjectId": 173,
+//     "studentId": 4,
+//     "grade": "F"
+//   }, {
+//     "id": 91,
+//     "courseSubjectId": 174,
+//     "studentId": 4,
+//     "grade": "A+"
+//   }, {
+//     "id": 92,
+//     "courseSubjectId": 175,
+//     "studentId": 4,
+//     "grade": "A"
+//   },
+//   {
+//     "id": 93,
+//     "courseSubjectId": 65,
+//     "studentId": 5,
+//     "grade": "E"
+//   }, {
+//     "id": 94,
+//     "courseSubjectId": 66,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 95,
+//     "courseSubjectId": 67,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 96,
+//     "courseSubjectId": 68,
+//     "studentId": 5,
+//     "grade": "C"
+//   }, {
+//     "id": 97,
+//     "courseSubjectId": 69,
+//     "studentId": 5,
+//     "grade": "D"
+//   }, {
+//     "id": 98,
+//     "courseSubjectId": 70,
+//     "studentId": 5,
+//     "grade": "F"
+//   }, {
+//     "id": 99,
+//     "courseSubjectId": 71,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 100,
+//     "courseSubjectId": 72,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 101,
+//     "courseSubjectId": 73,
+//     "studentId": 5,
+//     "grade": "C"
+//   }, {
+//     "id": 102,
+//     "courseSubjectId": 74,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 103,
+//     "courseSubjectId": 75,
+//     "studentId": 5,
+//     "grade": "F"
+//   }, {
+//     "id": 104,
+//     "courseSubjectId": 76,
+//     "studentId": 5,
+//     "grade": "A"
+//   }, {
+//     "id": 105,
+//     "courseSubjectId": 77,
+//     "studentId": 5,
+//     "grade": "D"
+//   }, {
+//     "id": 106,
+//     "courseSubjectId": 78,
+//     "studentId": 5,
+//     "grade": "F"
+//   }, {
+//     "id": 107,
+//     "courseSubjectId": 79,
+//     "studentId": 5,
+//     "grade": "A"
+//   }, {
+//     "id": 108,
+//     "courseSubjectId": 80,
+//     "studentId": 5,
+//     "grade": "O"
+//   }, {
+//     "id": 109,
+//     "courseSubjectId": 81,
+//     "studentId": 5,
+//     "grade": "B"
+//   }, {
+//     "id": 110,
+//     "courseSubjectId": 82,
+//     "studentId": 5,
+//     "grade": "A+"
+//   }, {
+//     "id": 111,
+//     "courseSubjectId": 83,
+//     "studentId": 5,
+//     "grade": "B+"
+//   }, {
+//     "id": 112,
+//     "courseSubjectId": 84,
+//     "studentId": 5,
+//     "grade": "C"
+//   }
+// ]);
+
+// await Student.bulkCreate([{
+//   "id": 1,
+//   "registrationNo": "12150557",
+//   "firstName": "Dave",
+//   "middleName": null,
+//   "lastName": "Bramer",
+//   "semester": 8,
+//   "session": "2021-2025",
+//   "cgpa": 8.24,
+//   "contact": "9165571823",
+//   "sectionId": 3,
+//   "courseId": 1,
+//   "hostelId": 6,
+//   "mentorId": 24,
+//   "fatherName": "Dave Bramer",
+//   "fatherContact": "9187513239",
+//   "motherName": "Dave Bramer",
+//   "motherContact": "9108242780"
+// }, {
+//   "id": 2,
+//   "registrationNo": "12178944",
+//   "firstName": "Artie",
+//   "middleName": "Puerto Ordaz-Ciudad Guayana",
+//   "lastName": "Van Leeuwen",
+//   "semester": 4,
+//   "session": "2021-2025",
+//   "cgpa": 9.46,
+//   "contact": "9152889562",
+//   "sectionId": 2,
+//   "courseId": 2,
+//   "hostelId": 37,
+//   "mentorId": 13,
+//   "fatherName": "Artie Van Leeuwen",
+//   "fatherContact": "9116074750",
+//   "motherName": "Artie Van Leeuwen",
+//   "motherContact": "9144620214"
+// }, {
+//   "id": 3,
+//   "registrationNo": "12124051",
+//   "firstName": "Cristal",
+//   "middleName": "Rotuma",
+//   "lastName": "Volks",
+//   "semester": 2,
+//   "session": "2021-2025",
+//   "cgpa": 9.01,
+//   "contact": "9118653119",
+//   "sectionId": 3,
+//   "courseId": 3,
+//   "hostelId": 44,
+//   "mentorId": 14,
+//   "fatherName": "Cristal Volks",
+//   "fatherContact": "9166202986",
+//   "motherName": "Cristal Volks",
+//   "motherContact": "9143774170"
+// }, {
+//   "id": 4,
+//   "registrationNo": "12100447",
+//   "firstName": "Ravid",
+//   "middleName": "Yan'an",
+//   "lastName": "Merrydew",
+//   "semester": 4,
+//   "session": "2021-2025",
+//   "cgpa": 8.56,
+//   "contact": "9180918365",
+//   "sectionId": 1,
+//   "courseId": 3,
+//   "hostelId": 18,
+//   "mentorId": 1,
+//   "fatherName": "Ravid Merrydew",
+//   "fatherContact": "9149474774",
+//   "motherName": "Ravid Merrydew",
+//   "motherContact": "9131286688"
+// }, {
+//   "id": 5,
+//   "registrationNo": "12152269",
+//   "firstName": "Clareta",
+//   "middleName": null,
+//   "lastName": "Foye",
+//   "semester": 4,
+//   "session": "2021-2025",
+//   "cgpa": 7.94,
+//   "contact": "9121847307",
+//   "sectionId": 3,
+//   "courseId": 3,
+//   "hostelId": 29,
+//   "mentorId": 18,
+//   "fatherName": "Clareta Foye",
+//   "fatherContact": "9107429988",
+//   "motherName": "Clareta Foye",
+//   "motherContact": "9163258903"
+// }, {
+//   "id": 6,
+//   "registrationNo": "12159300",
+//   "firstName": "Marietta",
+//   "middleName": "Somerset",
+//   "lastName": "Steptoe",
+//   "semester": 8,
+//   "session": "2021-2025",
+//   "cgpa": 8.73,
+//   "contact": "9139171400",
+//   "sectionId": 3,
+//   "courseId": 3,
+//   "hostelId": 11,
+//   "mentorId": 21,
+//   "fatherName": "Marietta Steptoe",
+//   "fatherContact": "9170580283",
+//   "motherName": "Marietta Steptoe",
+//   "motherContact": "9139204184"
+// }, {
+//   "id": 7,
+//   "registrationNo": "12121016",
+//   "firstName": "Briney",
+//   "middleName": "Omo National Park",
+//   "lastName": "Schlagman",
+//   "semester": 2,
+//   "session": "2021-2025",
+//   "cgpa": 6.84,
+//   "contact": "9119493726",
+//   "sectionId": 1,
+//   "courseId": 3,
+//   "hostelId": 1,
+//   "mentorId": 29,
+//   "fatherName": "Briney Schlagman",
+//   "fatherContact": "9145584419",
+//   "motherName": "Briney Schlagman",
+//   "motherContact": "9112755898"
+// }, {
+//   "id": 8,
+//   "registrationNo": "12120447",
+//   "firstName": "Teressa",
+//   "middleName": "Aubenas/Ardèche Méridional",
+//   "lastName": "Swyre",
+//   "semester": 2,
+//   "session": "2021-2025",
+//   "cgpa": 8.57,
+//   "contact": "9175285818",
+//   "sectionId": 3,
+//   "courseId": 1,
+//   "hostelId": 25,
+//   "mentorId": 3,
+//   "fatherName": "Teressa Swyre",
+//   "fatherContact": "9105214087",
+//   "motherName": "Teressa Swyre",
+//   "motherContact": "9156938752"
+// }, {
+//   "id": 9,
+//   "registrationNo": "12162087",
+//   "firstName": "Joelle",
+//   "middleName": "Thakurgaon",
+//   "lastName": "Rappaport",
+//   "semester": 4,
+//   "session": "2021-2025",
+//   "cgpa": 8.47,
+//   "contact": "9172261446",
+//   "sectionId": 1,
+//   "courseId": 3,
+//   "hostelId": 47,
+//   "mentorId": 11,
+//   "fatherName": "Joelle Rappaport",
+//   "fatherContact": "9148170044",
+//   "motherName": "Joelle Rappaport",
+//   "motherContact": "9170294495"
+// }, {
+//   "id": 10,
+//   "registrationNo": "12193877",
+//   "firstName": "Dwayne",
+//   "middleName": null,
+//   "lastName": "Cleall",
+//   "semester": 8,
+//   "session": "2021-2025",
+//   "cgpa": 9.08,
+//   "contact": "9113261136",
+//   "sectionId": 1,
+//   "courseId": 2,
+//   "hostelId": 18,
+//   "mentorId": 4,
+//   "fatherName": "Dwayne Cleall",
+//   "fatherContact": "9133237962",
+//   "motherName": "Dwayne Cleall",
+//   "motherContact": "9120871023"
+// }]);
+
+// await Lecture.bulkCreate([
+  // Section id: 1, Course id: 1, Semester: 2
+  // {
+  //   id: 1,
+  //   courseSubjectId: 9,
+  //   sectionId: 1,
+  //   facultyId: 2,
+  //   day: "1",
+  //   hourSlotId: 4
+  // },
+  // {
+  //   id: 2,
+  //   courseSubjectId: 12,
+  //   sectionId: 1,
+  //   facultyId: 27,
+  //   day: "1",
+  //   hourSlotId: 5
+  // },  {
+  //   id: 3,
+  //   courseSubjectId: 15,
+  //   sectionId: 1,
+  //   facultyId: 16,
+  //   day: "1",
+  //   hourSlotId: 7
+  // },  {
+  //   id: 4,
+  //   courseSubjectId: 16,
+  //   sectionId: 1,
+  //   facultyId: 22,
+  //   day: "1",
+  //   hourSlotId: 8
+  // },  {
+  //   id: 5,
+  //   courseSubjectId: 10,
+  //   sectionId: 1,
+  //   facultyId: 19,
+  //   day: "1",
+  //   hourSlotId: 9
+  // },
+  // {
+  //   id: 6,
+  //   courseSubjectId: 13,
+  //   sectionId: 1,
+  //   facultyId: 23,
+  //   day: "2", 
+  //   hourSlotId: 3
+  // },
+  // {
+  //   id: 7,
+  //   courseSubjectId: 15,
+  //   sectionId: 1,
+  //   facultyId: 16,
+  //   day: "2", 
+  //   hourSlotId: 4
+  // },  {
+  //   id: 8,
+  //   courseSubjectId: 9,
+  //   sectionId: 1,
+  //   facultyId: 2,
+  //   day: "2",
+  //   hourSlotId: 5
+  // },  {
+  //   id: 9,
+  //   courseSubjectId: 14,
+  //   sectionId: 1,
+  //   facultyId: 12,
+  //   day: "2", 
+  //   hourSlotId: 6
+  // },
+  // {
+  //   id: 10,
+  //   courseSubjectId: 14,
+  //   sectionId: 1,
+  //   facultyId: 12,
+  //   day: "2", 
+  //   hourSlotId: 8
+  // },
+  // {
+  //   id: 11,
+  //   courseSubjectId: 10,
+  //   sectionId: 1,
+  //   facultyId: 19,
+  //   day: "2", 
+  //   hourSlotId: 9
+  // },
+  // {
+  //   id: 12,
+  //   courseSubjectId: 15,
+  //   sectionId: 1,
+  //   facultyId: 16,
+  //   day: "2", 
+  //   hourSlotId: 10
+  // },
+  // {
+  //   id: 13,
+  //   courseSubjectId: 12,
+  //   sectionId: 1,
+  //   facultyId: 27,
+  //   day: "3", 
+  //   hourSlotId: 5
+  // },
+  // {
+  //   id: 14,
+  //   courseSubjectId: 9,
+  //   sectionId: 1,
+  //   facultyId: 2,
+  //   day: "3", 
+  //   hourSlotId: 8
+  // },
+  // {
+  //   id: 15,
+  //   courseSubjectId: 9,
+  //   sectionId: 1,
+  //   facultyId: 2,
+  //   day: "3", 
+  //   hourSlotId: 9
+  // },
+  // // Day 4
+  // {
+  //   id: 16,
+  //   courseSubjectId: 13,
+  //   sectionId: 1,
+  //   facultyId: 23,
+  //   day: "4", 
+  //   hourSlotId: 3
+  // },
+  // {
+  //   id: 17,
+  //   courseSubjectId: 14,
+  //   sectionId: 1,
+  //   facultyId: 12,
+  //   day: "4", 
+  //   hourSlotId: 4
+  // },
+  // {
+  //   id: 18,
+  //   courseSubjectId: 16,
+  //   sectionId: 1,
+  //   facultyId: 25,
+  //   day: "4", 
+  //   hourSlotId: 5
+  // },
+  // {
+  //   id: 19,
+  //   courseSubjectId: 12,
+  //   sectionId: 1,
+  //   facultyId: 27,
+  //   day: "4", 
+  //   hourSlotId: 6
+  // },
+  // {
+  //   id: 20,
+  //   courseSubjectId: 10,
+  //   sectionId: 1,
+  //   facultyId: 19,
+  //   day: "4", 
+  //   hourSlotId: 8
+  // },
+  // {
+  //   id: 21,
+  //   courseSubjectId: 9,
+  //   sectionId: 1,
+  //   facultyId: 2,
+  //   day: "4", 
+  //   hourSlotId: 9
+  // },
+  // {
+  //   id: 22,
+  //   courseSubjectId: 15,
+  //   sectionId: 1,
+  //   facultyId: 16,
+  //   day: "4", 
+  //   hourSlotId: 10
+  // },
+  // // Day 5
+  // {
+  //   id: 23,
+  //   courseSubjectId: 14,
+  //   sectionId: 1,
+  //   facultyId: 12,
+  //   day: "5", 
+  //   hourSlotId: 7
+  // },
+  // {
+  //   id: 24,
+  //   courseSubjectId: 12,
+  //   sectionId: 1,
+  //   facultyId: 27,
+  //   day: "5", 
+  //   hourSlotId: 8
+  // },
+  // {
+  //   id: 25,
+  //   courseSubjectId: 15,
+  //   sectionId: 1,
+  //   facultyId: 16,
+  //   day: "5", 
+  //   hourSlotId: 9
+  // },
+  // {
+  //   id: 26,
+  //   courseSubjectId: 10,
+  //   sectionId: 1,
+  //   facultyId: 19,
+  //   day: "5", 
+  //   hourSlotId: 10
+  // },
+  // {
+  //   id: 27,
+  //   courseSubjectId: 11,
+  //   sectionId: 1,
+  //   facultyId: 8,
+  //   day: "5", 
+  //   hourSlotId: 4
+  // }
+  // CourseId: 2 Semester 4
+  // {
+  //   id: 28,
+  //   courseSubjectId: 86,
+  //   sectionId: 2,
+  //   facultyId: 14,
+  //   day: "1", 
+  //   hourSlotId: 3
+  // },
+  // {
+  //   id: 29,
+  //   courseSubjectId: 86,
+  //   sectionId: 2,
+  //   facultyId: 14,
+  //   day: "1", 
+  //   hourSlotId: 4
+  // },
+  // {
+  //   id: 30,
+  //   courseSubjectId: 92,
+  //   sectionId: 2,
+  //   facultyId: 13,
+  //   day: "1", 
+  //   hourSlotId: 5
+  // },
+  // {
+  //   id: 31,
+  //   courseSubjectId: 89,
+  //   sectionId: 2,
+  //   facultyId: 6,
+  //   day: "1", 
+  //   hourSlotId: 6
+  // },
+  // {
+  //   id: 32,
+  //   courseSubjectId: 87,
+  //   sectionId: 2,
+  //   facultyId: 25,
+  //   day: "1", 
+  //   hourSlotId: 8
+  // },
+  // {
+  //   id: 33,
+  //   courseSubjectId: 90,
+  //   sectionId: 2,
+  //   facultyId: 19,
+  //   day: "1", 
+  //   hourSlotId: 9
+  // },
+  // {
+  //   id: 34,
+  //   courseSubjectId: 88,
+  //   sectionId: 2,
+  //   facultyId: 10,
+  //   day: "1", 
+  //   hourSlotId: 10
+  // },
+  // // Day 2
+  // {
+  //   id: 35,
+  //   courseSubjectId: 90,
+  //   sectionId: 2,
+  //   facultyId: 19,
+  //   day: "2", 
+  //   hourSlotId: 3
+  // },
+  // {
+  //   id: 36,
+  //   courseSubjectId: 86,
+  //   sectionId: 2,
+  //   facultyId: 14,
+  //   day: "2", 
+  //   hourSlotId: 4
+  // },
+  // {
+  //   id: 37,
+  //   courseSubjectId: 88,
+  //   sectionId: 2,
+  //   facultyId: 10,
+  //   day: "2", 
+  //   hourSlotId: 5
+  // },
+  // {
+  //   id: 38,
+  //   courseSubjectId: 88,
+  //   sectionId: 2,
+  //   facultyId: 10,
+  //   day: "2", 
+  //   hourSlotId: 6
+  // },
+  // {
+  //   id: 39,
+  //   courseSubjectId: 89,
+  //   sectionId: 2,
+  //   facultyId: 6,
+  //   day: "2", 
+  //   hourSlotId: 8
+  // },
+  // {
+  //   id: 40,
+  //   courseSubjectId: 87,
+  //   sectionId: 2,
+  //   facultyId: 25,
+  //   day: "2", 
+  //   hourSlotId: 9
+  // },
+  // {
+  //   id: 41,
+  //   courseSubjectId: 91,
+  //   sectionId: 2,
+  //   facultyId: 4,
+  //   day: "2",
+  //   hourSlotId: 10
+  // },
+  // // Day 3
+  // {
+  //   id: 42,
+  //   courseSubjectId: 91,
+  //   sectionId: 2,
+  //   facultyId: 4,
+  //   day: "3", 
+  //   hourSlotId: 3
+  // },
+  // {
+  //   id: 43,
+  //   courseSubjectId: 92,
+  //   sectionId: 2,
+  //   facultyId: 13,
+  //   day: "3", 
+  //   hourSlotId: 4
+  // },
+  // {
+  //   id: 44,
+  //   courseSubjectId: 90,
+  //   sectionId: 2,
+  //   facultyId: 19,
+  //   day: "3", 
+  //   hourSlotId: 5
+  // },
+  // {
+  //   id: 45,
+  //   courseSubjectId: 88,
+  //   sectionId: 2,
+  //   facultyId: 10,
+  //   day: "3", 
+  //   hourSlotId: 6
+  // },
+  // {
+  //   id: 46,
+  //   courseSubjectId: 86,
+  //   sectionId: 2,
+  //   facultyId: 14,
+  //   day: "3", 
+  //   hourSlotId: 9
+  // },
+  // // Day 4
+  // {
+  //   id: 47,
+  //   courseSubjectId: 87,
+  //   sectionId: 2,
+  //   facultyId: 25,
+  //   day: "4",
+  //   hourSlotId: 5,
+  // },
+  // {
+  //   id: 48,
+  //   courseSubjectId: 87,
+  //   sectionId: 2,
+  //   facultyId: 25,
+  //   day: "4",
+  //   hourSlotId: 6,
+  // },
+  // {
+  //   id: 49,
+  //   courseSubjectId: 91,
+  //   sectionId: 2,
+  //   facultyId: 4,
+  //   day: "4",
+  //   hourSlotId: 7,
+  // },
+  // {
+  //   id: 50,
+  //   courseSubjectId: 92,
+  //   sectionId: 2,
+  //   facultyId: 13,
+  //   day: "4",
+  //   hourSlotId: 9,
+  // },
+  // {
+  //   id: 51,
+  //   courseSubjectId: 86,
+  //   sectionId: 2,
+  //   facultyId: 14,
+  //   day: "4",
+  //   hourSlotId: 10,
+  // },
+  // // Day 5
+  // {
+  //   id: 52,
+  //   courseSubjectId: 92,
+  //   sectionId: 2,
+  //   facultyId: 13,
+  //   day: "5",
+  //   hourSlotId: 3,
+  // },
+  // {
+  //   id: 53,
+  //   courseSubjectId: 89,
+  //   sectionId: 2,
+  //   facultyId: 6,
+  //   day: "5",
+  //   hourSlotId: 4,
+  // },
+  // {
+  //   id: 54,
+  //   courseSubjectId: 88,
+  //   sectionId: 2,
+  //   facultyId: 10,
+  //   day: "5",
+  //   hourSlotId: 5,
+  // },
+  // CourseId: 3, Semester 8
+//   {
+//     id: 55,
+//     courseSubjectId: 177,
+//     sectionId: 3,
+//     facultyId: 30,
+//     day: "1",
+//     hourSlotId: 3,
+//   },
+//   {
+//     id: 56,
+//     courseSubjectId: 182,
+//     sectionId: 3,
+//     facultyId: 26,
+//     day: "1",
+//     hourSlotId: 4,
+//   },
+//   {
+//     id: 57,
+//     courseSubjectId: 180,
+//     sectionId: 3,
+//     facultyId: 11,
+//     day: "1",
+//     hourSlotId: 5,
+//   },
+//   {
+//     id: 58,
+//     courseSubjectId: 182,
+//     sectionId: 3,
+//     facultyId: 26,
+//     day: "1",
+//     hourSlotId: 6,
+//   },
+//   {
+//     id: 59,
+//     courseSubjectId: 178,
+//     sectionId: 3,
+//     facultyId: 22,
+//     day: "1",
+//     hourSlotId: 7,
+//   },
+//   {
+//     id: 60,
+//     courseSubjectId: 184,
+//     sectionId: 3,
+//     facultyId: 5,
+//     day: "1",
+//     hourSlotId: 9,
+//   },
+//   {
+//     id: 61,
+//     courseSubjectId: 184,
+//     sectionId: 3,
+//     facultyId: 5,
+//     day: "1",
+//     hourSlotId: 10,
+//   },
+//   // Day 2
+//   {
+//     id: 62,
+//     courseSubjectId: 181,
+//     sectionId: 3,
+//     facultyId: 29,
+//     day: "2",
+//     hourSlotId: 4,
+//   },
+//   {
+//     id: 63,
+//     courseSubjectId: 180,
+//     sectionId: 3,
+//     facultyId: 11,
+//     day: "2",
+//     hourSlotId: 5,
+//   },
+//   {
+//     id: 64,
+//     courseSubjectId: 178,
+//     sectionId: 3,
+//     facultyId: 22,
+//     day: "2",
+//     hourSlotId: 7,
+//   },
+//   {
+//     id: 65,
+//     courseSubjectId: 183,
+//     sectionId: 3,
+//     facultyId: 26,
+//     day: "2",
+//     hourSlotId: 8,
+//   },
+//   {
+//     id: 66,
+//     courseSubjectId: 179,
+//     sectionId: 3,
+//     facultyId: 7,
+//     day: "2",
+//     hourSlotId: 9,
+//   },
+//   {
+//     id: 67,
+//     courseSubjectId: 179,
+//     sectionId: 3,
+//     facultyId: 7,
+//     day: "2",
+//     hourSlotId: 10,
+//   },
+//   // Day 3
+//   {
+//     id: 68,
+//     courseSubjectId: 180,
+//     sectionId: 3,
+//     facultyId: 11,
+//     day: "3",
+//     hourSlotId: 3
+//   },
+//   {
+//     id: 69,
+//     courseSubjectId: 178,
+//     sectionId: 3,
+//     facultyId: 22,
+//     day: "3",
+//     hourSlotId: 5
+//   },
+//   {
+//     id: 70,
+//     courseSubjectId: 178,
+//     sectionId: 3,
+//     facultyId: 22,
+//     day: "3",
+//     hourSlotId: 9
+//   },
+//   {
+//     id: 71,
+//     courseSubjectId: 180,
+//     sectionId: 3,
+//     facultyId: 26,
+//     day: "3",
+//     hourSlotId: 10
+//   },
+//   // Day 4
+//   {
+//     id: 72,
+//     courseSubjectId: 180,
+//     sectionId: 3,
+//     facultyId: 11,
+//     day: "4",
+//     hourSlotId: 5
+//   },
+//   {
+//     id: 73,
+//     courseSubjectId: 177,
+//     sectionId: 3,
+//     facultyId: 30,
+//     day: "4",
+//     hourSlotId: 6
+//   },
+//   {
+//     id: 74,
+//     courseSubjectId: 177,
+//     sectionId: 3,
+//     facultyId: 30,
+//     day: "4",
+//     hourSlotId: 7
+//   },
+//   {
+//     id: 75,
+//     courseSubjectId: 179,
+//     sectionId: 3,
+//     facultyId: 7,
+//     day: "4",
+//     hourSlotId: 9
+//   },
+//   {
+//     id: 76,
+//     courseSubjectId: 184,
+//     sectionId: 3,
+//     facultyId: 5,
+//     day: "4",
+//     hourSlotId: 10
+//   },
+//   // Day 5
+//   {
+//     id: 77,
+//     courseSubjectId: 184,
+//     sectionId: 3,
+//     facultyId: 5,
+//     day: "5",
+//     hourSlotId: 8
+//   },
+//   {
+//     id: 78,
+//     courseSubjectId: 180,
+//     sectionId: 3,
+//     facultyId: 11,
+//     day: "5",
+//     hourSlotId: 9
+//   },
+//   {
+//     id: 79,
+//     courseSubjectId: 179,
+//     sectionId: 3,
+//     facultyId: 7,
+//     day: "5",
+//     hourSlotId: 10
+//   }
+// ]);
+
+// await CourseSubject.bulkCreate([
+// {
+//   "id": 1,
+//   "courseId": 1,
+//   "subjectId": 7,
+//   "credit": '3',
+//   "lectureCount": 30,
+//   "semester": 1
+// }, {
+//   "id": 2,
+//   "courseId": 1,
+//   "subjectId": 11,
+//   "credit": '3',
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 3,
+//   "courseId": 1,
+//   "subjectId": 11,
+//   "credit": '4',
+//   "lectureCount": 65,
+//   "semester": 1
+// }, {
+//   "id": 4,
+//   "courseId": 1,
+//   "subjectId": 4,
+//   "credit": '3',
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 5,
+//   "courseId": 1,
+//   "subjectId": 25,
+//   "credit": '1',
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 6,
+//   "courseId": 1,
+//   "subjectId": 14,
+//   "credit": '3',
+//   "lectureCount": 55,
+//   "semester": 1
+// }, {
+//   "id": 7,
+//   "courseId": 1,
+//   "subjectId": 15,
+//   "credit": '3',
+//   "lectureCount": 43,
+//   "semester": 1
+// }, {
+//   "id": 8,
+//   "courseId": 1,
+//   "subjectId": 6,
+//   "credit": '1',
+//   "lectureCount": 45,
+//   "semester": 1
+// }, {
+//   "id": 9,
+//   "courseId": 1,
+//   "subjectId": 15,
+//   "credit": '4',
+//   "lectureCount": 45,
+//   "semester": 2
+// }, {
+//   "id": 10,
+//   "courseId": 1,
+//   "subjectId": 25,
+//   "credit": '2',
+//   "lectureCount": 45,
+//   "semester": 2
+// }, {
+//   "id": 11,
+//   "courseId": 1,
+//   "subjectId": 2,
+//   "credit": '2',
+//   "lectureCount": 30,
+//   "semester": 2
+// }, {
+//   "id": 12,
+//   "courseId": 1,
+//   "subjectId": 26,
+//   "credit": '2',
+//   "lectureCount": 55,
+//   "semester": 2
+// }, {
+//   "id": 13,
+//   "courseId": 1,
+//   "subjectId": 18,
+//   "credit": '3',
+//   "lectureCount": 60,
+//   "semester": 2
+// }, {
+//   "id": 14,
+//   "courseId": 1,
+//   "subjectId": 25,
+//   "credit": '3',
+//   "lectureCount": 30,
+//   "semester": 2
+// }, {
+//   "id": 15,
+//   "courseId": 1,
+//   "subjectId": 4,
+//   "credit": '2',
+//   "lectureCount": 43,
+//   "semester": 2
+// }, {
+//   "id": 16,
+//   "courseId": 1,
+//   "subjectId": 27,
+//   "credit": '3',
+//   "lectureCount": 67,
+//   "semester": 2
+// }, {
+//   "id": 17,
+//   "courseId": 1,
+//   "subjectId": 24,
+//   "credit": '1',
+//   "lectureCount": 60,
+//   "semester": 3
+// }, {
+//   "id": 18,
+//   "courseId": 1,
+//   "subjectId": 23,
+//   "credit": '2',
+//   "lectureCount": 38,
+//   "semester": 3
+// }, {
+//   "id": 19,
+//   "courseId": 1,
+//   "subjectId": 8,
+//   "credit": '3',
+//   "lectureCount": 48,
+//   "semester": 3
+// }, {
+//   "id": 20,
+//   "courseId": 1,
+//   "subjectId": 9,
+//   "credit": '1',
+//   "lectureCount": 33,
+//   "semester": 3
+// }, {
+//   "id": 21,
+//   "courseId": 1,
+//   "subjectId": 3,
+//   "credit": '3',
+//   "lectureCount": 48,
+//   "semester": 3
+// }, {
+//   "id": 22,
+//   "courseId": 1,
+//   "subjectId": 13,
+//   "credit": '4',
+//   "lectureCount": 33,
+//   "semester": 3
+// }, {
+//   "id": 23,
+//   "courseId": 1,
+//   "subjectId": 18,
+//   "credit": '3',
+//   "lectureCount": 67,
+//   "semester": 3
+// }, {
+//   "id": 24,
+//   "courseId": 1,
+//   "subjectId": 1,
+//   "credit": '4',
+//   "lectureCount": 30,
+//   "semester": 3
+// }, {
+//   "id": 25,
+//   "courseId": 1,
+//   "subjectId": 25,
+//   "credit": '3',
+//   "lectureCount": 60,
+//   "semester": 4
+// }, {
+//   "id": 26,
+//   "courseId": 1,
+//   "subjectId": 5,
+//   "credit": '2',
+//   "lectureCount": 45,
+//   "semester": 4
+// }, {
+//   "id": 27,
+//   "courseId": 1,
+//   "subjectId": 13,
+//   "credit": '4',
+//   "lectureCount": 30,
+//   "semester": 4
+// }, {
+//   "id": 28,
+//   "courseId": 1,
+//   "subjectId": 22,
+//   "credit": '1',
+//   "lectureCount": 65,
+//   "semester": 4
+// }, {
+//   "id": 29,
+//   "courseId": 1,
+//   "subjectId": 21,
+//   "credit": '1',
+//   "lectureCount": 43,
+//   "semester": 4
+// }, {
+//   "id": 30,
+//   "courseId": 1,
+//   "subjectId": 20,
+//   "credit": '4',
+//   "lectureCount": 30,
+//   "semester": 4
+// }, {
+//   "id": 31,
+//   "courseId": 1,
+//   "subjectId": 23,
+//   "credit": '1',
+//   "lectureCount": 60,
+//   "semester": 4
+// }, {
+//   "id": 32,
+//   "courseId": 1,
+//   "subjectId": 16,
+//   "credit": '2',
+//   "lectureCount": 45,
+//   "semester": 4
+// }, {
+//   "id": 33,
+//   "courseId": 1,
+//   "subjectId": 8,
+//   "credit": '1',
+//   "lectureCount": 67,
+//   "semester": 5
+// }, {
+//   "id": 34,
+//   "courseId": 1,
+//   "subjectId": 7,
+//   "credit": '2',
+//   "lectureCount": 43,
+//   "semester": 5
+// }, {
+//   "id": 35,
+//   "courseId": 1,
+//   "subjectId": 11,
+//   "credit": '3',
+//   "lectureCount": 35,
+//   "semester": 5
+// }, {
+//   "id": 36,
+//   "courseId": 1,
+//   "subjectId": 28,
+//   "credit": '3',
+//   "lectureCount": 67,
+//   "semester": 5
+// }, {
+//   "id": 37,
+//   "courseId": 1,
+//   "subjectId": 9,
+//   "credit": '2',
+//   "lectureCount": 33,
+//   "semester": 5
+// }, {
+//   "id": 38,
+//   "courseId": 1,
+//   "subjectId": 21,
+//   "credit": '3',
+//   "lectureCount": 33,
+//   "semester": 5
+// }, {
+//   "id": 39,
+//   "courseId": 1,
+//   "subjectId": 10,
+//   "credit": '2',
+//   "lectureCount": 65,
+//   "semester": 5
+// }, {
+//   "id": 40,
+//   "courseId": 1,
+//   "subjectId": 26,
+//   "credit": '2',
+//   "lectureCount": 65,
+//   "semester": 5
+// }, {
+//   "id": 41,
+//   "courseId": 1,
+//   "subjectId": 24,
+//   "credit": '3',
+//   "lectureCount": 48,
+//   "semester": 6
+// }, {
+//   "id": 42,
+//   "courseId": 1,
+//   "subjectId": 2,
+//   "credit": '3',
+//   "lectureCount": 45,
+//   "semester": 6
+// }, {
+//   "id": 43,
+//   "courseId": 1,
+//   "subjectId": 30,
+//   "credit": '1',
+//   "lectureCount": 67,
+//   "semester": 6
+// }, {
+//   "id": 44,
+//   "courseId": 1,
+//   "subjectId": 20,
+//   "credit": '3',
+//   "lectureCount": 33,
+//   "semester": 6
+// }, {
+//   "id": 45,
+//   "courseId": 1,
+//   "subjectId": 26,
+//   "credit": '3',
+//   "lectureCount": 30,
+//   "semester": 6
+// }, {
+//   "id": 46,
+//   "courseId": 1,
+//   "subjectId": 18,
+//   "credit": '3',
+//   "lectureCount": 48,
+//   "semester": 6
+// }, {
+//   "id": 47,
+//   "courseId": 1,
+//   "subjectId": 6,
+//   "credit": '1',
+//   "lectureCount": 45,
+//   "semester": 6
+// }, {
+//   "id": 48,
+//   "courseId": 1,
+//   "subjectId": 23,
+//   "credit": '1',
+//   "lectureCount": 48,
+//   "semester": 6
+// }, {
+//   "id": 49,
+//   "courseId": 1,
+//   "subjectId": 2,
+//   "credit": '4',
+//   "lectureCount": 60,
+//   "semester": 7
+// }, {
+//   "id": 50,
+//   "courseId": 1,
+//   "subjectId": 11,
+//   "credit": '2',
+//   "lectureCount": 43,
+//   "semester": 7
+// }, {
+//   "id": 51,
+//   "courseId": 1,
+//   "subjectId": 12,
+//   "credit": '2',
+//   "lectureCount": 45,
+//   "semester": 7
+// }, {
+//   "id": 52,
+//   "courseId": 1,
+//   "subjectId": 29,
+//   "credit": '4',
+//   "lectureCount": 48,
+//   "semester": 7
+// }, {
+//   "id": 53,
+//   "courseId": 1,
+//   "subjectId": 27,
+//   "credit": '3',
+//   "lectureCount": 38,
+//   "semester": 7
+// }, {
+//   "id": 54,
+//   "courseId": 1,
+//   "subjectId": 22,
+//   "credit": '2',
+//   "lectureCount": 60,
+//   "semester": 7
+// }, {
+//   "id": 55,
+//   "courseId": 1,
+//   "subjectId": 20,
+//   "credit": '2',
+//   "lectureCount": 65,
+//   "semester": 7
+// }, {
+//   "id": 56,
+//   "courseId": 1,
+//   "subjectId": 16,
+//   "credit": '4',
+//   "lectureCount": 33,
+//   "semester": 7
+// }, {
+//   "id": 57,
+//   "courseId": 1,
+//   "subjectId": 27,
+//   "credit": '3',
+//   "lectureCount": 60,
+//   "semester": 8
+// }, {
+//   "id": 58,
+//   "courseId": 1,
+//   "subjectId": 19,
+//   "credit": '2',
+//   "lectureCount": 38,
+//   "semester": 8
+// }, {
+//   "id": 59,
+//   "courseId": 1,
+//   "subjectId": 2,
+//   "credit": '3',
+//   "lectureCount": 33,
+//   "semester": 8
+// }, {
+//   "id": 60,
+//   "courseId": 1,
+//   "subjectId": 22,
+//   "credit": '3',
+//   "lectureCount": 43,
+//   "semester": 8
+// }, {
+//   "id": 61,
+//   "courseId": 1,
+//   "subjectId": 12,
+//   "credit": '4',
+//   "lectureCount": 33,
+//   "semester": 8
+// }, {
+//   "id": 62,
+//   "courseId": 1,
+//   "subjectId": 26,
+//   "credit": '4',
+//   "lectureCount": 60,
+//   "semester": 8
+// }, {
+//   "id": 63,
+//   "courseId": 1,
+//   "subjectId": 29,
+//   "credit": '3',
+//   "lectureCount": 35,
+//   "semester": 8
+// }, {
+//   "id": 64,
+//   "courseId": 1,
+//   "subjectId": 15,
+//   "credit": '1',
+//   "lectureCount": 38,
+//   "semester": 8
+// },
+// {
+//   "id": 65,
+//   "courseId": 2,
+//   "subjectId": 23,
+//   "credit": '4',
+//   "lectureCount": 55,
+//   "semester": 1
+// }, {
+//   "id": 66,
+//   "courseId": 2,
+//   "subjectId": 2,
+//   "credit": '2',
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 67,
+//   "courseId": 2,
+//   "subjectId": 8,
+//   "credit": '2',
+//   "lectureCount": 45,
+//   "semester": 1
+// }, {
+//   "id": 68,
+//   "courseId": 2,
+//   "subjectId": 5,
+//   "credit": '4',
+//   "lectureCount": 60,
+//   "semester": 1
+// }, {
+//   "id": 69,
+//   "courseId": 2,
+//   "subjectId": 14,
+//   "credit": '3',
+//   "lectureCount": 30,
+//   "semester": 1
+// }, {
+//   "id": 70,
+//   "courseId": 2,
+//   "subjectId": 18,
+//   "credit": '3',
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 71,
+//   "courseId": 2,
+//   "subjectId": 27,
+//   "credit": '4',
+//   "lectureCount": 55,
+//   "semester": 1
+// },
+// {
+//   "id": 72,
+//   "courseId": 2,
+//   "subjectId": 2,
+//   "credit": '1',
+//   "lectureCount": 55,
+//   "semester": 2
+// }, {
+//   "id": 73,
+//   "courseId": 2,
+//   "subjectId": 19,
+//   "credit": '3',
+//   "lectureCount": 43,
+//   "semester": 2
+// }, {
+//   "id": 74,
+//   "courseId": 2,
+//   "subjectId": 7,
+//   "credit": '3',
+//   "lectureCount": 48,
+//   "semester": 2
+// }, {
+//   "id": 75,
+//   "courseId": 2,
+//   "subjectId": 30,
+//   "credit": '4',
+//   "lectureCount": 30,
+//   "semester": 2
+// }, {
+//   "id": 76,
+//   "courseId": 2,
+//   "subjectId": 12,
+//   "credit": '4',
+//   "lectureCount": 65,
+//   "semester": 2
+// }, {
+//   "id": 77,
+//   "courseId": 2,
+//   "subjectId": 20,
+//   "credit": '4',
+//   "lectureCount": 48,
+//   "semester": 2
+// }, {
+//   "id": 78,
+//   "courseId": 2,
+//   "subjectId": 26,
+//   "credit": '3',
+//   "lectureCount": 55,
+//   "semester": 2
+// }, {
+//   "id": 79,
+//   "courseId": 2,
+//   "subjectId": 2,
+//   "credit": '4',
+//   "lectureCount": 45,
+//   "semester": 3
+// }, {
+//   "id": 80,
+//   "courseId": 2,
+//   "subjectId": 24,
+//   "credit": '4',
+//   "lectureCount": 67,
+//   "semester": 3
+// }, {
+//   "id": 81,
+//   "courseId": 2,
+//   "subjectId": 13,
+//   "credit": '1',
+//   "lectureCount": 45,
+//   "semester": 3
+// }, {
+//   "id": 82,
+//   "courseId": 2,
+//   "subjectId": 26,
+//   "credit": '4',
+//   "lectureCount": 60,
+//   "semester": 3
+// }, {
+//   "id": 83,
+//   "courseId": 2,
+//   "subjectId": 27,
+//   "credit": '1',
+//   "lectureCount": 55,
+//   "semester": 3
+// }, {
+//   "id": 84,
+//   "courseId": 2,
+//   "subjectId": 9,
+//   "credit": '1',
+//   "lectureCount": 48,
+//   "semester": 3
+// }, {
+//   "id": 85,
+//   "courseId": 2,
+//   "subjectId": 18,
+//   "credit": '4',
+//   "lectureCount": 55,
+//   "semester": 3
+// }, {
+//   "id": 86,
+//   "courseId": 2,
+//   "subjectId": 14,
+//   "credit": '2',
+//   "lectureCount": 48,
+//   "semester": 4
+// }, {
+//   "id": 87,
+//   "courseId": 2,
+//   "subjectId": 25,
+//   "credit": '3',
+//   "lectureCount": 55,
+//   "semester": 4
+// }, {
+//   "id": 88,
+//   "courseId": 2,
+//   "subjectId": 10,
+//   "credit": '4',
+//   "lectureCount": 38,
+//   "semester": 4
+// }, {
+//   "id": 89,
+//   "courseId": 2,
+//   "subjectId": 6,
+//   "credit": '1',
+//   "lectureCount": 65,
+//   "semester": 4
+// }, {
+//   "id": 90,
+//   "courseId": 2,
+//   "subjectId": 19,
+//   "credit": '4',
+//   "lectureCount": 45,
+//   "semester": 4
+// }, {
+//   "id": 91,
+//   "courseId": 2,
+//   "subjectId": 4,
+//   "credit": '1',
+//   "lectureCount": 43,
+//   "semester": 4
+// }, {
+//   "id": 92,
+//   "courseId": 2,
+//   "subjectId": 13,
+//   "credit": '4',
+//   "lectureCount": 43,
+//   "semester": 4
+// }, {
+//   "id": 93,
+//   "courseId": 2,
+//   "subjectId": 13,
+//   "credit": '1',
+//   "lectureCount": 67,
+//   "semester": 5
+// }, {
+//   "id": 94,
+//   "courseId": 2,
+//   "subjectId": 23,
+//   "credit": '4',
+//   "lectureCount": 67,
+//   "semester": 5
+// }, {
+//   "id": 95,
+//   "courseId": 2,
+//   "subjectId": 2,
+//   "credit": '1',
+//   "lectureCount": 30,
+//   "semester": 5
+// }, {
+//   "id": 96,
+//   "courseId": 2,
+//   "subjectId": 26,
+//   "credit": '3',
+//   "lectureCount": 65,
+//   "semester": 5
+// }, {
+//   "id": 97,
+//   "courseId": 2,
+//   "subjectId": 16,
+//   "credit": '1',
+//   "lectureCount": 43,
+//   "semester": 5
+// }, {
+//   "id": 98,
+//   "courseId": 2,
+//   "subjectId": 3,
+//   "credit": '2',
+//   "lectureCount": 30,
+//   "semester": 5
+// }, {
+//   "id": 99,
+//   "courseId": 2,
+//   "subjectId": 4,
+//   "credit": '4',
+//   "lectureCount": 43,
+//   "semester": 5
+// }, {
+//   "id": 100,
+//   "courseId": 2,
+//   "subjectId": 22,
+//   "credit": '2',
+//   "lectureCount": 55,
+//   "semester": 6
+// }, {
+//   "id": 101,
+//   "courseId": 2,
+//   "subjectId": 15,
+//   "credit": '4',
+//   "lectureCount": 67,
+//   "semester": 6
+// }, {
+//   "id": 102,
+//   "courseId": 2,
+//   "subjectId": 5,
+//   "credit": '2',
+//   "lectureCount": 60,
+//   "semester": 6
+// }, {
+//   "id": 103,
+//   "courseId": 2,
+//   "subjectId": 1,
+//   "credit": '3',
+//   "lectureCount": 55,
+//   "semester": 6
+// }, {
+//   "id": 104,
+//   "courseId": 2,
+//   "subjectId": 26,
+//   "credit": '3',
+//   "lectureCount": 48,
+//   "semester": 6
+// }, {
+//   "id": 105,
+//   "courseId": 2,
+//   "subjectId": 29,
+//   "credit": '2',
+//   "lectureCount": 43,
+//   "semester": 6
+// }, {
+//   "id": 106,
+//   "courseId": 2,
+//   "subjectId": 24,
+//   "credit": '4',
+//   "lectureCount": 33,
+//   "semester": 6
+// }, {
+//   "id": 107,
+//   "courseId": 2,
+//   "subjectId": 13,
+//   "credit": '3',
+//   "lectureCount": 65,
+//   "semester": 7
+// }, {
+//   "id": 108,
+//   "courseId": 2,
+//   "subjectId": 16,
+//   "credit": '4',
+//   "lectureCount": 33,
+//   "semester": 7
+// }, {
+//   "id": 109,
+//   "courseId": 2,
+//   "subjectId": 18,
+//   "credit": '2',
+//   "lectureCount": 30,
+//   "semester": 7
+// }, {
+//   "id": 110,
+//   "courseId": 2,
+//   "subjectId": 10,
+//   "credit": '4',
+//   "lectureCount": 33,
+//   "semester": 7
+// }, {
+//   "id": 111,
+//   "courseId": 2,
+//   "subjectId": 25,
+//   "credit": '3',
+//   "lectureCount": 35,
+//   "semester": 7
+// }, {
+//   "id": 112,
+//   "courseId": 2,
+//   "subjectId": 2,
+//   "credit": '2',
+//   "lectureCount": 43,
+//   "semester": 7
+// }, {
+//   "id": 113,
+//   "courseId": 2,
+//   "subjectId": 9,
+//   "credit": '3',
+//   "lectureCount": 43,
+//   "semester": 7
+// }, {
+//   "id": 114,
+//   "courseId": 2,
+//   "subjectId": 11,
+//   "credit": '3',
+//   "lectureCount": 60,
+//   "semester": 8
+// }, {
+//   "id": 115,
+//   "courseId": 2,
+//   "subjectId": 13,
+//   "credit": '2',
+//   "lectureCount": 35,
+//   "semester": 8
+// }, {
+//   "id": 116,
+//   "courseId": 2,
+//   "subjectId": 1,
+//   "credit": '3',
+//   "lectureCount": 65,
+//   "semester": 8
+// }, {
+//   "id": 117,
+//   "courseId": 2,
+//   "subjectId": 10,
+//   "credit": '2',
+//   "lectureCount": 48,
+//   "semester": 8
+// }, {
+//   "id": 118,
+//   "courseId": 2,
+//   "subjectId": 22,
+//   "credit": '1',
+//   "lectureCount": 65,
+//   "semester": 8
+// }, {
+//   "id": 119,
+//   "courseId": 2,
+//   "subjectId": 24,
+//   "credit": '3',
+//   "lectureCount": 33,
+//   "semester": 8
+// }, {
+//   "id": 120,
+//   "courseId": 2,
+//   "subjectId": 7,
+//   "credit": '2',
+//   "lectureCount": 38,
+//   "semester": 8
+// }
+// {
+//   "id": 121,
+//   "courseId": 3,
+//   "subjectId": 9,
+//   "credit": "3",
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 122,
+//   "courseId": 3,
+//   "subjectId": 3,
+//   "credit": "4",
+//   "lectureCount": 60,
+//   "semester": 1
+// }, {
+//   "id": 123,
+//   "courseId": 3,
+//   "subjectId": 23,
+//   "credit": "2",
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 124,
+//   "courseId": 3,
+//   "subjectId": 14,
+//   "credit": "3",
+//   "lectureCount": 37,
+//   "semester": 1
+// }, {
+//   "id": 125,
+//   "courseId": 3,
+//   "subjectId": 16,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 1
+// }, {
+//   "id": 126,
+//   "courseId": 3,
+//   "subjectId": 26,
+//   "credit": "1",
+//   "lectureCount": 30,
+//   "semester": 1
+// }, {
+//   "id": 127,
+//   "courseId": 3,
+//   "subjectId": 4,
+//   "credit": "2",
+//   "lectureCount": 53,
+//   "semester": 1
+// }, {
+//   "id": 128,
+//   "courseId": 3,
+//   "subjectId": 30,
+//   "credit": "4",
+//   "lectureCount": 47,
+//   "semester": 1
+// },
+// {
+//   "id": 129,
+//   "courseId": 3,
+//   "subjectId": 12,
+//   "credit": "4",
+//   "lectureCount": 37,
+//   "semester": 2
+// }, {
+//   "id": 130,
+//   "courseId": 3,
+//   "subjectId": 25,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 2
+// }, {
+//   "id": 131,
+//   "courseId": 3,
+//   "subjectId": 6,
+//   "credit": "2",
+//   "lectureCount": 72,
+//   "semester": 2
+// }, {
+//   "id": 132,
+//   "courseId": 3,
+//   "subjectId": 8,
+//   "credit": "4",
+//   "lectureCount": 30,
+//   "semester": 2
+// }, {
+//   "id": 133,
+//   "courseId": 3,
+//   "subjectId": 19,
+//   "credit": "3",
+//   "lectureCount": 53,
+//   "semester": 2
+// }, {
+//   "id": 134,
+//   "courseId": 3,
+//   "subjectId": 4,
+//   "credit": "3",
+//   "lectureCount": 56,
+//   "semester": 2
+// }, {
+//   "id": 135,
+//   "courseId": 3,
+//   "subjectId": 16,
+//   "credit": "3",
+//   "lectureCount": 67,
+//   "semester": 2
+// }, {
+//   "id": 136,
+//   "courseId": 3,
+//   "subjectId": 26,
+//   "credit": "2",
+//   "lectureCount": 30,
+//   "semester": 2
+// }, {
+//   "id": 137,
+//   "courseId": 3,
+//   "subjectId": 7,
+//   "credit": "4",
+//   "lectureCount": 37,
+//   "semester": 3
+// }, {
+//   "id": 138,
+//   "courseId": 3,
+//   "subjectId": 23,
+//   "credit": "1",
+//   "lectureCount": 43,
+//   "semester": 3
+// }, {
+//   "id": 139,
+//   "courseId": 3,
+//   "subjectId": 21,
+//   "credit": "3",
+//   "lectureCount": 53,
+//   "semester": 3
+// }, {
+//   "id": 140,
+//   "courseId": 3,
+//   "subjectId": 14,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 3
+// }, {
+//   "id": 141,
+//   "courseId": 3,
+//   "subjectId": 2,
+//   "credit": "2",
+//   "lectureCount": 67,
+//   "semester": 3
+// }, {
+//   "id": 142,
+//   "courseId": 3,
+//   "subjectId": 18,
+//   "credit": "3",
+//   "lectureCount": 72,
+//   "semester": 3
+// }, {
+//   "id": 143,
+//   "courseId": 3,
+//   "subjectId": 4,
+//   "credit": "2",
+//   "lectureCount": 60,
+//   "semester": 3
+// }, {
+//   "id": 144,
+//   "courseId": 3,
+//   "subjectId": 3,
+//   "credit": "1",
+//   "lectureCount": 72,
+//   "semester": 3
+// }, {
+//   "id": 145,
+//   "courseId": 3,
+//   "subjectId": 17,
+//   "credit": "2",
+//   "lectureCount": 63,
+//   "semester": 4
+// }, {
+//   "id": 146,
+//   "courseId": 3,
+//   "subjectId": 9,
+//   "credit": "4",
+//   "lectureCount": 67,
+//   "semester": 4
+// }, {
+//   "id": 147,
+//   "courseId": 3,
+//   "subjectId": 29,
+//   "credit": "3",
+//   "lectureCount": 37,
+//   "semester": 4
+// }, {
+//   "id": 148,
+//   "courseId": 3,
+//   "subjectId": 16,
+//   "credit": "1",
+//   "lectureCount": 43,
+//   "semester": 4
+// }, {
+//   "id": 149,
+//   "courseId": 3,
+//   "subjectId": 15,
+//   "credit": "3",
+//   "lectureCount": 47,
+//   "semester": 4
+// }, {
+//   "id": 150,
+//   "courseId": 3,
+//   "subjectId": 22,
+//   "credit": "1",
+//   "lectureCount": 30,
+//   "semester": 4
+// }, {
+//   "id": 151,
+//   "courseId": 3,
+//   "subjectId": 3,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 4
+// }, {
+//   "id": 152,
+//   "courseId": 3,
+//   "subjectId": 16,
+//   "credit": "4",
+//   "lectureCount": 40,
+//   "semester": 4
+// }, {
+//   "id": 153,
+//   "courseId": 3,
+//   "subjectId": 29,
+//   "credit": "3",
+//   "lectureCount": 37,
+//   "semester": 5
+// }, {
+//   "id": 154,
+//   "courseId": 3,
+//   "subjectId": 6,
+//   "credit": "1",
+//   "lectureCount": 43,
+//   "semester": 5
+// }, {
+//   "id": 155,
+//   "courseId": 3,
+//   "subjectId": 8,
+//   "credit": "1",
+//   "lectureCount": 40,
+//   "semester": 5
+// }, {
+//   "id": 156,
+//   "courseId": 3,
+//   "subjectId": 2,
+//   "credit": "3",
+//   "lectureCount": 53,
+//   "semester": 5
+// }, {
+//   "id": 157,
+//   "courseId": 3,
+//   "subjectId": 23,
+//   "credit": "1",
+//   "lectureCount": 67,
+//   "semester": 5
+// }, {
+//   "id": 158,
+//   "courseId": 3,
+//   "subjectId": 26,
+//   "credit": "4",
+//   "lectureCount": 37,
+//   "semester": 5
+// }, {
+//   "id": 159,
+//   "courseId": 3,
+//   "subjectId": 14,
+//   "credit": "1",
+//   "lectureCount": 72,
+//   "semester": 5
+// }, {
+//   "id": 160,
+//   "courseId": 3,
+//   "subjectId": 19,
+//   "credit": "2",
+//   "lectureCount": 35,
+//   "semester": 5
+// }, { 
+//   "id": 161,
+//   "courseId": 3,
+//   "subjectId": 21,
+//   "credit": "2",
+//   "lectureCount": 63,
+//   "semester": 6
+//   }, {
+//   "id": 162,
+//   "courseId": 3,
+//   "subjectId": 11,
+//   "credit": "3",
+//   "lectureCount": 37,
+//   "semester": 6
+//   }, {
+//   "id": 163,
+//   "courseId": 3,
+//   "subjectId": 1,
+//   "credit": "2",
+//   "lectureCount": 47,
+//   "semester": 6
+//   }, {
+//   "id": 164,
+//   "courseId": 3,
+//   "subjectId": 25,
+//   "credit": "1",
+//   "lectureCount": 72,
+//   "semester": 6
+//   }, {
+//   "id": 165,
+//   "courseId": 3,
+//   "subjectId": 13,
+//   "credit": "4",
+//   "lectureCount": 47,
+//   "semester": 6
+//   }, {
+//   "id": 166,
+//   "courseId": 3,
+//   "subjectId": 14,
+//   "credit": "1",
+//   "lectureCount": 37,
+//   "semester": 6
+//   }, {
+//   "id": 167,
+//   "courseId": 3,
+//   "subjectId": 20,
+//   "credit": "4",
+//   "lectureCount": 40,
+//   "semester": 6
+//   }, {
+//   "id": 168,
+//   "courseId": 3,
+//   "subjectId": 30,
+//   "credit": "1",
+//   "lectureCount": 56,
+//   "semester": 6
+// }, {
+//   "id": 169,
+//   "courseId": 3,
+//   "subjectId": 20,
+//   "credit": "1",
+//   "lectureCount": 63,
+//   "semester": 7
+// }, {
+//   "id": 170,
+//   "courseId": 3,
+//   "subjectId": 14,
+//   "credit": "4",
+//   "lectureCount": 67,
+//   "semester": 7
+// }, {
+//   "id": 171,
+//   "courseId": 3,
+//   "subjectId": 22,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 7
+// }, {
+//   "id": 172,
+//   "courseId": 3,
+//   "subjectId": 27,
+//   "credit": "3",
+//   "lectureCount": 63,
+//   "semester": 7
+// }, {
+//   "id": 173,
+//   "courseId": 3,
+//   "subjectId": 1,
+//   "credit": "2",
+//   "lectureCount": 72,
+//   "semester": 7
+// }, {
+//   "id": 174,
+//   "courseId": 3,
+//   "subjectId": 18,
+//   "credit": "1",
+//   "lectureCount": 37,
+//   "semester": 7
+// }, {
+//   "id": 175,
+//   "courseId": 3,
+//   "subjectId": 6,
+//   "credit": "2",
+//   "lectureCount": 47,
+//   "semester": 7
+// }, {
+//   "id": 176,
+//   "courseId": 3,
+//   "subjectId": 25,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 7
+// }, {
+//   "id": 177,
+//   "courseId": 3,
+//   "subjectId": 24,
+//   "credit": "1",
+//   "lectureCount": 56,
+//   "semester": 8
+// }, {
+//   "id": 178,
+//   "courseId": 3,
+//   "subjectId": 12,
+//   "credit": "2",
+//   "lectureCount": 47,
+//   "semester": 8
+// }, {
+//   "id": 179,
+//   "courseId": 3,
+//   "subjectId": 26,
+//   "credit": "1",
+//   "lectureCount": 43,
+//   "semester": 8
+// }, {
+//   "id": 180,
+//   "courseId": 3,
+//   "subjectId": 21,
+//   "credit": "3",
+//   "lectureCount": 56,
+//   "semester": 8
+// }, {
+//   "id": 181,
+//   "courseId": 3,
+//   "subjectId": 15,
+//   "credit": "4",
+//   "lectureCount": 53,
+//   "semester": 8
+// }, {
+//   "id": 182,
+//   "courseId": 3,
+//   "subjectId": 6,
+//   "credit": "1",
+//   "lectureCount": 37,
+//   "semester": 8
+// }, {
+//   "id": 183,
+//   "courseId": 3,
+//   "subjectId": 5,
+//   "credit": "2",
+//   "lectureCount": 60,
+//   "semester": 8
+// }, {
+//   "id": 184,
+//   "courseId": 3,
+//   "subjectId": 22,
+//   "credit": "1",
+//   "lectureCount": 43,
+//   "semester": 8
+// }, 
+// {
+//   "id": 185,
+//   "courseId": 4,
+//   "subjectId": 1,
+//   "credit": "2",
+//   "lectureCount": 37,
+//   "semester": 1
+// }, {
+//   "id": 186,
+//   "courseId": 4,
+//   "subjectId": 4,
+//   "credit": "1",
+//   "lectureCount": 63,
+//   "semester": 1
+// }, {
+//   "id": 187,
+//   "courseId": 4,
+//   "subjectId": 14,
+//   "credit": "1",
+//   "lectureCount": 43,
+//   "semester": 1
+// }, {
+//   "id": 188,
+//   "courseId": 4,
+//   "subjectId": 30,
+//   "credit": "3",
+//   "lectureCount": 35,
+//   "semester": 1
+// }, {
+//   "id": 189,
+//   "courseId": 4,
+//   "subjectId": 28,
+//   "credit": "4",
+//   "lectureCount": 37,
+//   "semester": 1
+// }, {
+//   "id": 190,
+//   "courseId": 4,
+//   "subjectId": 22,
+//   "credit": "2",
+//   "lectureCount": 53,
+//   "semester": 2
+// }, {
+//   "id": 191,
+//   "courseId": 4,
+//   "subjectId": 13,
+//   "credit": "1",
+//   "lectureCount": 35,
+//   "semester": 2
+// }, {
+//   "id": 192,
+//   "courseId": 4,
+//   "subjectId": 3,
+//   "credit": "4",
+//   "lectureCount": 47,
+//   "semester": 2
+// }, {
+//   "id": 193,
+//   "courseId": 4,
+//   "subjectId": 7,
+//   "credit": "1",
+//   "lectureCount": 40,
+//   "semester": 2
+// }, {
+//   "id": 194,
+//   "courseId": 4,
+//   "subjectId": 10,
+//   "credit": "4",
+//   "lectureCount": 40,
+//   "semester": 2
+// }, {
+//   "id": 195,
+//   "courseId": 4,
+//   "subjectId": 14,
+//   "credit": "3",
+//   "lectureCount": 72,
+//   "semester": 3
+// }, {
+//   "id": 196,
+//   "courseId": 4,
+//   "subjectId": 7,
+//   "credit": "1",
+//   "lectureCount": 30,
+//   "semester": 3
+// }, {
+//   "id": 197,
+//   "courseId": 4,
+//   "subjectId": 8,
+//   "credit": "4",
+//   "lectureCount": 67,
+//   "semester": 3
+// }, {
+//   "id": 198,
+//   "courseId": 4,
+//   "subjectId": 3,
+//   "credit": "4",
+//   "lectureCount": 53,
+//   "semester": 3
+// }, {
+//   "id": 199,
+//   "courseId": 4,
+//   "subjectId": 6,
+//   "credit": "1",
+//   "lectureCount": 53,
+//   "semester": 3
+// }, {
+//   "id": 200,
+//   "courseId": 4,
+//   "subjectId": 6,
+//   "credit": "1",
+//   "lectureCount": 67,
+//   "semester": 4
+// }, {
+//   "id": 201,
+//   "courseId": 4,
+//   "subjectId": 11,
+//   "credit": "1",
+//   "lectureCount": 35,
+//   "semester": 4
+// }, {
+//   "id": 202,
+//   "courseId": 4,
+//   "subjectId": 5,
+//   "credit": "1",
+//   "lectureCount": 53,
+//   "semester": 4
+// }, {
+//   "id": 203,
+//   "courseId": 4,
+//   "subjectId": 17,
+//   "credit": "2",
+//   "lectureCount": 53,
+//   "semester": 4
+// }, {
+//   "id": 204,
+//   "courseId": 4,
+//   "subjectId": 14,
+//   "credit": "4",
+//   "lectureCount": 53,
+//   "semester": 4
+// }, {
+//   "id": 205,
+//   "courseId": 4,
+//   "subjectId": 4,
+//   "credit": "4",
+//   "lectureCount": 67,
+//   "semester": 4
+// }, {
+//   "id": 206,
+//   "courseId": 4,
+//   "subjectId": 21,
+//   "credit": "2",
+//   "lectureCount": 35,
+//   "semester": 5
+// }, {
+//   "id": 207,
+//   "courseId": 4,
+//   "subjectId": 9,
+//   "credit": "4",
+//   "lectureCount": 30,
+//   "semester": 5
+// }, {
+//   "id": 208,
+//   "courseId": 4,
+//   "subjectId": 24,
+//   "credit": "2",
+//   "lectureCount": 60,
+//   "semester": 5
+// }, {
+//   "id": 209,
+//   "courseId": 4,
+//   "subjectId": 5,
+//   "credit": "1",
+//   "lectureCount": 47,
+//   "semester": 5
+// }, {
+//   "id": 210,
+//   "courseId": 4,
+//   "subjectId": 13,
+//   "credit": "4",
+//   "lectureCount": 37,
+//   "semester": 5
+// }, {
+//   "id": 211,
+//   "courseId": 4,
+//   "subjectId": 11,
+//   "credit": "1",
+//   "lectureCount": 72,
+//   "semester": 5
+// }, {
+//   "id": 212,
+//   "courseId": 4,
+//   "subjectId": 22,
+//   "credit": "3",
+//   "lectureCount": 60,
+//   "semester": 6
+// }, {
+//   "id": 213,
+//   "courseId": 4,
+//   "subjectId": 25,
+//   "credit": "2",
+//   "lectureCount": 56,
+//   "semester": 6
+// }, {
+//   "id": 214,
+//   "courseId": 4,
+//   "subjectId": 29,
+//   "credit": "3",
+//   "lectureCount": 67,
+//   "semester": 6
+// }, {
+//   "id": 215,
+//   "courseId": 4,
+//   "subjectId": 9,
+//   "credit": "4",
+//   "lectureCount": 37,
+//   "semester": 6
+// }, {
+//   "id": 216,
+//   "courseId": 4,
+//   "subjectId": 21,
+//   "credit": "3",
+//   "lectureCount": 60,
+//   "semester": 6
+// }, {
+//   "id": 217,
+//   "courseId": 4,
+//   "subjectId": 30,
+//   "credit": "3",
+//   "lectureCount": 63,
+//   "semester": 6
+// }
+// {
+//   "id": 218,
+//   "courseId": 5,
+//   "subjectId": 27,
+//   "credit": "1",
+//   "lectureCount": 37,
+//   "semester": 1
+// }, {
+//   "id": 219,
+//   "courseId": 5,
+//   "subjectId": 2,
+//   "credit": "4",
+//   "lectureCount": 40,
+//   "semester": 1
+// }, {
+//   "id": 220,
+//   "courseId": 5,
+//   "subjectId": 22,
+//   "credit": "3",
+//   "lectureCount": 35,
+//   "semester": 1
+// }, {
+//   "id": 221,
+//   "courseId": 5,
+//   "subjectId": 18,
+//   "credit": "4",
+//   "lectureCount": 72,
+//   "semester": 1
+// }, {
+//   "id": 222,
+//   "courseId": 5,
+//   "subjectId": 23,
+//   "credit": "3",
+//   "lectureCount": 72,
+//   "semester": 1
+// }, {
+//   "id": 223,
+//   "courseId": 5,
+//   "subjectId": 11,
+//   "credit": "4",
+//   "lectureCount": 43,
+//   "semester": 1
+// }, {
+//   "id": 224,
+//   "courseId": 5,
+//   "subjectId": 24,
+//   "credit": "1",
+//   "lectureCount": 63,
+//   "semester": 1
+// }, {
+//   "id": 225,
+//   "courseId": 5,
+//   "subjectId": 5,
+//   "credit": "1",
+//   "lectureCount": 56,
+//   "semester": 1
+// }, {
+//   "id": 226,
+//   "courseId": 5,
+//   "subjectId": 27,
+//   "credit": "1",
+//   "lectureCount": 60,
+//   "semester": 2
+// }, {
+//   "id": 227,
+//   "courseId": 5,
+//   "subjectId": 1,
+//   "credit": "2",
+//   "lectureCount": 67,
+//   "semester": 2
+// }, {
+//   "id": 228,
+//   "courseId": 5,
+//   "subjectId": 15,
+//   "credit": "3",
+//   "lectureCount": 56,
+//   "semester": 2
+// }, {
+//   "id": 229,
+//   "courseId": 5,
+//   "subjectId": 7,
+//   "credit": "4",
+//   "lectureCount": 72,
+//   "semester": 2
+// }, {
+//   "id": 230,
+//   "courseId": 5,
+//   "subjectId": 17,
+//   "credit": "3",
+//   "lectureCount": 60,
+//   "semester": 2
+// }, {
+//   "id": 231,
+//   "courseId": 5,
+//   "subjectId": 29,
+//   "credit": "4",
+//   "lectureCount": 53,
+//   "semester": 2
+// }, {
+//   "id": 232,
+//   "courseId": 5,
+//   "subjectId": 18,
+//   "credit": "1",
+//   "lectureCount": 40,
+//   "semester": 2
+// }, {
+//   "id": 233,
+//   "courseId": 5,
+//   "subjectId": 26,
+//   "credit": "2",
+//   "lectureCount": 37,
+//   "semester": 2
+// }, {
+//   "id": 234,
+//   "courseId": 5,
+//   "subjectId": 7,
+//   "credit": "2",
+//   "lectureCount": 30,
+//   "semester": 3
+// }, {
+//   "id": 235,
+//   "courseId": 5,
+//   "subjectId": 20,
+//   "credit": "3",
+//   "lectureCount": 56,
+//   "semester": 3
+// }, {
+//   "id": 236,
+//   "courseId": 5,
+//   "subjectId": 1,
+//   "credit": "4",
+//   "lectureCount": 72,
+//   "semester": 3
+// }, {
+//   "id": 237,
+//   "courseId": 5,
+//   "subjectId": 12,
+//   "credit": "3",
+//   "lectureCount": 53,
+//   "semester": 3
+// }, {
+//   "id": 238,
+//   "courseId": 5,
+//   "subjectId": 30,
+//   "credit": "3",
+//   "lectureCount": 37,
+//   "semester": 3
+// }, {
+//   "id": 239,
+//   "courseId": 5,
+//   "subjectId": 26,
+//   "credit": "2",
+//   "lectureCount": 67,
+//   "semester": 3
+// }, {
+//   "id": 240,
+//   "courseId": 5,
+//   "subjectId": 2,
+//   "credit": "2",
+//   "lectureCount": 56,
+//   "semester": 3
+// }, {
+//   "id": 241,
+//   "courseId": 5,
+//   "subjectId": 16,
+//   "credit": "3",
+//   "lectureCount": 30,
+//   "semester": 3
+// }, {
+//   "id": 242,
+//   "courseId": 5,
+//   "subjectId": 22,
+//   "credit": "3",
+//   "lectureCount": 43,
+//   "semester": 4
+// }, {
+//   "id": 243,
+//   "courseId": 5,
+//   "subjectId": 3,
+//   "credit": "3",
+//   "lectureCount": 72,
+//   "semester": 4
+// }, {
+//   "id": 244,
+//   "courseId": 5,
+//   "subjectId": 19,
+//   "credit": "3",
+//   "lectureCount": 72,
+//   "semester": 4
+// }, {
+//   "id": 245,
+//   "courseId": 5,
+//   "subjectId": 24,
+//   "credit": "2",
+//   "lectureCount": 40,
+//   "semester": 4
+// }, {
+//   "id": 246,
+//   "courseId": 5,
+//   "subjectId": 15,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 4
+// }, {
+//   "id": 247,
+//   "courseId": 5,
+//   "subjectId": 14,
+//   "credit": "1",
+//   "lectureCount": 63,
+//   "semester": 4
+// }, {
+//   "id": 248,
+//   "courseId": 5,
+//   "subjectId": 9,
+//   "credit": "1",
+//   "lectureCount": 47,
+//   "semester": 4
+// }, {
+//   "id": 249,
+//   "courseId": 5,
+//   "subjectId": 16,
+//   "credit": "3",
+//   "lectureCount": 35,
+//   "semester": 4
+// }, {
+//   "id": 250,
+//   "courseId": 5,
+//   "subjectId": 13,
+//   "credit": "1",
+//   "lectureCount": 47,
+//   "semester": 5
+// }, {
+//   "id": 251,
+//   "courseId": 5,
+//   "subjectId": 8,
+//   "credit": "1",
+//   "lectureCount": 40,
+//   "semester": 5
+// }, {
+//   "id": 252,
+//   "courseId": 5,
+//   "subjectId": 10,
+//   "credit": "4",
+//   "lectureCount": 30,
+//   "semester": 5
+// }, {
+//   "id": 253,
+//   "courseId": 5,
+//   "subjectId": 2,
+//   "credit": "2",
+//   "lectureCount": 30,
+//   "semester": 5
+// }, {
+//   "id": 254,
+//   "courseId": 5,
+//   "subjectId": 27,
+//   "credit": "1",
+//   "lectureCount": 63,
+//   "semester": 5
+// }, {
+//   "id": 255,
+//   "courseId": 5,
+//   "subjectId": 13,
+//   "credit": "2",
+//   "lectureCount": 40,
+//   "semester": 5
+// }, {
+//   "id": 256,
+//   "courseId": 5,
+//   "subjectId": 3,
+//   "credit": "4",
+//   "lectureCount": 47,
+//   "semester": 5
+// }, {
+//   "id": 257,
+//   "courseId": 5,
+//   "subjectId": 24,
+//   "credit": "1",
+//   "lectureCount": 30,
+//   "semester": 5
+// }, {
+//   "id": 258,
+//   "courseId": 5,
+//   "subjectId": 17,
+//   "credit": "2",
+//   "lectureCount": 56,
+//   "semester": 6
+// }, {
+//   "id": 259,
+//   "courseId": 5,
+//   "subjectId": 19,
+//   "credit": "2",
+//   "lectureCount": 40,
+//   "semester": 6
+// }, {
+//   "id": 260,
+//   "courseId": 5,
+//   "subjectId": 13,
+//   "credit": "3",
+//   "lectureCount": 40,
+//   "semester": 6
+// }, {
+//   "id": 261,
+//   "courseId": 5,
+//   "subjectId": 30,
+//   "credit": "2",
+//   "lectureCount": 56,
+//   "semester": 6
+// }, {
+//   "id": 262,
+//   "courseId": 5,
+//   "subjectId": 23,
+//   "credit": "1",
+//   "lectureCount": 47,
+//   "semester": 6
+// }, {
+//   "id": 263,
+//   "courseId": 5,
+//   "subjectId": 6,
+//   "credit": "3",
+//   "lectureCount": 37,
+//   "semester": 6
+// }, {
+//   "id": 264,
+//   "courseId": 5,
+//   "subjectId": 12,
+//   "credit": "2",
+//   "lectureCount": 37,
+//   "semester": 6
+// }, {
+//   "id": 265,
+//   "courseId": 5,
+//   "subjectId": 3,
+//   "credit": "2",
+//   "lectureCount": 35,
+//   "semester": 6
+// }, {
+//   "id": 266,
+//   "courseId": 5,
+//   "subjectId": 30,
+//   "credit": "1",
+//   "lectureCount": 63,
+//   "semester": 7
+// }, {
+//   "id": 267,
+//   "courseId": 5,
+//   "subjectId": 1,
+//   "credit": "1",
+//   "lectureCount": 53,
+//   "semester": 7
+// }, {
+//   "id": 268,
+//   "courseId": 5,
+//   "subjectId": 2,
+//   "credit": "3",
+//   "lectureCount": 67,
+//   "semester": 7
+// }, {
+//   "id": 269,
+//   "courseId": 5,
+//   "subjectId": 9,
+//   "credit": "2",
+//   "lectureCount": 56,
+//   "semester": 7
+// }, {
+//   "id": 270,
+//   "courseId": 5,
+//   "subjectId": 23,
+//   "credit": "4",
+//   "lectureCount": 37,
+//   "semester": 7
+// }, {
+//   "id": 271,
+//   "courseId": 5,
+//   "subjectId": 3,
+//   "credit": "3",
+//   "lectureCount": 72,
+//   "semester": 7
+// }, {
+//   "id": 272,
+//   "courseId": 5,
+//   "subjectId": 22,
+//   "credit": "2",
+//   "lectureCount": 43,
+//   "semester": 7
+// }, {
+//   "id": 273,
+//   "courseId": 5,
+//   "subjectId": 25,
+//   "credit": "4",
+//   "lectureCount": 56,
+//   "semester": 7
+// }, {
+//   "id": 274,
+//   "courseId": 5,
+//   "subjectId": 17,
+//   "credit": "2",
+//   "lectureCount": 60,
+//   "semester": 8
+// }, {
+//   "id": 275,
+//   "courseId": 5,
+//   "subjectId": 6,
+//   "credit": "2",
+//   "lectureCount": 60,
+//   "semester": 8
+// }, {
+//   "id": 276,
+//   "courseId": 5,
+//   "subjectId": 29,
+//   "credit": "1",
+//   "lectureCount": 53,
+//   "semester": 8
+// }, {
+//   "id": 277,
+//   "courseId": 5,
+//   "subjectId": 22,
+//   "credit": "1",
+//   "lectureCount": 56,
+//   "semester": 8
+// }, {
+//   "id": 278,
+//   "courseId": 5,
+//   "subjectId": 3,
+//   "credit": "2",
+//   "lectureCount": 47,
+//   "semester": 8
+// }, {
+//   "id": 279,
+//   "courseId": 5,
+//   "subjectId": 20,
+//   "credit": "3",
+//   "lectureCount": 63,
+//   "semester": 8
+// }, {
+//   "id": 280,
+//   "courseId": 5,
+//   "subjectId": 9,
+//   "credit": "2",
+//   "lectureCount": 56,
+//   "semester": 8
+// }, {
+//   "id": 281,
+//   "courseId": 5,
+//   "subjectId": 19,
+//   "credit": "1",
+//   "lectureCount": 63,
+//   "semester": 8
+// }
+// {
+//   "id": 282,
+//   "courseId": 6,
+//   "subjectId": 14,
+//   "credit": "3",
+//   "lectureCount": 43,
+//   "semester": 1
+// }, {
+//   "id": 283,
+//   "courseId": 6,
+//   "subjectId": 17,
+//   "credit": "4",
+//   "lectureCount": 56,
+//   "semester": 1
+// }, {
+//   "id": 284,
+//   "courseId": 6,
+//   "subjectId": 11,
+//   "credit": "3",
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 285,
+//   "courseId": 6,
+//   "subjectId": 30,
+//   "credit": "1",
+//   "lectureCount": 43,
+//   "semester": 1
+// }, {
+//   "id": 286,
+//   "courseId": 6,
+//   "subjectId": 27,
+//   "credit": "4",
+//   "lectureCount": 67,
+//   "semester": 1
+// }, {
+//   "id": 287,
+//   "courseId": 6,
+//   "subjectId": 4,
+//   "credit": "3",
+//   "lectureCount": 53,
+//   "semester": 2
+// }, {
+//   "id": 288,
+//   "courseId": 6,
+//   "subjectId": 9,
+//   "credit": "4",
+//   "lectureCount": 40,
+//   "semester": 2
+// }, {
+//   "id": 289,
+//   "courseId": 6,
+//   "subjectId": 3,
+//   "credit": "3",
+//   "lectureCount": 37,
+//   "semester": 2
+// }, {
+//   "id": 290,
+//   "courseId": 6,
+//   "subjectId": 14,
+//   "credit": "2",
+//   "lectureCount": 60,
+//   "semester": 2
+// }, {
+//   "id": 291,
+//   "courseId": 6,
+//   "subjectId": 12,
+//   "credit": "1",
+//   "lectureCount": 60,
+//   "semester": 2
+// }, {
+//   "id": 292,
+//   "courseId": 6,
+//   "subjectId": 15,
+//   "credit": "2",
+//   "lectureCount": 60,
+//   "semester": 3
+// }, {
+//   "id": 293,
+//   "courseId": 6,
+//   "subjectId": 29,
+//   "credit": "4",
+//   "lectureCount": 30,
+//   "semester": 3
+// }, {
+//   "id": 294,
+//   "courseId": 6,
+//   "subjectId": 20,
+//   "credit": "1",
+//   "lectureCount": 53,
+//   "semester": 3
+// }, {
+//   "id": 295,
+//   "courseId": 6,
+//   "subjectId": 28,
+//   "credit": "2",
+//   "lectureCount": 63,
+//   "semester": 3
+// }, {
+//   "id": 296,
+//   "courseId": 6,
+//   "subjectId": 4,
+//   "credit": "1",
+//   "lectureCount": 60,
+//   "semester": 3
+// }, {
+//   "id": 297,
+//   "courseId": 6,
+//   "subjectId": 13,
+//   "credit": "1",
+//   "lectureCount": 72,
+//   "semester": 4
+// }, {
+//   "id": 298,
+//   "courseId": 6,
+//   "subjectId": 26,
+//   "credit": "4",
+//   "lectureCount": 63,
+//   "semester": 4
+// }, {
+//   "id": 299,
+//   "courseId": 6,
+//   "subjectId": 10,
+//   "credit": "1",
+//   "lectureCount": 60,
+//   "semester": 4
+// }, {
+//   "id": 300,
+//   "courseId": 6,
+//   "subjectId": 7,
+//   "credit": "1",
+//   "lectureCount": 47,
+//   "semester": 4
+// }, {
+//   "id": 301,
+//   "courseId": 6,
+//   "subjectId": 22,
+//   "credit": "3",
+//   "lectureCount": 40,
+//   "semester": 4
+// }, {
+//   "id": 302,
+//   "courseId": 6,
+//   "subjectId": 16,
+//   "credit": "2",
+//   "lectureCount": 37,
+//   "semester": 5
+// }, {
+//   "id": 303,
+//   "courseId": 6,
+//   "subjectId": 21,
+//   "credit": "2",
+//   "lectureCount": 30,
+//   "semester": 5
+// }, {
+//   "id": 304,
+//   "courseId": 6,
+//   "subjectId": 13,
+//   "credit": "3",
+//   "lectureCount": 56,
+//   "semester": 5
+// }, {
+//   "id": 305,
+//   "courseId": 6,
+//   "subjectId": 19,
+//   "credit": "4",
+//   "lectureCount": 67,
+//   "semester": 5
+// }, {
+//   "id": 306,
+//   "courseId": 6,
+//   "subjectId": 20,
+//   "credit": "1",
+//   "lectureCount": 40,
+//   "semester": 5
+// }, {
+//   "id": 307,
+//   "courseId": 6,
+//   "subjectId": 4,
+//   "credit": "4",
+//   "lectureCount": 53,
+//   "semester": 6
+// }, {
+//   "id": 308,
+//   "courseId": 6,
+//   "subjectId": 21,
+//   "credit": "1",
+//   "lectureCount": 56,
+//   "semester": 6
+// }, {
+//   "id": 309,
+//   "courseId": 6,
+//   "subjectId": 26,
+//   "credit": "2",
+//   "lectureCount": 53,
+//   "semester": 6
+// }, {
+//   "id": 310,
+//   "courseId": 6,
+//   "subjectId": 24,
+//   "credit": "4",
+//   "lectureCount": 35,
+//   "semester": 6
+// }, {
+//   "id": 311,
+//   "courseId": 6,
+//   "subjectId": 20,
+//   "credit": "2",
+//   "lectureCount": 43,
+//   "semester": 6
+// }
+// ]);
+
+// await Course.bulkCreate([
+//   {
+//     id: 1,
+//     courseCode: 'P132 :: Bachelor of Technology (Computer Science and Engineering)'
+//   },
+//   {
+//     id: 2,
+//     courseCode: 'P153 :: Bachelor of Architecture'
+//   },
+//   {
+//     id: 3,
+//     courseCode: 'P281 :: Bachelor of Technology (Biotech Engineering)'
+//   },
+//   {
+//     id: 4,
+//     courseCode: 'P134 :: Masters in Business Administration (Finanace)'
+//   },
+//   {
+//     id: 5,
+//     courseCode: 'P133 :: Bachelor of Technology (Electrical and Electronics Engineering)'
+//   },
+//   {
+//     id: 6,
+//     courseCode: 'P323 :: Bachelor of Science'
+//   }
+// ]);
+
+// await Section.bulkCreate([{
+//   "id": 1,
+//   "section": "C96FHC",
+//   "hodId": 5
+// }, {
+//   "id": 2,
+//   "section": "B64GRM",
+//   "hodId": 6
+// }, {
+//   "id": 3,
+//   "section": "G42IQU",
+//   "hodId": 7
+// }, {
+//   "id": 4,
+//   "section": "C91BPR",
+//   "hodId": 9
+// }, {
+//   "id": 5,
+//   "section": "Y41ISM",
+//   "hodId": 2
+// }, {
+//   "id": 6,
+//   "section": "U18QYI",
+//   "hodId": 1
+// }, {
+//   "id": 7,
+//   "section": "P35LKJ",
+//   "hodId": 8
+// }, {
+//   "id": 8,
+//   "section": "Q84BUL",
+//   "hodId": 4
+// }, {
+//   "id": 9,
+//   "section": "I21LQP",
+//   "hodId": 3
+// }, {
+//   "id": 10,
+//   "section": "G35OLB",
+//   "hodId": 10
+// }]);
+
+// await Faculty.bulkCreate([{
+//   "id": 1,
+//   "registrationNo": "57979",
+//   "firstName": "Currie",
+//   "middleName": null,
+//   "lastName": "Babcock",
+//   "contact": "91401090655"
+// }, {
+//   "id": 2,
+//   "registrationNo": "43368",
+//   "firstName": "Auguste",
+//   "middleName": "Nyagan",
+//   "lastName": "Whitlow",
+//   "contact": "91260928643"
+// }, {
+//   "id": 3,
+//   "registrationNo": "76550",
+//   "firstName": "Dwayne",
+//   "middleName": null,
+//   "lastName": "Foltin",
+//   "contact": "91151973440"
+// }, {
+//   "id": 4,
+//   "registrationNo": "34201",
+//   "firstName": "Genevieve",
+//   "middleName": null,
+//   "lastName": "Skirven",
+//   "contact": "91497828853"
+// }, {
+//   "id": 5,
+//   "registrationNo": "51639",
+//   "firstName": "Leontyne",
+//   "middleName": "Issy",
+//   "lastName": "Chazerand",
+//   "contact": "91121767025"
+// }, {
+//   "id": 6,
+//   "registrationNo": "78118",
+//   "firstName": "Benedetta",
+//   "middleName": null,
+//   "lastName": "Haquin",
+//   "contact": "91695171442"
+// }, {
+//   "id": 7,
+//   "registrationNo": "71215",
+//   "firstName": "Smith",
+//   "middleName": null,
+//   "lastName": "Lamming",
+//   "contact": "91009239166"
+// }, {
+//   "id": 8,
+//   "registrationNo": "56335",
+//   "firstName": "Cob",
+//   "middleName": null,
+//   "lastName": "Blaber",
+//   "contact": "91907163702"
+// }, {
+//   "id": 9,
+//   "registrationNo": "83239",
+//   "firstName": "Aurelie",
+//   "middleName": null,
+//   "lastName": "Dunstan",
+//   "contact": "91045294770"
+// }, {
+//   "id": 10,
+//   "registrationNo": "36146",
+//   "firstName": "Piotr",
+//   "middleName": null,
+//   "lastName": "Hatchard",
+//   "contact": "91286179953"
+// }, {
+//   "id": 11,
+//   "registrationNo": "40917",
+//   "firstName": "Yurik",
+//   "middleName": null,
+//   "lastName": "MacCosty",
+//   "contact": "91200330248"
+// }, {
+//   "id": 12,
+//   "registrationNo": "39815",
+//   "firstName": "Diandra",
+//   "middleName": null,
+//   "lastName": "Porter",
+//   "contact": "91226917238"
+// }, {
+//   "id": 13,
+//   "registrationNo": "17114",
+//   "firstName": "Stephenie",
+//   "middleName": "Kampala",
+//   "lastName": "Mapledoram",
+//   "contact": "91057287863"
+// }, {
+//   "id": 14,
+//   "registrationNo": "23208",
+//   "firstName": "Cris",
+//   "middleName": "Anthony",
+//   "lastName": "Willison",
+//   "contact": "91428329906"
+// }, {
+//   "id": 15,
+//   "registrationNo": "16212",
+//   "firstName": "Fancie",
+//   "middleName": null,
+//   "lastName": "Chattock",
+//   "contact": "91160908495"
+// }, {
+//   "id": 16,
+//   "registrationNo": "75911",
+//   "firstName": "Gerianna",
+//   "middleName": null,
+//   "lastName": "De Castri",
+//   "contact": "91417184128"
+// }, {
+//   "id": 17,
+//   "registrationNo": "72988",
+//   "firstName": "Pearline",
+//   "middleName": null,
+//   "lastName": "Money",
+//   "contact": "91666132456"
+// }, {
+//   "id": 18,
+//   "registrationNo": "15004",
+//   "firstName": "Christabel",
+//   "middleName": "Paducah",
+//   "lastName": "Basilio",
+//   "contact": "91832566980"
+// }, {
+//   "id": 19,
+//   "registrationNo": "29982",
+//   "firstName": "Tracy",
+//   "middleName": null,
+//   "lastName": "Gaines",
+//   "contact": "91393370320"
+// }, {
+//   "id": 20,
+//   "registrationNo": "43014",
+//   "firstName": "Marris",
+//   "middleName": null,
+//   "lastName": "Fosse",
+//   "contact": "91174117978"
+// }, {
+//   "id": 21,
+//   "registrationNo": "12808",
+//   "firstName": "Cammi",
+//   "middleName": "Venice",
+//   "lastName": "Ellins",
+//   "contact": "91841041239"
+// }, {
+//   "id": 22,
+//   "registrationNo": "61607",
+//   "firstName": "Rubia",
+//   "middleName": "Chernofski",
+//   "lastName": "Halfhide",
+//   "contact": "91848228921"
+// }, {
+//   "id": 23,
+//   "registrationNo": "41047",
+//   "firstName": "Vassily",
+//   "middleName": null,
+//   "lastName": "Keemer",
+//   "contact": "91537477691"
+// }, {
+//   "id": 24,
+//   "registrationNo": "84938",
+//   "firstName": "Hermine",
+//   "middleName": null,
+//   "lastName": "Attreed",
+//   "contact": "91742839812"
+// }, {
+//   "id": 25,
+//   "registrationNo": "04291",
+//   "firstName": "Tabbie",
+//   "middleName": null,
+//   "lastName": "Saddleton",
+//   "contact": "91436096176"
+// }, {
+//   "id": 26,
+//   "registrationNo": "05780",
+//   "firstName": "Brewster",
+//   "middleName": null,
+//   "lastName": "Gerold",
+//   "contact": "91140517736"
+// }, {
+//   "id": 27,
+//   "registrationNo": "09593",
+//   "firstName": "Blondelle",
+//   "middleName": "Chaoyang",
+//   "lastName": "Bramley",
+//   "contact": "91366748936"
+// }, {
+//   "id": 28,
+//   "registrationNo": "52468",
+//   "firstName": "Ferne",
+//   "middleName": "Wenzhou",
+//   "lastName": "Lanfare",
+//   "contact": "91522418732"
+// }, {
+//   "id": 29,
+//   "registrationNo": "35914",
+//   "firstName": "Midge",
+//   "middleName": "Pirapora",
+//   "lastName": "Ickovici",
+//   "contact": "91522854273"
+// }, {
+//   "id": 30,
+//   "registrationNo": "10325",
+//   "firstName": "Culver",
+//   "middleName": null,
+//   "lastName": "Baike",
+//   "contact": "91900944363"
+// }]);
+
+// await HOD.bulkCreate([{
+//   "id": 1,
+//   "registrationNo": "66482",
+//   "firstName": "Field",
+//   "middleName": null,
+//   "lastName": "Maben",
+//   "contact": "91986881126"
+// }, {
+//   "id": 2,
+//   "registrationNo": "54376",
+//   "firstName": "Felicity",
+//   "middleName": null,
+//   "lastName": "Scorrer",
+//   "contact": "91061443856"
+// }, {
+//   "id": 3,
+//   "registrationNo": "85699",
+//   "firstName": "Talbert",
+//   "middleName": null,
+//   "lastName": "Tunstall",
+//   "contact": "91366439349"
+// }, {
+//   "id": 4,
+//   "registrationNo": "67194",
+//   "firstName": "Melodee",
+//   "middleName": "Nible",
+//   "lastName": "Phillps",
+//   "contact": "91614552991"
+// }, {
+//   "id": 5,
+//   "registrationNo": "80346",
+//   "firstName": "Pepita",
+//   "middleName": null,
+//   "lastName": "Libbey",
+//   "contact": "91510344345"
+// }, {
+//   "id": 6,
+//   "registrationNo": "51911",
+//   "firstName": "Fielding",
+//   "middleName": "Herris",
+//   "lastName": "Penberthy",
+//   "contact": "91674655326"
+// }, {
+//   "id": 7,
+//   "registrationNo": "01337",
+//   "firstName": "Margarete",
+//   "middleName": null,
+//   "lastName": "Donnett",
+//   "contact": "91586477813"
+// }, {
+//   "id": 8,
+//   "registrationNo": "57512",
+//   "firstName": "Jannelle",
+//   "middleName": null,
+//   "lastName": "Samme",
+//   "contact": "91175078967"
+// }, {
+//   "id": 9,
+//   "registrationNo": "26321",
+//   "firstName": "Florentia",
+//   "middleName": null,
+//   "lastName": "Jubb",
+//   "contact": "91334186508"
+// }, {
+//   "id": 10,
+//   "registrationNo": "13620",
+//   "firstName": "Griswold",
+//   "middleName": null,
+//   "lastName": "Schiell",
+//   "contact": "91507452113"
+// }]);
+
+// await Mentor.bulkCreate([{
+//   "id": 1,
+//   "registrationNo": "34016",
+//   "firstName": "Emelyne",
+//   "middleName": "Zyrtec",
+//   "lastName": "Morphew",
+//   "contact": "91378006541"
+// }, {
+//   "id": 2,
+//   "registrationNo": "08961",
+//   "firstName": "Chiarra",
+//   "middleName": "Triacting",
+//   "lastName": "Edlestone",
+//   "contact": "91422551441"
+// }, {
+//   "id": 3,
+//   "registrationNo": "89399",
+//   "firstName": "Aloise",
+//   "middleName": null,
+//   "lastName": "Augar",
+//   "contact": "91523053689"
+// }, {
+//   "id": 4,
+//   "registrationNo": "29324",
+//   "firstName": "Burnard",
+//   "middleName": "Levaquin",
+//   "lastName": "Davydenko",
+//   "contact": "91402373164"
+// }, {
+//   "id": 5,
+//   "registrationNo": "45019",
+//   "firstName": "Peria",
+//   "middleName": null,
+//   "lastName": "Grindell",
+//   "contact": "91770224367"
+// }, {
+//   "id": 6,
+//   "registrationNo": "46388",
+//   "firstName": "Sibyl",
+//   "middleName": null,
+//   "lastName": "Heasman",
+//   "contact": "91496630613"
+// }, {
+//   "id": 7,
+//   "registrationNo": "84702",
+//   "firstName": "Farlee",
+//   "middleName": "Eley",
+//   "lastName": "Groven",
+//   "contact": "91574465009"
+// }, {
+//   "id": 8,
+//   "registrationNo": "47901",
+//   "firstName": "Lian",
+//   "middleName": null,
+//   "lastName": "Kingsford",
+//   "contact": "91702604014"
+// }, {
+//   "id": 9,
+//   "registrationNo": "41259",
+//   "firstName": "Jan",
+//   "middleName": null,
+//   "lastName": "Follacaro",
+//   "contact": "91931801764"
+// }, {
+//   "id": 10,
+//   "registrationNo": "88859",
+//   "firstName": "Briggs",
+//   "middleName": "Liam",
+//   "lastName": "Searle",
+//   "contact": "91545069766"
+// }, {
+//   "id": 11,
+//   "registrationNo": "05750",
+//   "firstName": "Sheppard",
+//   "middleName": "Fentanyl",
+//   "lastName": "Brimley",
+//   "contact": "91459660350"
+// }, {
+//   "id": 12,
+//   "registrationNo": "79099",
+//   "firstName": "Kirsten",
+//   "middleName": "Strength",
+//   "lastName": "Bhatia",
+//   "contact": "91642828364"
+// }, {
+//   "id": 13,
+//   "registrationNo": "36606",
+//   "firstName": "Ardath",
+//   "middleName": "Clonazepam",
+//   "lastName": "Ratlee",
+//   "contact": "91574523239"
+// }, {
+//   "id": 14,
+//   "registrationNo": "80092",
+//   "firstName": "Libbie",
+//   "middleName": "Hackberry",
+//   "lastName": "Gracewood",
+//   "contact": "91303909109"
+// }, {
+//   "id": 15,
+//   "registrationNo": "75227",
+//   "firstName": "Helaina",
+//   "middleName": "Nadh",
+//   "lastName": "Rounsefell",
+//   "contact": "91191908538"
+// }, {
+//   "id": 16,
+//   "registrationNo": "66192",
+//   "firstName": "Kennith",
+//   "middleName": null,
+//   "lastName": "O'Deoran",
+//   "contact": "91368845744"
+// }, {
+//   "id": 17,
+//   "registrationNo": "74928",
+//   "firstName": "Tammy",
+//   "middleName": null,
+//   "lastName": "Lardnar",
+//   "contact": "91165197031"
+// }, {
+//   "id": 18,
+//   "registrationNo": "16205",
+//   "firstName": "Baxter",
+//   "middleName": null,
+//   "lastName": "Coppeard",
+//   "contact": "91377899550"
+// }, {
+//   "id": 19,
+//   "registrationNo": "76850",
+//   "firstName": "Kaila",
+//   "middleName": null,
+//   "lastName": "Writer",
+//   "contact": "91330239763"
+// }, {
+//   "id": 20,
+//   "registrationNo": "47535",
+//   "firstName": "Binnie",
+//   "middleName": null,
+//   "lastName": "Lempenny",
+//   "contact": "91195525688"
+// }, {
+//   "id": 21,
+//   "registrationNo": "75386",
+//   "firstName": "Mathew",
+//   "middleName": "Aviato",
+//   "lastName": "Leethem",
+//   "contact": "91952400660"
+// }, {
+//   "id": 22,
+//   "registrationNo": "08964",
+//   "firstName": "Janie",
+//   "middleName": null,
+//   "lastName": "Kagan",
+//   "contact": "91470415871"
+// }, {
+//   "id": 23,
+//   "registrationNo": "97908",
+//   "firstName": "Babbette",
+//   "middleName": "Shirli",
+//   "lastName": "Hallgath",
+//   "contact": "91056048927"
+// }, {
+//   "id": 24,
+//   "registrationNo": "13709",
+//   "firstName": "Aaren",
+//   "middleName": null,
+//   "lastName": "Mablestone",
+//   "contact": "91645004276"
+// }, {
+//   "id": 25,
+//   "registrationNo": "94056",
+//   "firstName": "Brynn",
+//   "middleName": null,
+//   "lastName": "Gullivan",
+//   "contact": "91770098512"
+// }, {
+//   "id": 26,
+//   "registrationNo": "88264",
+//   "firstName": "Kessia",
+//   "middleName": null,
+//   "lastName": "Brewitt",
+//   "contact": "91993591818"
+// }, {
+//   "id": 27,
+//   "registrationNo": "59962",
+//   "firstName": "Drusi",
+//   "middleName": null,
+//   "lastName": "Maggiore",
+//   "contact": "91030295648"
+// }, {
+//   "id": 28,
+//   "registrationNo": "67177",
+//   "firstName": "Letizia",
+//   "middleName": null,
+//   "lastName": "Aldine",
+//   "contact": "91842090098"
+// }, {
+//   "id": 29,
+//   "registrationNo": "34619",
+//   "firstName": "Igor",
+//   "middleName": "Pantoprazole Sodium",
+//   "lastName": "Disbrow",
+//   "contact": "91291401626"
+// }, {
+//   "id": 30,
+//   "registrationNo": "51046",
+//   "firstName": "Levey",
+//   "middleName": "Baeni",
+//   "lastName": "Sheryne",
+//   "contact": "91393565265"
+// }]);
+
+// await Hostel.bulkCreate([{
+//   "id": 1,
+//   "name": "BH1",
+//   "block": "A",
+//   "warden": "Davie Phillimore",
+//   "isMainWarden": true,
+//   "contact": "916061223986"
+// }, {
+//   "id": 2,
+//   "name": "BH1",
+//   "block": "B",
+//   "warden": "Idette Derycot",
+//   "isMainWarden": false,
+//   "contact": "919921169824"
+// }, {
+//   "id": 3,
+//   "name": "BH1",
+//   "block": "C",
+//   "warden": "Stearne Haukey",
+//   "isMainWarden": false,
+//   "contact": "911379660840"
+// }, {
+//   "id": 4,
+//   "name": "BH1",
+//   "block": "D",
+//   "warden": "Arabele Timmins",
+//   "isMainWarden": false,
+//   "contact": "917546551055"
+// }, {
+//   "id": 5,
+//   "name": "BH2",
+//   "block": "A",
+//   "warden": "Flemming Pengilley",
+//   "isMainWarden": false,
+//   "contact": "910737709578"
+// }, {
+//   "id": 6,
+//   "name": "BH2",
+//   "block": "B",
+//   "warden": "Trenton Tewkesbury.",
+//   "isMainWarden": true,
+//   "contact": "916653088690"
+// }, {
+//   "id": 7,
+//   "name": "BH2",
+//   "block": "C",
+//   "warden": "Reece Wethered",
+//   "isMainWarden": false,
+//   "contact": "912113593645"
+// }, {
+//   "id": 8,
+//   "name": "BH2",
+//   "block": "D",
+//   "warden": "Lotti Stickel",
+//   "isMainWarden": false,
+//   "contact": "913516917110"
+// }, {
+//   "id": 9,
+//   "name": "BH3",
+//   "block": "A",
+//   "warden": "Wallie Saller",
+//   "isMainWarden": false,
+//   "contact": "911084332028"
+// }, {
+//   "id": 10,
+//   "name": "BH3",
+//   "block": "B",
+//   "warden": "Katy Stelle",
+//   "isMainWarden": false,
+//   "contact": "911520912400"
+// }, {
+//   "id": 11,
+//   "name": "BH3",
+//   "block": "C",
+//   "warden": "Daniella Haslock",
+//   "isMainWarden": true,
+//   "contact": "910201028414"
+// }, {
+//   "id": 12,
+//   "name": "BH3",
+//   "block": "D",
+//   "warden": "Wadsworth Quittonden",
+//   "isMainWarden": false,
+//   "contact": "912975258903"
+// }, {
+//   "id": 13,
+//   "name": "BH4",
+//   "block": "A",
+//   "warden": "Derron Abbotson",
+//   "isMainWarden": false,
+//   "contact": "914966117296"
+// }, {
+//   "id": 14,
+//   "name": "BH4",
+//   "block": "B",
+//   "warden": "Luz Nurdin",
+//   "isMainWarden": false,
+//   "contact": "910644413686"
+// }, {
+//   "id": 15,
+//   "name": "BH4",
+//   "block": "C",
+//   "warden": "Blaine Picardo",
+//   "isMainWarden": true,
+//   "contact": "913251281805"
+// }, {
+//   "id": 16,
+//   "name": "BH4",
+//   "block": "D",
+//   "warden": "Laurella McMeeking",
+//   "isMainWarden": false,
+//   "contact": "916158889131"
+// }, {
+//   "id": 17,
+//   "name": "BH4",
+//   "block": "E",
+//   "warden": "Christos Rice",
+//   "isMainWarden": false,
+//   "contact": "917711904204"
+// }, {
+//   "id": 18,
+//   "name": "BH5",
+//   "block": "A",
+//   "warden": "Clayborne Mancell",
+//   "isMainWarden": false,
+//   "contact": "910436841824"
+// }, {
+//   "id": 19,
+//   "name": "BH5",
+//   "block": "B",
+//   "warden": "Sam Swyre",
+//   "isMainWarden": false,
+//   "contact": "914555454755"
+// }, {
+//   "id": 20,
+//   "name": "BH5",
+//   "block": "C",
+//   "warden": "Aileen Zorzutti",
+//   "isMainWarden": false,
+//   "contact": "914163693496"
+// }, {
+//   "id": 21,
+//   "name": "BH5",
+//   "block": "D",
+//   "warden": "Bronson Minchinton",
+//   "isMainWarden": true,
+//   "contact": "915520872507"
+// }, {
+//   "id": 22,
+//   "name": "BH6",
+//   "block": "A",
+//   "warden": "Camille Sleep",
+//   "isMainWarden": false,
+//   "contact": "910669078593"
+// }, {
+//   "id": 23,
+//   "name": "BH6",
+//   "block": "B",
+//   "warden": "Kareem Blezard",
+//   "isMainWarden": false,
+//   "contact": "914370033406"
+// }, {
+//   "id": 24,
+//   "name": "BH6",
+//   "block": "C",
+//   "warden": "Arturo Exton",
+//   "isMainWarden": true,
+//   "contact": "912128519081"
+// }, {
+//   "id": 25,
+//   "name": "BH6",
+//   "block": "D",
+//   "warden": "Tracey Bumpass",
+//   "isMainWarden": false,
+//   "contact": "910870508603"
+// }, {
+//   "id": 26,
+//   "name": "BH7",
+//   "block": "A",
+//   "warden": "Zulema Conlaund",
+//   "isMainWarden": true,
+//   "contact": "910500803386"
+// }, {
+//   "id": 27,
+//   "name": "BH7",
+//   "block": "B",
+//   "warden": "Gian Renton",
+//   "isMainWarden": false,
+//   "contact": "916654258756"
+// }, {
+//   "id": 28,
+//   "name": "BH7",
+//   "block": "C",
+//   "warden": "Eada Barwise",
+//   "isMainWarden": false,
+//   "contact": "915107081984"
+// }, {
+//   "id": 29,
+//   "name": "GH1",
+//   "block": "A",
+//   "warden": "Jake Scoggins",
+//   "isMainWarden": false,
+//   "contact": "919797593567"
+// }, {
+//   "id": 30,
+//   "name": "GH1",
+//   "block": "B",
+//   "warden": "Lorin Ca",
+//   "isMainWarden": false,
+//   "contact": "911486305548"
+// }, {
+//   "id": 31,
+//   "name": "GH1",
+//   "block": "C",
+//   "warden": "Antonietta Sellens",
+//   "isMainWarden": true,
+//   "contact": "915363462306"
+// }, {
+//   "id": 32,
+//   "name": "GH2",
+//   "block": "A",
+//   "warden": "Bartel Titmus",
+//   "isMainWarden": false,
+//   "contact": "910521782919"
+// }, {
+//   "id": 33,
+//   "name": "GH2",
+//   "block": "B",
+//   "warden": "Blaire Bauer",
+//   "isMainWarden": false,
+//   "contact": "912273251904"
+// }, {
+//   "id": 34,
+//   "name": "GH2",
+//   "block": "C",
+//   "warden": "Alf Castelyn",
+//   "isMainWarden": true,
+//   "contact": "919785126618"
+// }, {
+//   "id": 35,
+//   "name": "GH2",
+//   "block": "D",
+//   "warden": "Amos Aers",
+//   "isMainWarden": false,
+//   "contact": "910149033332"
+// }, {
+//   "id": 36,
+//   "name": "GH3",
+//   "block": "A",
+//   "warden": "Kaycee Klink",
+//   "isMainWarden": true,
+//   "contact": "917934730725"
+// }, {
+//   "id": 37,
+//   "name": "GH3",
+//   "block": "B",
+//   "warden": "Valerie Capinetti",
+//   "isMainWarden": false,
+//   "contact": "917247899569"
+// }, {
+//   "id": 38,
+//   "name": "GH3",
+//   "block": "C",
+//   "warden": "Kacey Saywell",
+//   "isMainWarden": false,
+//   "contact": "910997170493"
+// }, {
+//   "id": 39,
+//   "name": "GH4",
+//   "block": "A",
+//   "warden": "Brina Beushaw",
+//   "isMainWarden": false,
+//   "contact": "914906848720"
+// }, {
+//   "id": 40,
+//   "name": "GH4",
+//   "block": "B",
+//   "warden": "Burg Hansod",
+//   "isMainWarden": false,
+//   "contact": "915896572363"
+// }, {
+//   "id": 41,
+//   "name": "GH4",
+//   "block": "C",
+//   "warden": "Fiorenze Saintpierre",
+//   "isMainWarden": false,
+//   "contact": "914431218387"
+// }, {
+//   "id": 42,
+//   "name": "GH4",
+//   "block": "D",
+//   "warden": "Estelle Errichiello",
+//   "isMainWarden": true,
+//   "contact": "911203843948"
+// }, {
+//   "id": 43,
+//   "name": "GH5",
+//   "block": "A",
+//   "warden": "Jeff Stilgoe",
+//   "isMainWarden": false,
+//   "contact": "914204831080"
+// }, {
+//   "id": 44,
+//   "name": "GH5",
+//   "block": "B",
+//   "warden": "Nolan Breward",
+//   "isMainWarden": false,
+//   "contact": "914648466089"
+// }, {
+//   "id": 45,
+//   "name": "GH5",
+//   "block": "C",
+//   "warden": "Jemimah Sizey",
+//   "isMainWarden": false,
+//   "contact": "918940468592"
+// }, {
+//   "id": 46,
+//   "name": "GH5",
+//   "block": "D",
+//   "warden": "Jerry Covely",
+//   "isMainWarden": true,
+//   "contact": "918921913899"
+// }, {
+//   "id": 47,
+//   "name": "GH6",
+//   "block": "A",
+//   "warden": "Bartram O'Spillane",
+//   "isMainWarden": false,
+//   "contact": "913952384248"
+// }, {
+//   "id": 48,
+//   "name": "GH6",
+//   "block": "B",
+//   "warden": "Tarra Brodeur",
+//   "isMainWarden": false,
+//   "contact": "915867160804"
+// }, {
+//   "id": 49,
+//   "name": "GH6",
+//   "block": "C",
+//   "warden": "Randi Beacham",
+//   "isMainWarden": true,
+//   "contact": "910804146974"
+// }, {
+//   "id": 50,
+//   "name": "GH6",
+//   "block": "D",
+//   "warden": "Nikolia Segge",
+//   "isMainWarden": false,
+//   "contact": "914401905380"
+// }]);

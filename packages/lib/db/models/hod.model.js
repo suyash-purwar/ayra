@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../connect.js';
 
-const Mentor = sequelize.define('mentor', {
+const HOD = sequelize.define('hod', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -18,20 +18,19 @@ const Mentor = sequelize.define('mentor', {
     allowNull: false
   },
   middleName: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   },
   lastName: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   contact: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: DataTypes.STRING
   }
 }, {
-  modelName: 'mentor',
+  modelName: 'hod',
   underscored: true,
   freezeTableName: true
 });
 
-export default Mentor;
+export default HOD;

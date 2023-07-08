@@ -1,12 +1,12 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../connect.js';
 
-const Attendance = sequelize.define('attendance', {
+const TGPA = sequelize.define('tgpa', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   },
   studentId: {
     type: DataTypes.INTEGER,
@@ -16,28 +16,18 @@ const Attendance = sequelize.define('attendance', {
       key: 'id'
     }
   },
-  lectureId: {
+  semester: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'lecture',
-      key: 'id'
-    }
+    allowNull: false
   },
-  status: {
-    type: DataTypes.ENUM,
-    values: ['P', 'A', 'N'],
-    allowNull: false,
-    defaultValue: 'N'
-  },
-  date: {
-    type: DataTypes.DATE,
+  tgpa: {
+    type: DataTypes.FLOAT,
     allowNull: false
   }
 }, {
-  modelName: 'attendance',
+  tableName: 'tgpa',
   underscored: true,
   freezeTableName: true
 });
 
-export default Attendance;
+export default TGPA;

@@ -10,7 +10,8 @@ const Student = sequelize.define('student', {
   },
   registrationNo: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   firstName: {
     type: DataTypes.STRING,
@@ -23,13 +24,28 @@ const Student = sequelize.define('student', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  semester: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   session: {
     type: DataTypes.STRING,
     allowNull: false
   },
+  cgpa: {
+    type: DataTypes.FLOAT
+  },
   contact: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  sectionId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'section',
+      key: 'id'
+    }
   },
   courseId: {
     type: DataTypes.INTEGER,
@@ -38,10 +54,6 @@ const Student = sequelize.define('student', {
       model: 'course',
       key: 'id'
     }
-  },
-  semester: {
-    type: DataTypes.INTEGER,
-    allowNull: false
   },
   mentorId: {
     type: DataTypes.INTEGER,
@@ -75,14 +87,6 @@ const Student = sequelize.define('student', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  section: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  rollNo: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
 }, {
   modelName: 'student',
   underscored: true,

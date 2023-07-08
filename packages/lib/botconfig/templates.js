@@ -1,24 +1,27 @@
 export default {
   initialHello: {
-    name: 'first_hello',
+    name: "first_hello",
     media: [{
-      description: 'Header LPU Logo',
-      mediaId: "3523431781227117"
+      description: "Header LPU Logo",
+      mediaId: "216995051134830"
     }]
   },
-  help:{
-    name: 'help'
+  resultDeclare: {
+    name: "result_declare"
   },
-  hello: {
-    name: 'hello',
-  },
-  attendance: {
-    name: 'attendance'
-  },
-  result: {
-    name: 'result'
-  },
-  moreOptions: {
-    name: 'more_options'
-  }
+  // help:{
+  //   name: "help"
+  // },
+  // hello: {
+  //   name: "hello",
+  // },
+  // attendance: {
+  //   name: "attendance"
+  // },
+  // result: {
+  //   name: "result"
+  // },
+  // moreOptions: {
+  //   name: "more_options"
+  // }
 };

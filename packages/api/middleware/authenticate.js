@@ -28,7 +28,6 @@ const authenticate = async (req, res, next) => {
     return res.sendStatus(200);
   }
   
-  delete student.dataValues.id;
   delete student.dataValues.createdAt;
   delete student.dataValues.updatedAt;
   

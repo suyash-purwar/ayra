@@ -1,32 +1,27 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../connect.js';
 
-const Warden = sequelize.define('warden', {
+const Faculty = sequelize.define('faculty', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true
   },
-  name: {
+  registrationNo: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    unique: true
+  },
+  firstName: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  hostelId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'hostel',
-      key: 'id'
-    }
+  middleName: {
+    type: DataTypes.STRING
   },
-  block: {
-    type: DataTypes.ENUM,
-    values: ['A', 'B', 'C', 'D', 'E'],
-    allowNull: false
-  },
-  isMainWarden: {
-    type: DataTypes.BOOLEAN,
+  lastName: {
+    type: DataTypes.STRING,
     allowNull: false
   },
   contact: {
@@ -34,9 +29,9 @@ const Warden = sequelize.define('warden', {
     allowNull: false
   }
 }, {
-  modelName: 'warden',
+  modelName: 'faculty',
   underscored: true,
   freezeTableName: true
 });
 
-export default Warden;
+export default Faculty;

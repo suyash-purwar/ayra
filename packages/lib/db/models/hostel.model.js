@@ -4,28 +4,36 @@ import sequelize from '../connect.js';
 const Hostel = sequelize.define('hostel', {
   id: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     autoIncrement: true,
-    primaryKey: true,
-    allowNull: false
+    primaryKey: true
   },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      len: 3
+      len: [3, 3],
+      isAlphanumeric: true
     }
   },
-  /**
-   * Sample
-   * blocks: {'A', 'B', 'C', 'D'}
-   */
-  blocks: {
-    type: DataTypes.ARRAY(DataTypes.STRING),
-    allowNull: false,
-    // Add calidator to validae if the items inside the array are capitalized character
+  block: {
+    type: DataTypes.ENUM,
+    values: ['A', 'B', 'C', 'D', 'E'],
+  },
+  warden: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  isMainWarden: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
+  contact: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
-  modelName: 'hostel',
+  tableName: 'hostel',
   underscored: true,
   freezeTableName: true
 });

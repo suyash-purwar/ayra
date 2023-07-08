@@ -6,26 +6,31 @@ const Result = sequelize.define('result', {
     type: DataTypes.INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   },
-  registrationNo: {
+  courseSubjectId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'course_subject',
+      key: 'id'
+    }
   },
-  semester: {
+  studentId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'student',
+      key: 'id'
+    }
   },
-  tgpa: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  marks: {
-    type: DataTypes.ARRAY(DataTypes.JSON),
-    allowNull: false
+  grade: {
+    type: DataTypes.ENUM,
+    allowNull: false,
+    values: ['O', 'A+', 'A', 'B+', 'B', 'C', 'D', 'E', 'F']
   }
 }, {
-  modelName: 'result',
+  tableName: 'result',
   underscored: true,
   freezeTableName: true
 });
