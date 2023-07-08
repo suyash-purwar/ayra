@@ -28,6 +28,7 @@ export const processMessage = async (msgInfo, student) => {
   if ('messages' in value) {
     const recipientNo = +value.contacts[0].wa_id;
     const messageType = value.messages[0].type;
+    const messageId = value.messages[0].id;
     let button;
     switch (messageType) {
       case 'interactive':
@@ -45,8 +46,9 @@ export const processMessage = async (msgInfo, student) => {
         break;
       default:
         console.log(`Only text messages are supported. Received ${messageType}.`);
-        return;
+        break;
     }
+    return messageId;
   } else if ('statuses' in value) {
     const messageStatus = value.statuses[0].status;
     const recipientNo = value.statuses[0].recipient_id;
