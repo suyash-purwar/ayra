@@ -1,6 +1,6 @@
 export default {
   hey: "Send Hey",
-  
+
   help: "Help",
   usageExample: "Example",
   anotherExample: "Another example",
@@ -30,5 +30,5 @@ export default {
   departmentContacts: "Departments Contacts",
   allDepartmentContacts: "All Departments Contact",
   authoritiesContacts: "Authorities Contacts",
-  facultyContacts: "Faculty Contacts"
+  facultyContacts: "Faculty Contacts",
 };

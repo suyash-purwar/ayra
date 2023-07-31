@@ -1,21 +1,21 @@
-import puppeteer from 'puppeteer';
-import fs from 'node:fs/promises';
-import ejs from 'ejs';
-import * as metaAPI from '@ayra/lib/apis/meta.api.js';
-import classifier from '@ayra/lib/apis/openai.api.js';
-import buttons from '@ayra/lib/botconfig/buttons.js';
-import intentList from '@ayra/lib/botconfig/intent.js';
-import { getObjectURL, getObject } from '@ayra/lib/utils/aws.js';
-import sequelize, { 
+import puppeteer from "puppeteer";
+import fs from "node:fs/promises";
+import ejs from "ejs";
+import * as metaAPI from "@ayra/lib/apis/meta.api.js";
+import classifier from "@ayra/lib/apis/openai.api.js";
+import buttons from "@ayra/lib/botconfig/buttons.js";
+import intentList from "@ayra/lib/botconfig/intent.js";
+import { getObjectURL, getObject } from "@ayra/lib/utils/aws.js";
+import sequelize, {
   Department,
   Mentor,
   HOD,
   Section,
   Hostel,
-  Query
-} from '@ayra/lib/db/index.js';
-import templates from '@ayra/lib/botconfig/templates.js';
-import loadConfig from '@ayra/lib/utils/config.js';
+  Query,
+} from "@ayra/lib/db/index.js";
+import templates from "@ayra/lib/botconfig/templates.js";
+import loadConfig from "@ayra/lib/utils/config.js";
 
 loadConfig();
 
@@ -24,33 +24,35 @@ const WORKING_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 export const processMessage = async (msgInfo, student) => {
   const { value, field } = msgInfo;
 
-  if (field !== 'messages') return res.sendStatus(403);
+  if (field !== "messages") return res.sendStatus(403);
 
-  if ('messages' in value) {
+  if ("messages" in value) {
     const recipientNo = +value.contacts[0].wa_id;
     const messageType = value.messages[0].type;
     const messageId = value.messages[0].id;
     let button;
     switch (messageType) {
-      case 'interactive':
+      case "interactive":
         button = value.messages[0].interactive.button_reply.id;
         await processButtonMessage(button, recipientNo, student);
         break;
-      case 'button':
+      case "button":
         button = value.messages[0].button.text;
         await processButtonMessage(button, recipientNo, student);
         break;
-      case 'text':
+      case "text":
         const message = value.messages[0].text.body;
         const keyword = await classifyMsg(message);
         await processTextMessage(keyword, recipientNo, student);
         break;
       default:
-        console.log(`Only text messages are supported. Received ${messageType}.`);
+        console.log(
+          `Only text messages are supported. Received ${messageType}.`
+        );
         break;
     }
     return messageId;
-  } else if ('statuses' in value) {
+  } else if ("statuses" in value) {
     const messageStatus = value.statuses[0].status;
     const recipientNo = value.statuses[0].recipient_id;
     console.log(messageStatus, recipientNo);
@@ -64,37 +66,47 @@ const processButtonMessage = async (button, recipientNo, student) => {
   if (button === buttons.hey) await sendHeyMessage(recipientNo);
   else if (button === buttons.help) await sendHelpMessage(recipientNo);
   else if (button === buttons.result) await sendResultMessage(recipientNo);
-  else if (button === buttons.attendance) await sendAttendanceMessage(recipientNo);
-  else if (button === buttons.attendanceToday ) await getAttendance(recipientNo, student, 'today');
-  else if (button === buttons.attendanceOverall) await getAttendance(recipientNo, student, 'overall');
-  else if (button === buttons.resultLastSemester) await getResult(recipientNo, student, 'last semester');
-  else if (button === buttons.resultPreviousSemester) await getResult(recipientNo, student, 'all semester');
-  else if (button === buttons.moreOptions) await sendMoreOptionMessage(recipientNo);
-  else if (button === buttons.contactMentor) await sendMentorContactMessage(recipientNo, student);
-  else if (button === buttons.moreContacts) await sendMoreContactsMessage(recipientNo);
-  else if (button === buttons.departmentContacts) await sendDepartmentContactMessage(recipientNo);
-  else if (button === buttons.allDepartmentContacts) await sendAllDepartmentContactsMessage(recipientNo);
-  else if (button === buttons.classSchedule) await sendClassScheduleMessage(recipientNo, student);
-  else if (
-    button === buttons.allOptions ||
-    button === buttons.moreExamples
-  ) await sendAllOptionsMessage(recipientNo);
-  else if (
-    button === buttons.usageExample ||
-    button === buttons.howToUse
-  ) await sendUsageExampleMessage(recipientNo);
-  else if (button === buttons.anotherExample) await sendAnotherExampleMessage(recipientNo);
-  else if (button === buttons.authoritiesContacts) await sendAuthoritiesContactMessage(recipientNo, student);
-  else if (button === buttons.facultyContacts) await sendFacultyContactsMessage(recipientNo, student);
+  else if (button === buttons.attendance)
+    await sendAttendanceMessage(recipientNo);
+  else if (button === buttons.attendanceToday)
+    await getAttendance(recipientNo, student, "today");
+  else if (button === buttons.attendanceOverall)
+    await getAttendance(recipientNo, student, "overall");
+  else if (button === buttons.resultLastSemester)
+    await getResult(recipientNo, student, "last semester");
+  else if (button === buttons.resultPreviousSemester)
+    await getResult(recipientNo, student, "all semester");
+  else if (button === buttons.moreOptions)
+    await sendMoreOptionMessage(recipientNo);
+  else if (button === buttons.contactMentor)
+    await sendMentorContactMessage(recipientNo, student);
+  else if (button === buttons.moreContacts)
+    await sendMoreContactsMessage(recipientNo);
+  else if (button === buttons.departmentContacts)
+    await sendDepartmentContactMessage(recipientNo);
+  else if (button === buttons.allDepartmentContacts)
+    await sendAllDepartmentContactsMessage(recipientNo);
+  else if (button === buttons.classSchedule)
+    await sendClassScheduleMessage(recipientNo, student);
+  else if (button === buttons.allOptions || button === buttons.moreExamples)
+    await sendAllOptionsMessage(recipientNo);
+  else if (button === buttons.usageExample || button === buttons.howToUse)
+    await sendUsageExampleMessage(recipientNo);
+  else if (button === buttons.anotherExample)
+    await sendAnotherExampleMessage(recipientNo);
+  else if (button === buttons.authoritiesContacts)
+    await sendAuthoritiesContactMessage(recipientNo, student);
+  else if (button === buttons.facultyContacts)
+    await sendFacultyContactsMessage(recipientNo, student);
 };
 
 const classifyMsg = async (msgText) => {
   const { intent, logprobs } = await classifier(msgText);
-  console.log(typeof intent, logprobs);
+  console.log(intent, logprobs);
 
   await Query.create({
     query: msgText,
-    completion: intent.toString()
+    completion: intent.toString(),
   });
 
   if (logprobs < -0.005) return null;
@@ -103,6 +115,7 @@ const classifyMsg = async (msgText) => {
 };
 
 const processTextMessage = async (intent, recipientNo, student) => {
+  console.log(intent);
   if (intent === intentList[0]) {
     await sendHeyMessage(recipientNo);
   } else if (intent === intentList[1]) {
@@ -112,7 +125,7 @@ const processTextMessage = async (intent, recipientNo, student) => {
   } else if (intent === intentList[3]) {
     await sendDepartmentContactMessage(recipientNo);
   } else if (intent === intentList[4]) {
-    await sendAuthoritiesContactMessage(recipientNo, student);  
+    await sendAuthoritiesContactMessage(recipientNo, student);
   } else if (intent === intentList[5]) {
     await sendClassScheduleMessage(recipientNo, student);
   } else if (intent === intentList[6]) {
@@ -137,25 +150,25 @@ Following are the most frequently asked questions. What would you like to know?`
           type: "reply",
           reply: {
             id: "Attendance",
-            title: "Show Attendance"
-          }
+            title: "Show Attendance",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "Result",
-            title: "Show Result"
-          }
+            title: "Show Result",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "More options",
-            title: "More options"
-          }
-        }
-      ]
-    }
+            title: "More options",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -165,7 +178,7 @@ const sendResultMessage = async (recipientNo) => {
   const message = {
     type: "button",
     body: {
-      text: "Do you want to see the result of the last semester or of all the semesters?"
+      text: "Do you want to see the result of the last semester or of all the semesters?",
     },
     action: {
       buttons: [
@@ -173,18 +186,18 @@ const sendResultMessage = async (recipientNo) => {
           type: "reply",
           reply: {
             id: "Last Semester Result",
-            title: "Last Semester"
-          }
+            title: "Last Semester",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "All Semesters Result",
-            title: "All Semesters"
-          }
-        }
-      ]
-    }
+            title: "All Semesters",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -194,7 +207,7 @@ const sendAttendanceMessage = async (recipientNo) => {
   const message = {
     type: "button",
     body: {
-      text: "Do you want to see today's attendance or overall attendance?"
+      text: "Do you want to see today's attendance or overall attendance?",
     },
     action: {
       buttons: [
@@ -202,18 +215,18 @@ const sendAttendanceMessage = async (recipientNo) => {
           type: "reply",
           reply: {
             id: "Today's Attendance",
-            title: "Today's Attendance"
-          }
+            title: "Today's Attendance",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "Overall Attendance",
-            title: "Overall Attendance"
-          }
-        }
-      ]
-    }
+            title: "Overall Attendance",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -236,25 +249,25 @@ It's easy! Whenever you have a question, just type and hit send. For example, wr
           type: "reply",
           reply: {
             id: "Hey",
-            title: "Send Hey"
-          }
+            title: "Send Hey",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "All options",
-            title: "Show all options"
-          }
+            title: "Show all options",
+          },
         },
         {
           type: "reply",
           reply: {
-            id: 'Example',
-            title: "Give an example"
-          }
-        }
-      ]
-    }
+            id: "Example",
+            title: "Give an example",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -262,8 +275,8 @@ It's easy! Whenever you have a question, just type and hit send. For example, wr
 
 const sendDepartmentContactMessage = async (recipientNo) => {
   const departments = await Department.findAll({
-    attributes: ['name', 'block', 'contact'],
-    limit: 3
+    attributes: ["name", "block", "contact"],
+    limit: 3,
   });
   let text = `*_Following are the contact details of some commonly requested departments._*\n`;
   for (let department of departments) {
@@ -281,11 +294,11 @@ Tel. No.: ${department.contact}\n`;
           type: "reply",
           reply: {
             id: "All Departments Contact",
-            title: "Show all"
-          }
-        }
-      ]
-    }
+            title: "Show all",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -293,8 +306,8 @@ Tel. No.: ${department.contact}\n`;
 
 const sendAllDepartmentContactsMessage = async (recipientNo) => {
   const departments = await Department.findAll({
-    attributes: ['name', 'contact'],
-    offset: 3
+    attributes: ["name", "contact"],
+    offset: 3,
   });
   let text = `_*Following are the contact details of all the rest departments.*_\n`;
   for (let department of departments) {
@@ -303,15 +316,20 @@ Department Name: ${department.name}
 Contact Number: ${department.contact}\n`;
   }
   const message = {
-    body: text
+    body: text,
   };
 
   await metaAPI.sendMessage(recipientNo, message, "text");
 };
 
 const sendIntentNotRecognizedMessage = async (recipientNo) => {
+  const text = `
+I'm sorry! I was unable to understand your question. Can you please write it clearly?
+
+If the problem persists, please contact us at +91 9999999999.`;
+
   const message = {
-    body: "Intent not recognized"
+    body: text,
   };
 
   await metaAPI.sendMessage(recipientNo, message);
@@ -335,17 +353,19 @@ const sendClassScheduleMessage = async (recipientNo, student) => {
   let currentDay = 0;
   for (let schedule of everydaySchedule[0]) {
     if (currentDay != schedule.day) {
-      text += `\n\n*Day: ${WORKING_DAYS[+schedule.day-1]}*`
-      currentDay = schedule.day
+      text += `\n\n*Day: ${WORKING_DAYS[+schedule.day - 1]}*`;
+      currentDay = schedule.day;
     }
-    text += `\nSubject: ${schedule.subject_code.slice(0, 6)} - Timing: ${schedule.slot}`;
+    text += `\nSubject: ${schedule.subject_code.slice(0, 6)} - Timing: ${
+      schedule.slot
+    }`;
   }
   const message = {
-    body: text
+    body: text,
   };
 
   await metaAPI.sendMessage(recipientNo, message, "text");
-}
+};
 
 const sendMoreOptionMessage = async (recipientNo) => {
   const text = `Sure, here are some more options that you might find helpful`;
@@ -358,25 +378,25 @@ const sendMoreOptionMessage = async (recipientNo) => {
           type: "reply",
           reply: {
             id: "Class Schedule",
-            title: "Show Class Schedule"
-          }
+            title: "Show Class Schedule",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "Mentor Contact Number",
-            title: "Contact Mentor"
-          }
+            title: "Contact Mentor",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "More Contact Numbers",
-            title: "Show More Contacts"
-          }
-        }
-      ]
-    }
+            title: "Show More Contacts",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -384,17 +404,21 @@ const sendMoreOptionMessage = async (recipientNo) => {
 
 const sendMentorContactMessage = async (recipientNo, student) => {
   const mentorDetails = await Mentor.findByPk(student.mentorId);
-  const message = [{
-    name: {
-      formatted_name: `${mentorDetails.firstName} ${mentorDetails.lastName}`,
-      first_name: mentorDetails.firstName,
-      last_name: mentorDetails.lastName
+  const message = [
+    {
+      name: {
+        formatted_name: `${mentorDetails.firstName} ${mentorDetails.lastName}`,
+        first_name: mentorDetails.firstName,
+        last_name: mentorDetails.lastName,
+      },
+      phones: [
+        {
+          phone: mentorDetails.contact,
+          type: "Work",
+        },
+      ],
     },
-    phones: [{
-      phone: mentorDetails.contact,
-      type: "Work"
-    }]
-  }];
+  ];
 
   await metaAPI.sendMessage(recipientNo, message, "contacts");
 };
@@ -419,7 +443,7 @@ const sendAllOptionsMessage = async (recipientNo) => {
     Example: phone number of teachers/mentor/HOD`;
 
   const message = {
-    body: text
+    body: text,
   };
 
   await metaAPI.sendMessage(recipientNo, message, "text");
@@ -440,11 +464,11 @@ Type 'Show time table' and hit enter. I'll show you the schedule of classes.`;
           type: "reply",
           reply: {
             id: "Another example",
-            title: "Give another example"
-          }
-        }
-      ]
-    }
+            title: "Give another example",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -454,7 +478,7 @@ const sendAnotherExampleMessage = async (recipientNo) => {
   const text = `
 *_Sure, here's another example._*
   
-Type 'Show attendance' and hit send. In return, I'll ask you whether you want to see today's attendance or overall attendance.`
+Type 'Show attendance' and hit send. In return, I'll ask you whether you want to see today's attendance or overall attendance.`;
 
   const message = {
     type: "button",
@@ -465,11 +489,11 @@ Type 'Show attendance' and hit send. In return, I'll ask you whether you want to
           type: "reply",
           reply: {
             id: "More examples",
-            title: "Show more examples"
-          }
-        }
-      ]
-    }
+            title: "Show more examples",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -487,18 +511,18 @@ const sendMoreContactsMessage = async (recipientNo) => {
           type: "reply",
           reply: {
             id: "Departments Contacts",
-            title: "Departments Contacts"
-          }
+            title: "Departments Contacts",
+          },
         },
         {
           type: "reply",
           reply: {
             id: "Authorities Contacts",
-            title: "Authorities Contacts"
-          }
-        }
-      ]
-    }
+            title: "Authorities Contacts",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -506,18 +530,23 @@ const sendMoreContactsMessage = async (recipientNo) => {
 
 const sendAuthoritiesContactMessage = async (recipientNo, student) => {
   const mentor = await Mentor.findByPk(student.mentorId, {
-    attributes: ['firstName', 'middleName', 'lastName', 'contact']
+    attributes: ["firstName", "middleName", "lastName", "contact"],
   });
   const section = await Section.findByPk(student.sectionId, {
-    attributes: ['hodId']
+    attributes: ["hodId"],
   });
   const hod = await HOD.findByPk(section.hodId, {
-    attributes: ['firstName', 'middleName', 'lastName', 'contact']
+    attributes: ["firstName", "middleName", "lastName", "contact"],
   });
   const hostel = await Hostel.findByPk(student.hostelId, {
-    attributes: ['warden', 'contact']
+    attributes: ["warden", "contact"],
   });
-  console.log(mentor.firstName, mentor.middleName, mentor.lastName, mentor.contact);
+  console.log(
+    mentor.firstName,
+    mentor.middleName,
+    mentor.lastName,
+    mentor.contact
+  );
   console.log(hod.firstName, hod.middleName, hod.lastName, hod.contact);
   console.log(hostel.warden, hostel.contact);
 
@@ -544,11 +573,11 @@ If you want to see contact details of your ward's faculty, click on the button b
           type: "reply",
           reply: {
             id: "Faculty Contacts",
-            title: "See Faculty Contacts"
-          }
-        }
-      ]
-    }
+            title: "See Faculty Contacts",
+          },
+        },
+      ],
+    },
   };
 
   await metaAPI.sendMessage(recipientNo, message, "interactive");
@@ -575,17 +604,17 @@ const sendFacultyContactsMessage = async (recipientNo, student) => {
 Faculty Name: ${faculty.first_name} ${faculty.last_name}
 Subject Code: ${faculty.subject_code.slice(0, 6)}
 Contact: ${faculty.contact}`;
-  };
-  const message = {
-    body: text
   }
+  const message = {
+    body: text,
+  };
   await metaAPI.sendMessage(recipientNo, message, "text");
-}
+};
 
 const getAttendance = async (recipientNo, student, attendanceType) => {
   let uri = `${process.env.API_URI}/webhook/getAttendanceImage?id=${student.id}&attendanceType=${attendanceType}`;
   const message = {
-    link:  uri
+    link: uri,
   };
   await metaAPI.sendMessage(recipientNo, message, "image");
 };
@@ -593,14 +622,14 @@ const getAttendance = async (recipientNo, student, attendanceType) => {
 const getResult = async (recipientNo, student, resultType) => {
   let fileName;
   switch (resultType) {
-    case 'last semester':
+    case "last semester":
       fileName = `Last Semester Result ${student.registrationNo}.pdf`;
       break;
-    case 'all semester':
+    case "all semester":
       fileName = `All Semester Result ${student.registrationNo}.pdf`;
       break;
   }
-  const url = await getObjectURL('result', fileName);
+  const url = await getObjectURL("result", fileName);
   const message = [
     {
       type: "header",
@@ -609,55 +638,81 @@ const getResult = async (recipientNo, student, resultType) => {
           type: "document",
           document: {
             link: url,
-            filename: fileName
-          }
-        }
-      ]
+            filename: fileName,
+          },
+        },
+      ],
     },
     {
       type: "body",
       parameters: [
         {
           type: "text",
-          text: student.fatherName
+          text: student.fatherName,
         },
         {
           type: "text",
-          text: student.semester
-        }
-      ]
-    }
+          text: student.semester,
+        },
+      ],
+    },
   ];
 
-  await metaAPI.sendTemplate(recipientNo, templates.resultDeclare.name, message);
+  await metaAPI.sendTemplate(
+    recipientNo,
+    templates.resultDeclare.name,
+    message
+  );
 };
 
 const generateAttendanceImage = async (studentData, attendanceType) => {
-  const lpuLogoImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/bot-assets/Bot Profile Picture.png')).toString('base64');
-  const presentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/present.png')).toString('base64');
-  const waitingImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/waiting.png')).toString('base64');
-  const absentImg = (await fs.readFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/absent.png')).toString('base64');
-  const studentProfileImg = await getObject('profile-image', `${studentData.registrationNo}.png`);
-  
-  const html = await ejs.renderFile('/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/attendance.ejs', {
-    pageAssets: {
-      lpuLogoImg,
-      studentProfileImg,
-      presentImg,
-      waitingImg,
-      absentImg
-    },
-    attendanceType,
-    ...studentData
-  });
+  const lpuLogoImg = (
+    await fs.readFile(
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/bot-assets/Bot Profile Picture.png"
+    )
+  ).toString("base64");
+  const presentImg = (
+    await fs.readFile(
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/present.png"
+    )
+  ).toString("base64");
+  const waitingImg = (
+    await fs.readFile(
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/waiting.png"
+    )
+  ).toString("base64");
+  const absentImg = (
+    await fs.readFile(
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/absent.png"
+    )
+  ).toString("base64");
+  const studentProfileImg = await getObject(
+    "profile-image",
+    `${studentData.registrationNo}.png`
+  );
+
+  const html = await ejs.renderFile(
+    "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/attendance.ejs",
+    {
+      pageAssets: {
+        lpuLogoImg,
+        studentProfileImg,
+        presentImg,
+        waitingImg,
+        absentImg,
+      },
+      attendanceType,
+      ...studentData,
+    }
+  );
 
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: 'domcontentloaded' });
-  await page.emulateMediaType('screen');
-  await page.setViewport({width: 1920, height: 2080});
+  await page.setContent(html, { waitUntil: "domcontentloaded" });
+  await page.emulateMediaType("screen");
+  await page.setViewport({ width: 1920, height: 2080 });
   const imageBuffer = await page.screenshot({
-    omitBackground: false
+    omitBackground: false,
   });
   await browser.close();
   return imageBuffer;
@@ -666,7 +721,7 @@ const generateAttendanceImage = async (studentData, attendanceType) => {
 // Webhook
 // Serve attendance images when requested from Meta
 export const getAttendanceImage = async (studentId, attendanceType) => {
-  const [ student ] = await sequelize.query(`
+  const [student] = await sequelize.query(`
     SELECT 
       registration_no,
       first_name,
@@ -681,8 +736,10 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
   `);
   const studentData = {
     registrationNo: student[0].registration_no,
-    name: `${student[0].first_name} ${student[0].middle_name || ''} ${student[0].last_name}`,
-    courseCode: student[0].course_code
+    name: `${student[0].first_name} ${student[0].middle_name || ""} ${
+      student[0].last_name
+    }`,
+    courseCode: student[0].course_code,
   };
 
   // Show today's attendance differently on each day
@@ -693,9 +750,9 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
   if (day == 0 || day == 6) day = 5;
 
   switch (attendanceType) {
-    case 'today':
+    case "today":
       // Fetches the today's attendance in the lectures commenced today
-      const [ todaysAttendance ] = await sequelize.query(`
+      const [todaysAttendance] = await sequelize.query(`
         SELECT 
           sub.subject_code,
           a.status,
@@ -712,9 +769,9 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
       `);
       studentData.attendance = todaysAttendance;
       break;
-    case 'overall':
+    case "overall":
       // Fetches the overall attendance in all subject of the current semester
-      const [ overallAttendance ] = await sequelize.query(`
+      const [overallAttendance] = await sequelize.query(`
         SELECT 
           subject_code,
           attendance
@@ -727,6 +784,9 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
       studentData.attendance = overallAttendance;
       break;
   }
-  const imageBuffer = await generateAttendanceImage(studentData, attendanceType);
+  const imageBuffer = await generateAttendanceImage(
+    studentData,
+    attendanceType
+  );
   return imageBuffer;
 };

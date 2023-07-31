@@ -1,5 +1,5 @@
-import axios from 'axios';
-import loadConfig from '@ayra/lib/utils/config.js';
+import axios from "axios";
+import loadConfig from "@ayra/lib/utils/config.js";
 
 loadConfig();
 
@@ -9,12 +9,12 @@ const markAsRead = async (req, res) => {
   const requestBody = {
     messaging_product: "whatsapp",
     status: "read",
-    message_id: req.body.messageId
+    message_id: req.body.messageId,
   };
   const config = {
     headers: {
-      Authorization: `Bearer ${process.env.META_ACCESS_TOKEN}`
-    }
+      Authorization: `Bearer ${process.env.META_ACCESS_TOKEN}`,
+    },
   };
   await axios.post(uri, requestBody, config);
   res.sendStatus(200);

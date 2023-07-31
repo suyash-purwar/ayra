@@ -1,13 +1,15 @@
 export default {
   initialHello: {
     name: "first_hello",
-    media: [{
-      description: "Header LPU Logo",
-      mediaId: "216995051134830"
-    }]
+    media: [
+      {
+        description: "Header LPU Logo",
+        mediaId: "281169127863868",
+      },
+    ],
   },
   resultDeclare: {
-    name: "result_declare"
+    name: "result_declare",
   },
   // help:{
   //   name: "help"

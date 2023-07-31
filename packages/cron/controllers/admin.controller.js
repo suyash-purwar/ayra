@@ -1,9 +1,10 @@
-import * as adminServices from './../services/admin.services.js';
+import * as adminServices from "./../services/admin.services.js";
 
 export const firstHello = async (req, res) => {
   try {
     const { recipientNo } = req.body;
     await adminServices.firstHello(recipientNo);
+    console.log("done");
   } catch (e) {
     console.log(e);
   }
@@ -73,7 +74,7 @@ export const publishResult = async (req, res) => {
 export const postUMC = async (req, res) => {
   try {
     const { id, reason, conclusion } = req.body;
-    console.log(req.body)
+    console.log(req.body);
     await adminServices.postUMC(id, reason, conclusion);
     res.sendStatus(200);
   } catch (e) {

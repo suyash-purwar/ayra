@@ -1,5 +1,5 @@
-import { Sequelize } from 'sequelize';
-import loadConfig from '../utils/config.js';
+import { Sequelize } from "sequelize";
+import loadConfig from "../utils/config.js";
 
 loadConfig();
 
@@ -9,7 +9,7 @@ const sequelize = new Sequelize({
   password: process.env.POSTGRES_DB_PASSWORD,
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,
-  dialect: 'postgres'
+  dialect: "postgres",
 });
 
 export default sequelize;
