@@ -102,7 +102,7 @@ const processButtonMessage = async (button, recipientNo, student) => {
 
 const classifyMsg = async (msgText) => {
   const { intent, logprobs } = await classifier(msgText);
-  console.log(intent, logprobs);
+  console.log(intent, logprobs, msgText);
 
   await Query.create({
     query: msgText,
@@ -115,7 +115,6 @@ const classifyMsg = async (msgText) => {
 };
 
 const processTextMessage = async (intent, recipientNo, student) => {
-  console.log(intent);
   if (intent === intentList[0]) {
     await sendHeyMessage(recipientNo);
   } else if (intent === intentList[1]) {
@@ -541,14 +540,6 @@ const sendAuthoritiesContactMessage = async (recipientNo, student) => {
   const hostel = await Hostel.findByPk(student.hostelId, {
     attributes: ["warden", "contact"],
   });
-  console.log(
-    mentor.firstName,
-    mentor.middleName,
-    mentor.lastName,
-    mentor.contact
-  );
-  console.log(hod.firstName, hod.middleName, hod.lastName, hod.contact);
-  console.log(hostel.warden, hostel.contact);
 
   const text = `
 _*Sure, here are the contact number of authorities you can reach out to.*_
@@ -762,7 +753,7 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
         JOIN attendance a ON a.student_id = s.id
         JOIN lecture l ON l.id = a.lecture_id
         JOIN course_subject cs ON cs.id = l.course_subject_id
-        JOIN subject sub ON sub.id = cs.id
+        JOIN subject sub ON sub.id = cs.subject_id
         JOIN hour_slot hs ON hs.id = l.hour_slot_id
         WHERE s.id=${studentId} AND day='${day.toString()}'
         ORDER BY hs.id;
@@ -779,7 +770,7 @@ export const getAttendanceImage = async (studentId, attendanceType) => {
         JOIN overall_attendance oa ON oa.student_id = s.id
         JOIN course_subject cs ON cs.id = oa.course_subject_id
         JOIN subject sub ON sub.id = cs.subject_id
-        WHERE cs.semester = s.semester AND s.id=${studentId};
+        WHERE s.id=${studentId};
       `);
       studentData.attendance = overallAttendance;
       break;

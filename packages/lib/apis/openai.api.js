@@ -24,9 +24,9 @@ const classifier = async (query) => {
   } catch (e) {
     switch (e.message) {
       default:
+        console.log(e.message);
         console.log(e);
-      // console.log(e);
-      // throw new Error("OPENAI_SERVICE_DOWN");
+        throw new Error("OPENAI_SERVICE_DOWN");
     }
   }
 };
