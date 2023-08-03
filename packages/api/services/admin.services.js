@@ -1,17 +1,17 @@
-import * as metaAPI from '@ayra/lib/apis/meta.api.js';
-import sequelize, { Student, TGPA } from '@ayra/lib/db/index.js';
-import templates from '@ayra/lib/botconfig/templates.js';
-import ejs from 'ejs';
-import puppeteer from 'puppeteer';
-import fs from 'node:fs/promises';
-import { addToBucket, getObject, getObjectURL } from '@ayra/lib/utils/aws.js';
+import * as metaAPI from "@ayra/lib/apis/meta.api.js";
+import sequelize, { Student, TGPA } from "@ayra/lib/db/index.js";
+import templates from "@ayra/lib/botconfig/templates.js";
+import ejs from "ejs";
+import puppeteer from "puppeteer";
+import fs from "node:fs/promises";
+import { addToBucket, getObject, getObjectURL } from "@ayra/lib/utils/aws.js";
 
 export const firstHello = async (recipientNo) => {
   await metaAPI.sendTemplate(recipientNo, templates.initialHello.name);
 };
 
 const fetchNextBatchOfStudents = async (offset) => {
-  const students =  await sequelize.query(`
+  const students = await sequelize.query(`
     SELECT 
       s.id,
       registration_no,
@@ -50,26 +50,26 @@ const fetchStudentResult = async (studentId) => {
   // Get semester wise tgpa
   const tgpa = await TGPA.findAll({
     where: { studentId },
-    attributes: ['semester', 'tgpa']
+    attributes: ["semester", "tgpa"],
   });
-  return { 
+  return {
     studentSemesterWiseGrades: result[0],
-    studentSemesterWiseTGPA: tgpa 
+    studentSemesterWiseTGPA: tgpa,
   };
 };
 
 const combineAndFormatStudentData = (student, studentPhoto, grades, tgpa) => {
-  delete student['id'];
+  delete student["id"];
   student.photo = studentPhoto;
   const pdfData = {
     ...student,
-    result: []
+    result: [],
   };
   for (let semesterTgpa of tgpa) {
     pdfData.result.push({
       semester: semesterTgpa.semester,
       tgpa: semesterTgpa.tgpa,
-      grades: []
+      grades: [],
     });
   }
   for (let grade of grades) {
@@ -87,25 +87,36 @@ const launchBrowser = async () => {
   // Renders Pdf
   return {
     async renderPdf(pdfData) {
-      const resultTemplatePath = "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/result.ejs";
+      const resultTemplatePath =
+        "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/result.ejs";
       const registrationNo = pdfData.student.registration_no;
-      
-      pdfData.resultType = 'all semester';
-      const allSemesterPdfHtml = await ejs.renderFile(resultTemplatePath, pdfData);
-      await tabForAllSemesterPdf.setContent(allSemesterPdfHtml, { waitUntil: 'domcontentloaded' });
-      await tabForAllSemesterPdf.emulateMediaType('screen');
+
+      pdfData.resultType = "all semester";
+      const allSemesterPdfHtml = await ejs.renderFile(
+        resultTemplatePath,
+        pdfData
+      );
+      await tabForAllSemesterPdf.setContent(allSemesterPdfHtml, {
+        waitUntil: "domcontentloaded",
+      });
+      await tabForAllSemesterPdf.emulateMediaType("screen");
       const allSemesterResultPdfBuffer = await tabForAllSemesterPdf.pdf({
         printBackground: true,
-        format: 'A4'
+        format: "A4",
       });
 
-      pdfData.resultType = 'last semester';
-      const lastSemesterPdfHtml = await ejs.renderFile(resultTemplatePath, pdfData);
-      await tabForLastSemesterPdf.setContent(lastSemesterPdfHtml, { waitUntil: 'domcontentloaded' });
-      await tabForAllSemesterPdf.emulateMediaType('screen');
+      pdfData.resultType = "last semester";
+      const lastSemesterPdfHtml = await ejs.renderFile(
+        resultTemplatePath,
+        pdfData
+      );
+      await tabForLastSemesterPdf.setContent(lastSemesterPdfHtml, {
+        waitUntil: "domcontentloaded",
+      });
+      await tabForAllSemesterPdf.emulateMediaType("screen");
       const lastSemesterResultPdfBuffer = await tabForLastSemesterPdf.pdf({
         printBackground: true,
-        format: 'A4'
+        format: "A4",
       });
 
       return {
@@ -115,14 +126,20 @@ const launchBrowser = async () => {
         },
         allSemesterResultPdf: {
           filename: `All Semester Result ${registrationNo}.pdf`,
-          buffer: allSemesterResultPdfBuffer
-        }
+          buffer: allSemesterResultPdfBuffer,
+        },
       };
-    }
-  }
-}
+    },
+  };
+};
 
-const sendLastSemesterResultToParents = async (fatherName, fatherContact, semester, pdfName, pdfUrl) => {
+const sendLastSemesterResultToParents = async (
+  fatherName,
+  fatherContact,
+  semester,
+  pdfName,
+  pdfUrl
+) => {
   const message = [
     {
       type: "header",
@@ -131,68 +148,97 @@ const sendLastSemesterResultToParents = async (fatherName, fatherContact, semest
           type: "document",
           document: {
             link: pdfUrl,
-            filename: pdfName
-          }
-        }
-      ]
+            filename: pdfName,
+          },
+        },
+      ],
     },
     {
       type: "body",
       parameters: [
         {
           type: "text",
-          text: fatherName
+          text: fatherName,
         },
         {
           type: "text",
-          text: semester
-        }
-      ]
-    }
+          text: semester,
+        },
+      ],
+    },
   ];
 
-  await metaAPI.sendTemplate(fatherContact, templates.resultDeclare.name, message);
+  await metaAPI.sendTemplate(
+    fatherContact,
+    templates.resultDeclare.name,
+    message
+  );
 };
 
 export const publishResult = async () => {
   // Get static resources
-  const lpuLogo = (await fs.readFile("/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/raw/full-logo-no-bg.png")).toString("base64");
+  const lpuLogo = (
+    await fs.readFile(
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/raw/full-logo-no-bg.png"
+    )
+  ).toString("base64");
   const pdfData = {
     pdfAssets: {
-      lpuLogo
-    }
+      lpuLogo,
+    },
   };
   const offset = 0;
   const browser = await launchBrowser();
   let studentsBatch;
   do {
-    let index = 0;  
+    let index = 0;
     // Fetches the data of 10 students at once
     studentsBatch = await fetchNextBatchOfStudents(offset);
     while (index < studentsBatch.length) {
       const student = studentsBatch[index];
-      const { studentSemesterWiseGrades, studentSemesterWiseTGPA } = await fetchStudentResult(student.id);
-      
+      const { studentSemesterWiseGrades, studentSemesterWiseTGPA } =
+        await fetchStudentResult(student.id);
+
       // Get student's photo from S3
-      const studentPhoto = await getObject('profile-image', `${student.registration_no}.png`);
-  
+      const studentPhoto = await getObject(
+        "profile-image",
+        `${student.registration_no}.png`
+      );
+
       // Unify the student, studentSemesterWiseGrades, studentSemesterWiseTGPA, and studentPhoto into a single coherent object
-      let completeStudentData = combineAndFormatStudentData(student, studentPhoto, studentSemesterWiseGrades, studentSemesterWiseTGPA);
+      let completeStudentData = combineAndFormatStudentData(
+        student,
+        studentPhoto,
+        studentSemesterWiseGrades,
+        studentSemesterWiseTGPA
+      );
       pdfData.student = completeStudentData;
-  
+
       // Generate PDF and get the buffers of them
-      const { lastSemesterResultPdf, allSemesterResultPdf } = await browser.renderPdf(pdfData);
-  
+      const { lastSemesterResultPdf, allSemesterResultPdf } =
+        await browser.renderPdf(pdfData);
+
       // Push the all semesters and previous semesters result to S3 bucket
-      await addToBucket('result', lastSemesterResultPdf.filename, lastSemesterResultPdf.buffer);
-      await addToBucket('result', allSemesterResultPdf.filename, allSemesterResultPdf.buffer);
-      
-      let lastSemesterResultPdfUrl = await getObjectURL('result', lastSemesterResultPdf.filename);
-  
+      await addToBucket(
+        "result",
+        lastSemesterResultPdf.filename,
+        lastSemesterResultPdf.buffer
+      );
+      await addToBucket(
+        "result",
+        allSemesterResultPdf.filename,
+        allSemesterResultPdf.buffer
+      );
+
+      let lastSemesterResultPdfUrl = await getObjectURL(
+        "result",
+        lastSemesterResultPdf.filename
+      );
+
       console.log(lastSemesterResultPdfUrl);
       await sendLastSemesterResultToParents(
         student.father_name,
-        student.father_contact, 
+        student.father_contact,
         student.semester,
         lastSemesterResultPdf.filename,
         lastSemesterResultPdfUrl
@@ -205,9 +251,10 @@ export const publishResult = async () => {
 export const postUMC = async (id, reason, conclusion) => {
   const student = await Student.findOne({
     where: {
-      registrationNo: +id
-    }
+      registrationNo: +id,
+    },
   });
+
   const text = `
 Respected ${student.dataValues.fatherName},
 
@@ -219,10 +266,10 @@ Punishment/Fine: ${conclusion}
 
 For any queries, contact Security Office.
 Contact: +91 9747273623
-  `
+  `;
   const message = {
-    body: text
+    body: text,
   };
+
   await metaAPI.sendMessage(student.fatherContact, message, "text");
-  await metaAPI.sendTextMessage(student.fatherContact, msg);
 };

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import routes from "./routes/index.js";
 import sequelize from "@ayra/lib/db/index.js";
 import loadConfig from "@ayra/lib/utils/config.js";
@@ -7,6 +7,7 @@ loadConfig();
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 app.get("/", (req, res) => {
@@ -24,5 +25,6 @@ app.listen(process.env.API_PORT, async () => {
   } catch (e) {
     console.log("Database connection failed. 🔴");
     console.log(e.message);
+    console.log(e);
   }
 });
