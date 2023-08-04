@@ -1,0 +1,29 @@
+<% let cardColor; %>
+<% let attendanceStatus; %>
+<% if (subject.status === 'P') { %>
+  <% cardColor = 'green'; %>
+  <% attendanceStatus = 'present' %>
+<% } else if (subject.status === 'A') { %> 
+  <% cardColor = 'red'; %>
+  <% attendanceStatus = 'absent' %>
+<% } else if (subject.status === 'N') { %>
+  <% cardColor = 'orange'; %>
+  <% attendanceStatus = 'waiting' %>
+<% } %>
+
+<div class="todays-attendance-card todays-attendance-card--<%= cardColor %>">
+  <div class="todays-attendance-left">
+    <div class="todays-attendance-left-content">
+      <img src="data:image/png;base64,<%= pageAssets[attendanceStatus + 'Img'] %>" alt="<%= attendanceStatus %>">
+      <p class="attendance-status">
+        <%= attendanceStatus[0].toUpperCase() + attendanceStatus.slice(1) %>
+      </p>
+    </div>
+  </div>
+  <div class="todays-attendance-right">
+    <div class="todays-attendance-right-content">
+      <h5 class="class-name"><%= subject.subject_code %></h5>
+      <p class="class-time">Timing: <%= subject.slot %></p>
+    </div>
+  </div>
+</div>

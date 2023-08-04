@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('../css/result-style.ejs') %>
+  <title>Result</title>
+</head>
+<body>
+  <header class="header">
+    <div class="logo-wrapper">
+      <img src="data:image/png;base64,<%= pdfAssets.lpuLogo %>" alt="LPU logo" class="logo">
+    </div>
+    <h1 class="header-heading">
+      <%= (resultType === 'all semester') ? 'Academic Report Of All Semesters' : `Academic Report Of Semester ${student.semester}` %>
+    </h1>
+  </header>
+  <section class="student-info-section">
+    <div class="student-info-profile">
+      <img src="data:image/png;base64,<%= student.photo %>" alt="Profile Picture" class="profile">
+    </div>
+    <div></div>
+    <div class="student-info-content">
+      <div class="student-info-row">
+        <p class="student-info-field">Name:</p>
+        <p class="student-info-value"><%= `${student.first_name} ${student.middle_name || ''} ${student.last_name}` %></p>
+
+        <p class="student-info-field">Registration No.:</p>
+        <p class="student-info-value"><%= student.registration_no %></p>
+
+        <p class="student-info-field">Father's Name:</p>
+        <p class="student-info-value"><%= student.father_name %></p>
+
+        <p class="student-info-field">Mother's Name:</p>
+        <p class="student-info-value"><%= student.mother_name %></p>
+      </div>
+    </div>
+    <div></div>
+    <div class="student-info-content">
+      <div class="student-info-row">
+        <p class="student-info-field">Programme: </p>
+        <p class="student-info-value"><%= student.course_code %></p>
+
+        <p class="student-info-field">Session:</p>
+        <p class="student-info-value"><%= student.session %></p>
+      </div>
+    </div>
+  </section>
+  <% if (resultType === 'all semester') { %>
+    <%- include('./partials/grade-scale.ejs') %>
+    <% for (let semester of student.result) { %>
+      <% console.log(semester, "hehe") %>
+      <%- include('./partials/semester-result.ejs', semester) %>
+    <% } %>
+  <% } else { %>
+    <%- include('./partials/semester-result.ejs', student.result[student.result.length - 1]) %>
+    <%- include('./partials/grade-scale.ejs') %>
+  <% } %>
+</body>
+</html>

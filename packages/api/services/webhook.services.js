@@ -1,11 +1,11 @@
 import puppeteer from "puppeteer";
 import fs from "node:fs/promises";
 import ejs from "ejs";
-import * as metaAPI from "@ayra/lib/apis/meta.api.js";
-import classifier from "@ayra/lib/apis/openai.api.js";
-import buttons from "@ayra/lib/botconfig/buttons.js";
-import intentList from "@ayra/lib/botconfig/intent.js";
-import { getObjectURL, getObject } from "@ayra/lib/utils/aws.js";
+import * as metaAPI from "../apis/meta.api.js";
+import classifier from "../apis/openai.api.js";
+import buttons from "../botconfig/buttons.js";
+import intentList from "../botconfig/intent.js";
+import { getObjectURL, getObject } from "../utils/aws.js";
 import sequelize, {
   Department,
   Mentor,
@@ -13,11 +13,8 @@ import sequelize, {
   Section,
   Hostel,
   Query,
-} from "@ayra/lib/db/index.js";
-import templates from "@ayra/lib/botconfig/templates.js";
-import loadConfig from "@ayra/lib/utils/config.js";
-
-loadConfig();
+} from "../db/index.js";
+import templates from "../botconfig/templates.js";
 
 const WORKING_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -109,7 +106,7 @@ const classifyMsg = async (msgText) => {
     completion: intent.toString(),
   });
 
-  if (logprobs < -0.005) return null;
+  if (logprobs < -0.05 && msgText !== "help") return null;
 
   return intentList[intent];
 };
@@ -659,22 +656,22 @@ const getResult = async (recipientNo, student, resultType) => {
 const generateAttendanceImage = async (studentData, attendanceType) => {
   const lpuLogoImg = (
     await fs.readFile(
-      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/bot-assets/Bot Profile Picture.png"
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/bot-assets/Bot Profile Picture.png"
     )
   ).toString("base64");
   const presentImg = (
     await fs.readFile(
-      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/present.png"
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/misc/present.png"
     )
   ).toString("base64");
   const waitingImg = (
     await fs.readFile(
-      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/waiting.png"
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/misc/waiting.png"
     )
   ).toString("base64");
   const absentImg = (
     await fs.readFile(
-      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/misc/absent.png"
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/misc/absent.png"
     )
   ).toString("base64");
   const studentProfileImg = await getObject(
@@ -683,7 +680,7 @@ const generateAttendanceImage = async (studentData, attendanceType) => {
   );
 
   const html = await ejs.renderFile(
-    "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/attendance.ejs",
+    "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/static/template/attendance.ejs",
     {
       pageAssets: {
         lpuLogoImg,

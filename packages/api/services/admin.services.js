@@ -1,10 +1,10 @@
-import * as metaAPI from "@ayra/lib/apis/meta.api.js";
-import sequelize, { Student, TGPA } from "@ayra/lib/db/index.js";
-import templates from "@ayra/lib/botconfig/templates.js";
+import * as metaAPI from "../apis/meta.api.js";
+import sequelize, { Student, TGPA } from "../db/index.js";
+import templates from "../botconfig/templates.js";
 import ejs from "ejs";
 import puppeteer from "puppeteer";
 import fs from "node:fs/promises";
-import { addToBucket, getObject, getObjectURL } from "@ayra/lib/utils/aws.js";
+import { addToBucket, getObject, getObjectURL } from "../utils/aws.js";
 
 export const firstHello = async (recipientNo) => {
   await metaAPI.sendTemplate(recipientNo, templates.initialHello.name);

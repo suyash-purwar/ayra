@@ -1,4 +1,4 @@
-import { Student } from "@ayra/lib/db/index.js";
+import { Student } from "../db/index.js";
 import { Op } from "sequelize";
 
 const authenticate = async (req, res, next) => {

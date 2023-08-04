@@ -1,0 +1,30 @@
+<% let s_no = 1; %>
+
+<section class="semester-result">
+  <h3 class="semester-result-header"><%= `Semester: ${semester}` %></h3>
+  <div class="semester-result-table">
+    <div class="semester-result-row">
+      <div class="semester-result-head">
+        <p>S.No.</p>
+      </div>
+      <div class="semester-result-head">
+        <p>Course</p>
+      </div>
+      <div class="semester-result-head">
+        <p>Grade</p>
+      </div>
+    </div>
+    <% for (let subject of grades) { %>
+      <% subject["s_no"] = s_no %>
+      <%- include('./subject.ejs', subject) %>
+      <% s_no++ %>
+    <% } %>
+    <div class="semester-result-row">
+      <div class="semester-result-col" style="visibility: hidden;"></div>
+      <div class="semester-result-col"></div>
+      <div class="semester-result-tgpa">
+        <p><%= `TGPA: ${tgpa}` %></p>
+      </div>
+    </div>
+  </div>
+</section>

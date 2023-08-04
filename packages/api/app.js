@@ -1,7 +1,7 @@
-import express, { urlencoded } from "express";
+import express from "express";
+import loadConfig from "./utils/config.js";
 import routes from "./routes/index.js";
-import sequelize from "@ayra/lib/db/index.js";
-import loadConfig from "@ayra/lib/utils/config.js";
+import sequelize from "./db/index.js";
 
 loadConfig();
 const app = express();

@@ -1,7 +1,4 @@
 import axios from "axios";
-import loadConfig from "@ayra/lib/utils/config.js";
-
-loadConfig();
 
 const markAsRead = async (req, res) => {
   if (!req.body.messageId) return res.sendStatus(200);

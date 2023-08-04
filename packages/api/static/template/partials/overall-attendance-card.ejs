@@ -1,0 +1,17 @@
+<% let cardColor %>
+<% if (subject.attendance >= 75) { %>
+  <% cardColor = 'green' %>
+<% } else if (subject.attendance >= 60 && subject.attendance < 75) { %>
+  <% cardColor = 'orange' %>
+<% } else if (subject.attendance < 60) { %>
+  <% cardColor = 'red' %>
+<% } %>
+
+<div class="overall-attendance-card overall-attendance-card--<%= cardColor %>">
+  <div class="overall-attendance-card-left">
+    <p><%= `${subject.attendance}%` %></p>
+  </div>
+  <div class="overall-attendance-card-right">
+    <p><%= subject.subject_code %></p>
+  </div>
+</div>

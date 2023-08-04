@@ -1,0 +1,69 @@
+<% let date = attendance[0].date %>
+<% if (date) { %>
+  <% date = new Date(date) %>
+  <% date = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}` %>
+<% } %>
+
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('../css/attendance-style.ejs') %>
+  <title>Attendance</title>
+</head>
+<body>
+  <nav class="navigation">
+    <div class="navigation-logo">
+      <img src="data:image/png;base64,<%=pageAssets.lpuLogoImg%>" alt="LPU logo">
+    </div>
+    <div class="navigation-header">
+      <p>
+        <%= (attendanceType === 'today') ? "Today's Attendance" : "Overall Attendance" %>
+      </p>
+    </div>
+    <div class="navigation-date">
+      <% if (date) { %>
+        <p><%= `Date: ${date}` %></p>
+      <% } %>
+    </div>
+  </nav>
+  <section class="student-info-section">
+    <div class="student-info-img">
+      <img src="data:image/png;base64,<%= pageAssets.studentProfileImg %>" alt="Student Image">
+    </div>
+    <div class="student-info-wrapper">
+      <div class="student-info-row">
+        <p class="field">Name:</p>
+        <p class="value"><%= name %></p>
+      </div>
+      <div class="student-info-row">
+        <p class="field">Registration No.:</p>
+        <p class="value"><%= registrationNo %></p>
+      </div>
+      <div class="student-info-row">
+        <p class="field">Programme:</p>
+        <p class="value"><%= courseCode %></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="attendance-section">
+    <h3 class="attendance-header">
+      <%= (attendanceType === 'overall') ? 'Overall Subject-wise attendance' : "Today's subject-wise attendance" %>
+    </h3>
+      <div class="attendance-cards">
+        <% if (attendanceType === 'overall') { %>
+          <% for (let subject of attendance) { %>
+            <%- include('partials/overall-attendance-card.ejs', { subject, pageAssets }); %>
+          <% } %>
+        <% } else { %> 
+          <% for (let subject of attendance) { %>
+            <%- include('partials/todays-attendance-card.ejs', { subject, pageAssets }); %>
+          <% } %>
+        <% } %>
+      </div>
+  </section>
+</body>
+</html>
