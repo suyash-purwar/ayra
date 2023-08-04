@@ -23,6 +23,9 @@
 {"prompt":"shalom","completion":0}
 {"prompt":"kia ora","completion":0}
 {"prompt":"hi-hey","completion":0}
+{"prompt":"helloji","completion":0}
+{"prompt":"hello","completion":0}
+{"prompt":"namaste ji","completion":0}
 {"prompt":"hey-hey","completion":0}
 {"prompt":"whats cracking","completion":0}
 {"prompt":"good to see you","completion":0}
@@ -35,6 +38,23 @@
 {"prompt":"raam raam","completion":0}
 {"prompt":"kya haal chaal","completion":0}
 {"prompt":"kaise ho","completion":0}
+{"prompt":"hey","completion":0}
+{"prompt":"heyy","completion":0}
+{"prompt":"hi","completion":0}
+{"prompt":"hy","completion":0}
+{"prompt":"hello","completion":0}
+{"prompt":"hell0","completion":0}
+{"prompt":"hellooo","completion":0}
+{"prompt":"halo","completion":0}
+{"prompt":"helo","completion":0}
+{"prompt":"sup","completion":0}
+{"prompt":"supp","completion":0}
+{"prompt":"tum kaun ho","completion":0}
+{"prompt":"tgpa dikhao","completion":1}
+{"prompt":"tgpa","completion":1}
+{"prompt":"cgpa","completion":1}
+{"prompt":"maaksheet dikhao","completion":1}
+{"prompt":"show resalt","completion":1}
 {"prompt":"report card","completion":1}
 {"prompt":"attendance","completion":1}
 {"prompt":"marksheet","completion":1}
@@ -46,6 +66,10 @@
 {"prompt":"present transcript","completion":1}
 {"prompt":"reveal academic record child","completion":1}
 {"prompt":"showcase result sheet","completion":1}
+{"prompt":"result show kariye","completion":1}
+{"prompt":"result dikhaiye","completion":1}
+{"prompt":"tgpa","completion":1}
+{"prompt":"cpga","completion":1}
 {"prompt":"what cumulative grade point average","completion":1}
 {"prompt":"what overall gpa","completion":1}
 {"prompt":"what cgpa child","completion":1}
@@ -74,7 +98,7 @@
 {"prompt":"Please display tgpa previous semester","completion":1}
 {"prompt":"tgpa child last semester","completion":1}
 {"prompt":"can show tgpa score child last semester","completion":1}
-{"prompt":"kindly provide tgpa report child's last semester","completion":1}
+{"prompt":"kindly provide tgpa report child last semester","completion":1}
 {"prompt":"Would like know tgpa child previous semester","completion":1}
 {"prompt":"show marksheet 5 semester","completion":1}
 {"prompt":"how many mark obtain child","completion":1}
@@ -122,6 +146,10 @@
 {"prompt":"bacche ke result mein koi improvement hai ya nahi","completion":1}
 {"prompt":"pichle semester ke parinaam dikhao","completion":1}
 {"prompt":"attandance","completion":2}
+{"prompt":"baccha aaj class aya tha","completion":2}
+{"prompt":"baccha aaj class mein aa gaya tha","completion":2}
+{"prompt":"baccha aaj class mein upasthit hua tha","completion":2}
+{"prompt":"aaj bachcha ne class mein pahuncha tha","completion":2}
 {"prompt":"present","completion":2}
 {"prompt":"absent","completion":2}
 {"prompt":"display kid attendance","completion":2}
@@ -192,7 +220,7 @@
 {"prompt":"bacche ki hadood dikhaiye","completion":2}
 {"prompt":"baccha college ja raha","completion":2}
 {"prompt":"bacchi attendance report send","completion":2}
-{"prompt":"can you show the report of bacchi's attendance","completion":2}
+{"prompt":"can you show the report of bacchi attendance","completion":2}
 {"prompt":"bacchi attendance report please give","completion":2}
 {"prompt":"bacchi attandence report give it to me","completion":2}
 {"prompt":"kindly send the attendance report of bacchi","completion":2}
@@ -207,7 +235,7 @@
 {"prompt":"wht my kids attndnc status","completion":2}
 {"prompt":"can u show my childs atndnc","completion":2}
 {"prompt":"wat the attndnc report of my child","completion":2}
-{"prompt":"my child's atndnc report plz","completion":2}
+{"prompt":"my child atndnc report plz","completion":2}
 {"prompt":"bachche ke attendance ka proof bhejna","completion":2}
 {"prompt":"bacche kee class attendance ka haal kya hai","completion":2}
 {"prompt":"kya mere bachche college mein regular attendance de rahe hai","completion":2}
@@ -222,6 +250,21 @@
 {"prompt":"fee office number","completion":3}
 {"prompt":"show contact number all department","completion":3}
 {"prompt":"contact number branch","completion":3}
+{"prompt":"fees counter","completion":3}
+{"prompt":"fees counter location","completion":3}
+{"prompt":"where fee counter","completion":3}
+{"prompt":"doubt fee related","completion":3}
+{"prompt":"fees kaise bhejen","completion":3}
+{"prompt":"fees itni hai","completion":3}
+{"prompt":"fee submit ho gyi","completion":3}
+{"prompt":"fee last date","completion":3}
+{"prompt":"where submit fees","completion":3}
+{"prompt":"fee kab jama karni hai","completion":3}
+{"prompt":"admission process","completion":3}
+{"prompt":"dsr building","completion":3}
+{"prompt":"dsr counter location","completion":3}
+{"prompt":"location dsr counter","completion":3}
+{"prompt":"what dsr","completion":3}
 {"prompt":"how to contact fee division","completion":3}
 {"prompt":"cell phone no fee department","completion":3}
 {"prompt":"landline no fee office","completion":3}
@@ -304,6 +347,22 @@
 {"prompt":"i phone number hod me","completion":4}
 {"prompt":"what phone number head department (hod)","completion":4}
 {"prompt":"can provide hod contact number","completion":4}
+{"prompt":"hod ka number do","completion":4}
+{"prompt":"teacher ka contact number bhejo","completion":4}
+{"prompt":"baat karni hai hod se","completion":4}
+{"prompt":"teacher se baat karni hai","completion":4}
+{"prompt":"teacher kaun hai","completion":4}
+{"prompt":"mentor kaun hai","completion":4}
+{"prompt":"hod kaun hai","completion":4}
+{"prompt":"hostel head number","completion":4}
+{"prompt":"contact no. hod","completion":4}
+{"prompt":"hod sir ka number do","completion":4}
+{"prompt":"warden ka phone number do","completion":4}
+{"prompt":"mentor se baat karni hai","completion":4}
+{"prompt":"mentor ka number batao","completion":4}
+{"prompt":"mentor ko call karo","completion":4}
+{"prompt":"phone number warden","completion":4}
+{"prompt":"phone number mentor","completion":4}
 {"prompt":"contact details hod speak them","completion":4}
 {"prompt":"can share hod phone number","completion":4}
 {"prompt":"details mentor","completion":4}
@@ -388,6 +447,12 @@
 {"prompt":"what schedule kid class","completion":5}
 {"prompt":"can pls lecture time","completion":5}
 {"prompt":"please time class ","completion":5}
+{"prompt":"aaj class thi ki nahi","completion":5}
+{"prompt":"lectures the aaj","completion":5}
+{"prompt":"classes lagi thi aaj","completion":5}
+{"prompt":"class lagi thi kya aaj","completion":5}
+{"prompt":"aaj class hogi kya","completion":5}
+{"prompt":"class ki timing kya hai","completion":5}
 {"prompt":"give schedule lecture kid","completion":5}
 {"prompt":"plz wen college start","completion":5}
 {"prompt":"what time child reach college","completion":5}
@@ -451,3 +516,17 @@
 {"prompt":"use karna sikhao","completion":6}
 {"prompt":"chalate kaise hein","completion":6}
 {"prompt":"sikhao use karna","completion":6}
+{"prompt":"halp","completion":6}
+{"prompt":"kaise use karein","completion":6}
+{"prompt":"how to use it","completion":6}
+{"prompt":"usage example","completion":6}
+{"prompt":"iska upyog kaise karein","completion":6}
+{"prompt":"ise kaise upyog karein","completion":6}
+{"prompt":"ye kaam kaise karta hai","completion":6}
+{"prompt":"help","completion":6}
+{"prompt":"help me out","completion":6}
+{"prompt":"teach me how to use","completion":6}
+{"prompt":"sikhao kaise use karein","completion":6}
+{"prompt":"sahaayta","completion":6}
+{"prompt":"sahaayta kariye","completion":6}
+{"prompt":"mereko madad kar","completion":6}

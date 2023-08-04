@@ -19,16 +19,16 @@ connection = psycopg2.connect(
 cursor = connection.cursor()
 
 # Add the iteration number for which data needs to populated in the db
-queries_file = open('../dataset/iteration-2/raw-data.csv')
+queries_file = open('../dataset/raw-data.csv')
 queries_reader = csv.reader(queries_file, delimiter=',')
 
 next(queries_reader)
 
 # id equals to the the id of last of record
-id = 518
+id = 1
 
 for query in queries_reader:
-  cursor.execute(f"INSERT INTO query(id, query, completion) VALUES ({id}, '{query[0]}', '{query[1]}');")
+  cursor.execute(f"INSERT INTO training_query(id, query, completion) VALUES ({id}, '{query[0]}', '{query[1]}');")
   id+=1
 
 connection.commit()
