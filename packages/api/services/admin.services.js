@@ -26,7 +26,7 @@ const fetchNextBatchOfStudents = async (offset) => {
       mother_name
     FROM student s
     JOIN course c ON s.course_id = c.id
-    WHERE registration_no IN (12100435, 11937798, 12276829)
+    WHERE registration_no IN (12100435, 12142622)
     ORDER BY s.id
     LIMIT 10 OFFSET ${offset};
   `);
@@ -88,7 +88,7 @@ const launchBrowser = async () => {
   return {
     async renderPdf(pdfData) {
       const resultTemplatePath =
-        "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/static/template/result.ejs";
+        "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/static/template/result.ejs";
       const registrationNo = pdfData.student.registration_no;
 
       pdfData.resultType = "all semester";
@@ -179,7 +179,7 @@ export const publishResult = async () => {
   // Get static resources
   const lpuLogo = (
     await fs.readFile(
-      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/lib/media/raw/full-logo-no-bg.png"
+      "/media/suyash/HDD/realwork/lpu-bot-prototype/packages/api/media/raw/full-logo-no-bg.png"
     )
   ).toString("base64");
   const pdfData = {
