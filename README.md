@@ -15,9 +15,8 @@
 3. [Technical Walkthrough](#3-how-it-works)
    - [Overview](#31-general-overview)
    - [Database Design](#32-database-design)
-   - [Multi-class Classifier]()
-   - [Data Preparation]()
-   - [Deployment]()
+   - [Classifier](#33-classifier)
+   - [Infrastructure](#34-infrastructure)
 4. [Future Ideas](#4-future-ideas)
 5. [References](#5-references)
 
@@ -177,10 +176,43 @@ This whole procedure involves several database calls as well but were not mentio
 
 ### 3.2 Database Design
 
-I created a dummy database which mimics the database of an actual university to a certain degree. All the tables are populated with dummy data.
+I created a dummy database which mimics the database of an actual university to a certain degree. All the tables are populated with the dummy data.
 
 <img src="./media/database-design.png" width="100%">
 
+### 3.3 Classifier
+
+I fine-tuned the OpenAI's ada model for multi-class classification purpose. There was no training data available for this application. So, I wrote around 50 lines of traning data myself and used ChatGPT to extend this traning data by coming up with it's variations. Moreover, instructed it to make grammatical and spelling mistakes here and there so as to match the real world scenario.
+
+Along with that, I instructed it to perform data processing tasks like lemmatization and removal of stop words. The quality of training data generated wasn't always upto the mark and I frequently had to intervene to modify the dataset.
+
+The mighty prompt is below:
+
+```text
+I'm trying to make a chatbot that resolves parents' queries about their child's performance in college. Parents can ask questions like "What is my child's attendance', 'Show the result of last semester', etc. Help me with making a processed training data set for an NLP model.
+
+Do the following tasks sequentially:
+
+1. Rephrase the sentences I'm giving you in five different ways.
+2. Perform lemmatization, and remove stop words and punctuation from all the sentences.
+
+Sentence: show result of my child
+```
+
+Here's the sample output for the above prompt.
+
+<img src="./media/prompt-response.png">
+
+> More details coming soon...
+
+### 3.4 Infrastructure
+
+> Coming soon
+
 ## 4. Future Ideas
 
+> Coming soon
+
 ## 5. References
+
+> Coming soon
