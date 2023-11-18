@@ -9,7 +9,15 @@
 
 1. [Overview](#1-overview)
 2. [Install](#2-install)
-3. [How it works?](#3-how-it-works)
+   - [Requirements](#21-requirements)
+   - [.env file](#22-env-file)
+   - [Setting up locally](#23-setting-up-locally)
+3. [Technical Walkthrough](#3-how-it-works)
+   - [Overview](#31-general-overview)
+   - [Database Design](#32-database-design)
+   - [Multi-class Classifier]()
+   - [Data Preparation]()
+   - [Deployment]()
 4. [Future Ideas](#4-future-ideas)
 5. [References](#5-references)
 
@@ -150,7 +158,28 @@ After successful verification, close all the popups. Expand the dropdown and cho
 
 This concludes the local installation setup. 🎊
 
-## 3. How it works?
+## 3. Technical Walkthrough
+
+### 3.1 Overview
+
+Following I have described the all the steps undertaken to generate an appropriate response for the client. All the major steps are listed in order.
+
+1. Parent pushes a message to the bot.
+2. Whatsapp Server recieves this message and forwards it to the Ayra server.
+3. When a request reaches the Ayra server, the first step is to verify if the contact number from which this message is from belongs to any parent or not. If no, the request is dropped. If yes, move to next step.
+4. Once the user's request is authenticated, the message is fed to our AI model (deployed on OpenAI servers) which classifies the message into predefined sets of categories. In this process, we try to understand the intent behind the user's message.
+5. According to the intent, a series of multiple-choice questions are asked to understand the parent's exact requirement.
+6. Once that's understood, appropriate response is sent to the client (parent's whatsapp).
+
+This whole procedure involves several database calls as well but were not mentioned explicitly everytime.
+
+<img src="./media/flow.png" width="100%">
+
+### 3.2 Database Design
+
+I created a dummy database which mimics the database of an actual university to a certain degree. All the tables are populated with dummy data.
+
+<img src="./media/database-design.png" width="100%">
 
 ## 4. Future Ideas
 
