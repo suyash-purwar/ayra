@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="11c3qt5qkVUd3guoZM1B" name="Page-1">
-        <mxGraphModel dx="1532" dy="718" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1301" dy="618" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -103,6 +103,9 @@
                 </mxCell>
                 <mxCell id="38" value="Push the message on paren'ts whatsapp" style="whiteSpace=wrap;html=1;fontSize=10;fillColor=#18141D;strokeColor=#FFFFFF;rounded=1;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="82" y="625" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;&lt;b&gt;How Ayra Works&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="82" y="320" width="208" height="30" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
