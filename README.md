@@ -189,14 +189,15 @@ Along with that, I instructed it to perform data processing tasks like lemmatiza
 The mighty prompt is below:
 
 ```text
-I'm trying to make a chatbot that resolves parents' queries about their child's performance in college. Parents can ask questions like "What is my child's attendance', 'Show the result of last semester', etc. Help me with making a processed training data set for an NLP model.
+Perform the following tasks sequentially on the given sentence.
 
-Do the following tasks sequentially:
+1. Rephrase the sentences I'm giving you in ten different ways.
+2. Perform lemmatization on every sentence.
+3. Remove the stop words and punctuation from all the sentences.
 
-1. Rephrase the sentences I'm giving you in five different ways.
-2. Perform lemmatization, and remove stop words and punctuation from all the sentences.
+Show the data in a CSV format with only one column
 
-Sentence: show result of my child
+Sentence: Show the contact number of the Hostel Warden
 ```
 
 Here's the sample output for the above prompt.
